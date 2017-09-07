@@ -1,4 +1,4 @@
-# y
+# sample-tpp-client-vue
 
 > View account balance
 
