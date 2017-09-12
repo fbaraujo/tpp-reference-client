@@ -1,6 +1,14 @@
 <template>
   <div class="account card">
     <div class="content">
+      <div class="ui right floated header" v-for="balance in balances">
+        {{ balance.Amount.Amount }} {{ balance.Amount.Currency }}
+      </div>
+      <div class="header">
+        {{ product.ProductName }}
+        {{ ' - ' }}
+        {{ product.ProductType }}
+      </div>
       <div class="meta">
         {{ account.Nickname }}
         {{ ' - '}}
@@ -17,7 +25,18 @@
 <script>
 export default {
   name: 'account',
-  props: ['account', 'product', 'balances'],
+  props: ['account', 'aspsp'],
+  computed: {
+    aspspAccountId() {
+      return `${this.aspsp}-${this.account.AccountId}`;
+    },
+    balances() {
+      return this.$store.getters.balances(this.aspspAccountId);
+    },
+    product() {
+      return this.$store.getters.product(this.aspspAccountId);
+    },
+  },
   data() {
     return { };
   },

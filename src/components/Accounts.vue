@@ -5,7 +5,8 @@
       <div class="ui cards">
         <account v-for="account in accounts"
           v-bind:key="account.AccoundId"
-          v-bind:account="account">
+          v-bind:account="account"
+          v-bind:aspsp="aspsp">
         </account>
       </div>
     </div>
@@ -19,13 +20,11 @@ export default {
   name: 'accounts',
   components: { Account },
   computed: {
-    accounts() {
-      const list = this.$store.getters.accounts('abcbank');
-      return list;
+    aspsp() {
+      return 'abcbank';
     },
-    product(accountId) {
-      const product = this.$store.getters.product(accountId);
-      return product;
+    accounts() {
+      return this.$store.getters.accounts(this.aspsp);
     },
   },
   data() {

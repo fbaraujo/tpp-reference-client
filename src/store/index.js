@@ -19,15 +19,17 @@ const initialState = {
 };
 
 const getters = {
-  // eslint-disable-next-line
-  accounts: (state, getters) => (aspspKey) => {
-    const { accounts } = state.accountsByAspsp[aspspKey];
-    return accounts;
+  accounts: state => (aspspKey) => {
+    const data = state.accountsByAspsp[aspspKey];
+    return (data && data.accounts) || [];
   },
-  // eslint-disable-next-line
-  product: (state, getters) => (accountId) => {
-    const { product } = state.accountProductByAccountId[accountId];
-    return product;
+  product: state => (aspspAccountId) => {
+    const data = state.accountProductByAccountId[aspspAccountId];
+    return (data && data.product) || {};
+  },
+  balances: state => (aspspAccountId) => {
+    const data = state.accountBalancesByAccountId[aspspAccountId];
+    return (data && data.balances) || [];
   },
   accountIds: (state, { accounts }) => (aspspKey) => {
     const aspspAccounts = accounts(aspspKey);
@@ -52,13 +54,13 @@ const mutations = {
   },
   [RECEIVE_ACCOUNT_PRODUCT](state, payload) {
     Vue.set(
-      state.accountProductByAccountId, payload.aspsp,
+      state.accountProductByAccountId, payload.aspspAccountId,
       { product: payload.product },
     );
   },
   [RECEIVE_ACCOUNT_BALANCES](state, payload) {
     Vue.set(
-      state.accountBalancesByAccountId, payload.aspsp,
+      state.accountBalancesByAccountId, payload.aspspAccountId,
       { balances: payload.balances },
     );
   },
@@ -88,14 +90,14 @@ const actions = {
     const json = await request(`/accounts/${accountId}/product`, aspsp);
     commit(RECEIVE_ACCOUNT_PRODUCT, {
       product: json.Data.Product[0],
-      aspsp,
+      aspspAccountId: `${aspsp}-${accountId}`,
     });
   },
   async fetchAccountBalances({ commit }, accountId) {
     const json = await request(`/accounts/${accountId}/balances`, aspsp);
     return commit(RECEIVE_ACCOUNT_BALANCES, {
       balances: json.Data.Balance,
-      aspsp,
+      aspspAccountId: `${aspsp}-${accountId}`,
     });
   },
 };
