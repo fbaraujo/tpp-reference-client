@@ -9,6 +9,10 @@
           v-bind:aspsp="aspsp">
         </account>
       </div>
+      <div class="ui hidden divider"></div>
+      <button class="ui large primary submit button" @click="handleLogout()">
+        Logout
+      </button>
     </div>
   </div>
 </template>
@@ -27,8 +31,10 @@ export default {
       return this.$store.getters.accounts(this.aspsp);
     },
   },
-  data() {
-    return { };
+  methods: {
+    handleLogout() {
+      this.$router.push({ path: '/' });
+    },
   },
 };
 </script>
