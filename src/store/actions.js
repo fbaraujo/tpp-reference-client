@@ -4,6 +4,12 @@ import * as types from './mutation-types';
 const aspsp = 'abcbank';
 
 const actions = {
+  async createSession({ commit }) {
+    const json = await request('/session/make');
+    return commit(types.RECEIVE_SESSION, {
+      sid: json.sid,
+    });
+  },
   async fetchAccounts({ commit }) {
     const json = await request('/accounts', aspsp);
     return commit(types.RECEIVE_ACCOUNTS, {

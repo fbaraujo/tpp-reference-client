@@ -15,7 +15,9 @@ export default {
   name: 'login',
   methods: {
     handleLogin() {
+      // this.$store.dispatch('createSession').then(() => {
       this.$router.push('accounts');
+      // });
     },
   },
 };
