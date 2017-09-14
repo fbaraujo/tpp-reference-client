@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <main class="ui container">
-      <img src="./assets/logo.png" alt="Vue.js PWA">
+      <img src="./assets/logo.png" alt="Sample App Logo">
       <router-view></router-view>
     </main>
   </div>
