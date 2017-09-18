@@ -1,7 +1,7 @@
 /* global fetch */
 import 'whatwg-fetch';
 
-const baseUri = (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
+const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
 
 const options = (aspsp) => {
   if (aspsp) {
