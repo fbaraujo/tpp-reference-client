@@ -8,8 +8,8 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+# serve with hot reload at localhost:8080, set API base URL with API_BASE_URL
+API_BASE_URL=http://localhost:8003/open-banking/v1.1 npm run dev
 
 # build for production with minification
 npm run build
