@@ -29,3 +29,6 @@ jobs:
       - run:
           name: Run unit tests
           command: npm run unit
+      - run:
+          name: Run eslint checks
+          command: npm run eslint
