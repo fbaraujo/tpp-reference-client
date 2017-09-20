@@ -1,20 +1,36 @@
 import Vue from 'vue';
 
 import {
-  RECEIVE_SESSION,
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGOUT,
 } from '../mutation-types';
 
 const initialState = {
-  sid: null,
+  isLoggedIn: !!localStorage.getItem('token'),
+};
+
+const getters = {
+  isLoggedIn: state => () => { // eslint-disable-line
+    return state.isLoggedIn;
+  },
 };
 
 const mutations = {
-  [RECEIVE_SESSION](state, payload) {
-    Vue.set(state, 'sid', payload.sid);
+  [LOGIN](state) {
+    Vue.set(state, 'pending', true);
+  },
+  [LOGIN_SUCCESS](state) {
+    Vue.set(state, 'isLoggedIn', true);
+    Vue.set(state, 'pending', false);
+  },
+  [LOGOUT](state) {
+    Vue.set(state, 'isLoggedIn', false);
   },
 };
 
 export default {
   state: initialState,
+  getters,
   mutations,
 };
