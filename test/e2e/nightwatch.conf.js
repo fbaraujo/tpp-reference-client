@@ -1,6 +1,10 @@
 require('babel-register');
 const config = require('../../config');
 
+require('nightwatch-cucumber')({
+  cucumberArgs: ['--format', 'node_modules/cucumber-pretty', 'test/e2e/features'],
+});
+
 // http://nightwatchjs.org/gettingstarted#settings-file
 module.exports = {
   src_folders: ['test/e2e/specs'],
