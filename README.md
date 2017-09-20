@@ -23,7 +23,7 @@ npm run unit
 # run e2e tests
 npm run e2e
 # or to run with development configuration
-NODE_ENV=development npm run e2e
+TEST=e2e NODE_ENV=development npm run e2e
 
 # run all tests
 npm test
