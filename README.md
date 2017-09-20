@@ -19,9 +19,19 @@ npm run build --report
 
 # run unit tests
 npm run unit
+```
 
+## Integration tests
+
+To run integration tests, you must have the following servers
+installed and running locally [sample-tpp-server](https://github.com/OpenBankingUK/sample-tpp-server) and
+[readwrite-api-mock-server](https://github.com/OpenBankingUK/readwrite-api-mock-server). Then run:
+
+```bash
 # run e2e tests
 npm run e2e
+# or to run with development configuration
+TEST=e2e NODE_ENV=development npm run e2e
 
 # run all tests
 npm test
