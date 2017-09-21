@@ -15,7 +15,7 @@ const actions = {
   },
   deleteSession({ commit }) {
     localStorage.removeItem('token');
-    request('logout');
+    request('/logout');
     return commit(types.LOGOUT);
   },
   async populateAccounts({ dispatch, getters }) {
