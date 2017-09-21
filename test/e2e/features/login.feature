@@ -2,13 +2,12 @@ Feature: Login
 
 Scenario: Logging in
 
-  Given I open homepage
-  Then the title is "Login to view balances"
-  And the Login button exists
+  Given I am not logged in
+  When I open homepage
+  Then I see Login page
 
 Scenario: Redirected to login when not logged in
 
   Given I am not logged in
-  And I visit accounts path
-  Then the title is "Login to view balances"
-  And the Login button exists
+  When I visit accounts path
+  Then I see Login page

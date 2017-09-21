@@ -19,16 +19,10 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
       .waitForElementVisible('#app', 5000);
   });
 
-  Then(/^the title is "([^"]*)"$/, (title) => { // eslint-disable-line
-    return client
-      .waitForElementVisible('#login', 5000)
-      .assert.containsText(
-        'h1',
-        'Login to view balances',
-      );
-  });
-
-  Then(/^the Login button exists$/, () => { // eslint-disable-line
-    return client.assert.elementPresent('button');
-  });
+  Then(/^I see Login page$/, () => client
+    .waitForElementVisible('#login', 5000)
+    .assert.containsText(
+      'h1',
+      'Login to view balances',
+    ).assert.elementPresent('button'));
 });
