@@ -27,6 +27,9 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   When('I login', () => client
     .click('button[name=login]'));
 
+  When('I logout', () => client
+    .click('button[name=logout]'));
+
   Then('I see Accounts page', () => client
     .waitForElementVisible('#accounts', 5000)
     .assert.containsText(

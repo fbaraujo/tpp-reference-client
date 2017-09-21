@@ -10,7 +10,7 @@
         </account>
       </div>
       <div class="ui hidden divider"></div>
-      <button class="ui large primary submit button" @click="handleLogout()">
+      <button name="logout" class="ui large primary submit button" @click="logout()">
         Logout
       </button>
     </div>
@@ -32,8 +32,10 @@ export default {
     },
   },
   methods: {
-    handleLogout() {
-      this.$router.push({ path: '/' });
+    logout() {
+      this.$store.dispatch('deleteSession').then(() => {
+        this.$router.push({ path: '/' });
+      });
     },
   },
 };
