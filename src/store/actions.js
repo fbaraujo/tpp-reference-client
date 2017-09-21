@@ -1,16 +1,19 @@
-import request from './request';
+import { request, post } from './request';
 import * as types from './mutation-types';
 
 const aspsp = 'abcbank';
 
 const actions = {
-  async login({ commit }) {
+  async createSession({ commit }, credentials) {
     commit(types.LOGIN); // show spinner
-    const json = await request('/login');
+    // set body string to emulate x-www-form-urlencoded form
+    const body = `u=${credentials.u}&p=${credentials.p}`;
+    const json = await post('/login', body);
+
     localStorage.setItem('token', json.sid);
     return commit(types.LOGIN_SUCCESS);
   },
-  logout({ commit }) {
+  deleteSession({ commit }) {
     localStorage.removeItem('token');
     request('logout');
     return commit(types.LOGOUT);

@@ -8,6 +8,7 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
+/*
 const aspsp = 'abcbank';
 const populateAccounts = async () => {
   await store.dispatch('fetchAccounts');
@@ -17,13 +18,14 @@ const populateAccounts = async () => {
     store.dispatch('fetchAccountBalances', accountId);
   });
 };
-populateAccounts().then(() => {
-  // eslint-disable-next-line
-  new Vue({
-    el: '#app',
-    router,
-    store,
-    template: '<App/>',
-    components: { App },
-  });
+*/
+// populateAccounts().then(() => {
+// eslint-disable-next-line
+new Vue({
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: { App },
 });
+// });

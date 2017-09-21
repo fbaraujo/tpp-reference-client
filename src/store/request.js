@@ -1,7 +1,8 @@
 /* global fetch */
 import 'whatwg-fetch';
 
-const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
+export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
+export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
 const options = (aspsp) => {
   if (aspsp) {
@@ -14,6 +15,20 @@ const options = (aspsp) => {
   return { };
 };
 
+const asyncAwaitPost = async (endpoint, data) => {
+  const response = await fetch(`${rootUri}${endpoint}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+    },
+    // for now set body string to emulate x-www-form-urlencoded
+    body: data,
+  });
+  const json = await response.json();
+  return json;
+};
+
 const asyncAwaitRequest = async (endpoint, aspsp) => {
   let uri;
   let sendData;
@@ -21,7 +36,7 @@ const asyncAwaitRequest = async (endpoint, aspsp) => {
     uri = `${baseUri}${endpoint}`;
     sendData = options(aspsp);
   } else {
-    uri = `${baseUri.split('/open-banking')[0]}${endpoint}`;
+    uri = `${rootUri}${endpoint}`;
     sendData = options();
   }
   const response = await fetch(uri, sendData);
@@ -29,4 +44,5 @@ const asyncAwaitRequest = async (endpoint, aspsp) => {
   return json;
 };
 
-export default asyncAwaitRequest;
+export const request = asyncAwaitRequest;
+export const post = asyncAwaitPost;
