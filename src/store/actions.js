@@ -18,6 +18,14 @@ const actions = {
     request('logout');
     return commit(types.LOGOUT);
   },
+  async populateAccounts({ dispatch, getters }) {
+    await dispatch('fetchAccounts');
+    const accountIds = getters.accountIds(aspsp);
+    accountIds.forEach(async (accountId) => {
+      await dispatch('fetchAccountProduct', accountId);
+      await dispatch('fetchAccountBalances', accountId);
+    });
+  },
   async fetchAccounts({ commit }) {
     const json = await request('/accounts', aspsp);
     return commit(types.RECEIVE_ACCOUNTS, {

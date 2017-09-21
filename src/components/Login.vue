@@ -35,7 +35,8 @@ export default {
         u: this.username,
         p: this.password,
       }).then(() => {
-        this.$router.push('accounts');
+        this.$store.dispatch('populateAccounts')
+          .then(() => this.$router.push('accounts'));
       });
     },
   },

@@ -9,6 +9,8 @@ const options = (aspsp) => {
     return {
       headers: {
         'x-fapi-financial-id': aspsp,
+        Accept: 'application/json',
+        Authorization: localStorage.getItem('token'),
       },
     };
   }

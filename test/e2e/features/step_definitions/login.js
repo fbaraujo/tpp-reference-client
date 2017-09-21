@@ -33,4 +33,11 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
       'h1',
       'Accounts',
     ));
+
+  Then('I see Account balance', () => client
+    .waitForElementVisible('.account', 5000)
+    .assert.containsText(
+      '.balance',
+      '1230.00 GBP',
+    ));
 });

@@ -1,7 +1,7 @@
 <template>
   <div class="account card">
     <div class="content">
-      <div class="ui right floated header" v-for="balance in balances">
+      <div class="balance ui right floated header" v-for="balance in balances">
         {{ balance.Amount.Amount }} {{ balance.Amount.Currency }}
       </div>
       <div class="header">

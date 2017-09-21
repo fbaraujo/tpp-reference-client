@@ -7,6 +7,7 @@ Scenario: Logging in
   Then I see Login page
   When I login
   Then I see Accounts page
+  And I see Account balance
 
 Scenario: Redirected to login when not logged in
 
