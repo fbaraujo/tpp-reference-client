@@ -10,32 +10,24 @@
         </account>
       </div>
       <div class="ui hidden divider"></div>
-      <button name="logout" class="ui large primary submit button" @click="logout()">
-        Logout
-      </button>
+      <logout></logout>
     </div>
   </div>
 </template>
 
 <script>
 import Account from './Account';
+import Logout from './Logout';
 
 export default {
   name: 'accounts',
-  components: { Account },
+  components: { Account, Logout },
   computed: {
     aspsp() {
       return 'abcbank';
     },
     accounts() {
       return this.$store.getters.accounts(this.aspsp);
-    },
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch('deleteSession').then(() => {
-        this.$router.push({ path: '/' });
-      });
     },
   },
 };
