@@ -14,7 +14,11 @@ const options = (aspsp) => {
       },
     };
   }
-  return { };
+  return {
+    headers: {
+      Accept: 'application/json',
+    },
+  };
 };
 
 const asyncAwaitPost = async (endpoint, data) => {
