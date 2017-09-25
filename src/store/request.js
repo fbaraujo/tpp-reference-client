@@ -46,8 +46,13 @@ const asyncAwaitRequest = async (endpoint, aspsp) => {
     sendData = options();
   }
   const response = await fetch(uri, sendData);
-  const json = await response.json();
-  return json;
+  if (response.status === 200) {
+    const json = await response.json();
+    return json;
+  } else if (response.status === 204) { // no content
+    return null;
+  }
+  return null;
 };
 
 export const request = asyncAwaitRequest;
