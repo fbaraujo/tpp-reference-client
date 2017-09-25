@@ -1,13 +1,29 @@
-import request from './request';
+import { request, post } from './request';
 import * as types from './mutation-types';
 
 const aspsp = 'abcbank';
 
 const actions = {
-  async createSession({ commit }) {
-    const json = await request('/session/make');
-    return commit(types.RECEIVE_SESSION, {
-      sid: json.sid,
+  async createSession({ commit }, credentials) {
+    commit(types.LOGIN); // show spinner
+    // set body string to emulate x-www-form-urlencoded form
+    const body = `u=${credentials.u}&p=${credentials.p}`;
+    const json = await post('/login', body);
+
+    localStorage.setItem('token', json.sid);
+    return commit(types.LOGIN_SUCCESS);
+  },
+  deleteSession({ commit }) {
+    localStorage.removeItem('token');
+    request('/logout');
+    return commit(types.LOGOUT);
+  },
+  async populateAccounts({ dispatch, getters }) {
+    await dispatch('fetchAccounts');
+    const accountIds = getters.accountIds(aspsp);
+    accountIds.forEach(async (accountId) => {
+      await dispatch('fetchAccountProduct', accountId);
+      await dispatch('fetchAccountBalances', accountId);
     });
   },
   async fetchAccounts({ commit }) {

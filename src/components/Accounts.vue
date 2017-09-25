@@ -10,30 +10,28 @@
         </account>
       </div>
       <div class="ui hidden divider"></div>
-      <button class="ui large primary submit button" @click="handleLogout()">
-        Logout
-      </button>
+      <logout></logout>
     </div>
   </div>
 </template>
 
 <script>
 import Account from './Account';
+import Logout from './Logout';
 
 export default {
   name: 'accounts',
-  components: { Account },
+  components: { Account, Logout },
   computed: {
     aspsp() {
       return 'abcbank';
     },
     accounts() {
-      return this.$store.getters.accounts(this.aspsp);
-    },
-  },
-  methods: {
-    handleLogout() {
-      this.$router.push({ path: '/' });
+      const accounts = this.$store.getters.accounts(this.aspsp);
+      if (!Array.isArray(accounts) || accounts.length === 0) {
+        this.$store.dispatch('populateAccounts');
+      }
+      return accounts;
     },
   },
 };

@@ -5,7 +5,7 @@ import Login from '@/components/Login';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -20,3 +20,17 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = router.app.$store.getters.isLoggedIn();
+  if (!loggedIn && to.path !== '/') {
+    next({
+      path: '/',
+      query: { redirect: to.fullPath },
+    });
+  } else {
+    next();
+  }
+});
+
+export default router;

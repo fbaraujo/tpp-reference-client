@@ -3,11 +3,12 @@
 import Vue from 'vue';
 import 'semantic-ui-css/semantic.min.css';
 import App from './App';
-import router from './router';
 import store from './store';
+import router from './router';
 
 Vue.config.productionTip = false;
 
+/*
 const aspsp = 'abcbank';
 const populateAccounts = async () => {
   await store.dispatch('fetchAccounts');
@@ -17,13 +18,14 @@ const populateAccounts = async () => {
     store.dispatch('fetchAccountBalances', accountId);
   });
 };
-populateAccounts().then(() => {
-  // eslint-disable-next-line
-  new Vue({
-    el: '#app',
-    router,
-    store,
-    template: '<App/>',
-    components: { App },
-  });
+*/
+// populateAccounts().then(() => {
+// eslint-disable-next-line
+new Vue({
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: { App },
 });
+// });
