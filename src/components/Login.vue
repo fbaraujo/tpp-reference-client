@@ -30,14 +30,13 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$store.dispatch('createSession', {
+    async login() {
+      await this.$store.dispatch('createSession', {
         u: this.username,
         p: this.password,
-      }).then(() => {
-        this.$store.dispatch('populateAccounts')
-          .then(() => this.$router.push('accounts'));
       });
+      await this.$store.dispatch('populateAccounts');
+      this.$router.push('accounts');
     },
   },
 };
