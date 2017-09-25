@@ -8,6 +8,8 @@ Scenario: Logging in and out
   When I login
   Then I see Accounts page
   And I see Account balance
+  When I reload page
+  Then I see Account balance
   When I logout
   Then I see Login page
   When I visit accounts path

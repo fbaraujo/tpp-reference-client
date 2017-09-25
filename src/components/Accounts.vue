@@ -27,7 +27,11 @@ export default {
       return 'abcbank';
     },
     accounts() {
-      return this.$store.getters.accounts(this.aspsp);
+      const accounts = this.$store.getters.accounts(this.aspsp);
+      if (!Array.isArray(accounts) || accounts.length === 0) {
+        this.$store.dispatch('populateAccounts');
+      }
+      return accounts;
     },
   },
 };
