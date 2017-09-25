@@ -21,3 +21,11 @@ Scenario: Redirected to login when not logged in
   Given I am not logged in
   When I visit accounts path
   Then I see Login page
+
+Scenario: Logging in with invalid credentials
+
+  Given I am not logged in
+  And I open homepage
+  When I login with invalid credentials
+  Then I see Login page
+  And I see login failure message

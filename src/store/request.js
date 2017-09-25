@@ -21,7 +21,7 @@ const options = (aspsp) => {
   };
 };
 
-const asyncAwaitPost = async (endpoint, data) => {
+const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   const response = await fetch(`${rootUri}${endpoint}`, {
     method: 'POST',
     headers: {
@@ -31,8 +31,13 @@ const asyncAwaitPost = async (endpoint, data) => {
     // for now set body string to emulate x-www-form-urlencoded
     body: data,
   });
-  const json = await response.json();
-  return json;
+  if (response.status === 200) {
+    const json = await response.json();
+    return json;
+  } else if (response.status === 401) {
+    return unauthorizedType;
+  }
+  return null;
 };
 
 const asyncAwaitRequest = async (endpoint, aspsp) => {

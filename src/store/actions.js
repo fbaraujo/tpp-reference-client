@@ -8,10 +8,14 @@ const actions = {
     commit(types.LOGIN); // show spinner
     // set body string to emulate x-www-form-urlencoded form
     const body = `u=${credentials.u}&p=${credentials.p}`;
-    const json = await post('/login', body);
-
-    localStorage.setItem('token', json.sid);
-    return commit(types.LOGIN_SUCCESS);
+    const result = await post('/login', body, types.LOGIN_INVALID_CREDENTIALS);
+    if (result === types.LOGIN_INVALID_CREDENTIALS) {
+      return commit(types.LOGIN_INVALID_CREDENTIALS);
+    } else if (result) {
+      localStorage.setItem('token', result.sid);
+      return commit(types.LOGIN_SUCCESS);
+    }
+    return null;
   },
   deleteSession({ commit }) {
     localStorage.removeItem('token');
