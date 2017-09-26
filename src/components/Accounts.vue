@@ -1,7 +1,7 @@
 <template>
   <div id="accounts">
-    <h1 class="ui aligned header">Accounts</h1>
     <div class="ui container">
+      <h1 class="ui aligned header">Accounts</h1>
       <div class="ui cards">
         <account v-for="account in accounts"
           v-bind:key="account.AccoundId"

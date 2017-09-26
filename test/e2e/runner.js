@@ -21,9 +21,9 @@ server.ready.then(() => {
   const spawn = require('cross-spawn'); // eslint-disable-line
   const runner = spawn('./node_modules/.bin/nightwatch', opts, { stdio: 'inherit' });
 
-  runner.on('exit', () => {
+  runner.on('exit', (code) => {
     server.close();
-    process.exit();
+    process.exit(code);
   });
 
   runner.on('error', (err) => {

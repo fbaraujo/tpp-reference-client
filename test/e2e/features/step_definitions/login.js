@@ -27,6 +27,14 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   When('I login', () => client
     .click('button[name=login]'));
 
+  When('I login with invalid credentials', () => client
+    .waitForElementVisible('#login', 5000)
+    .setValue('input[name=u]', 'invalid-user')
+    .click('button[name=login]'));
+
+  Then('I see login failure message', () => client
+    .waitForElementVisible('.error', 5000));
+
   When('I logout', () => client
     .click('button[name=logout]'));
 
@@ -39,6 +47,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   Then('I see Account balance', () => client
     .waitForElementVisible('.account', 5000)
+    .waitForElementVisible('.balance', 5000)
     .assert.containsText(
       '.balance',
       '1230.00 GBP',

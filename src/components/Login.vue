@@ -1,8 +1,11 @@
 <template>
-  <div id="login">
+  <div id="login" class="ui container">
     <h1 class="ui aligned header">Login to view balances</h1>
     <div class="ui hidden divider"></div>
-    <div class="ui container">
+    <div class="ui error message" v-if="invalidCredentials">
+      <div class="header">Invalid username or password</div>
+      <p>Try again with different username and/or password.</p>
+    </div>
       <form class="ui form" @submit.prevent="login({ username, password })">
         <div class="field">
           <label for="username">Username</label>
@@ -16,7 +19,6 @@
         Login
         </button>
       </form>
-    </div>
   </div>
 </template>
 
@@ -29,21 +31,28 @@ export default {
       password: 'wonderland',
     };
   },
+  computed: {
+    invalidCredentials() {
+      return this.$store.getters.invalidCredentials();
+    },
+  },
   methods: {
     async login() {
       await this.$store.dispatch('createSession', {
         u: this.username,
         p: this.password,
       });
-      await this.$store.dispatch('populateAccounts');
-      this.$router.push('accounts');
+      if (this.$store.getters.isLoggedIn()) {
+        await this.$store.dispatch('populateAccounts');
+        this.$router.push('accounts');
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.form {
+.form, .error, button {
   width: 390px;
 }
 </style>
