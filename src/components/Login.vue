@@ -1,12 +1,11 @@
 <template>
-  <div id="login">
+  <div id="login" class="ui container">
     <h1 class="ui aligned header">Login to view balances</h1>
     <div class="ui hidden divider"></div>
     <div class="ui error message" v-if="invalidCredentials">
       <div class="header">Invalid username or password</div>
       <p>Try again with different username and/or password.</p>
     </div>
-    <div class="ui container">
       <form class="ui form" @submit.prevent="login({ username, password })">
         <div class="field">
           <label for="username">Username</label>
@@ -20,7 +19,6 @@
         Login
         </button>
       </form>
-    </div>
   </div>
 </template>
 
@@ -54,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.form {
+.form, .error, button {
   width: 390px;
 }
 </style>
