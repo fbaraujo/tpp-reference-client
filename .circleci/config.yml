@@ -6,7 +6,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.5
+      - image: circleci/node:latest-browsers
+        environment:
+          CHROME_BIN: "/usr/bin/google-chrome"
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -14,6 +16,12 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run:
+          name: Install Java
+          command: |
+            sudo su -c 'echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list'
+            sudo apt-get update
+            sudo apt-get install -t jessie-backports openjdk-8-jdk
       - restore_cache:
           keys:
           - v6-dependencies-{{ checksum "package.json" }}
@@ -26,6 +34,9 @@ jobs:
           paths:
             - node_modules
           key: v6-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Run e2e tests against server set in API_BASE_URL env var.
+          command: API_BASE_URL=https://sample-tpp-server.herokuapp.com/open-banking/v1.1 npm run e2e
       - run:
           name: Run unit tests
           command: npm run unit
