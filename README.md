@@ -21,11 +21,20 @@ npm run build --report
 npm run unit
 ```
 
-## Integration tests
+## Running the app locally / Integration tests
 
-To run integration tests, you must have the following servers
-installed and running locally [sample-tpp-server](https://github.com/OpenBankingUK/sample-tpp-server) and
-[readwrite-api-mock-server](https://github.com/OpenBankingUK/readwrite-api-mock-server). Then run:
+To run the app and or the integration tests, you must have the following servers
+installed and running locally  
+[sample-tpp-server](https://github.com/OpenBankingUK/sample-tpp-server)  
+and  
+[readwrite-api-mock-server](https://github.com/OpenBankingUK/readwrite-api-mock-server).  
+
+To run the app run 
+```bash
+npm run dev
+```
+
+To run the end to end tests run
 
 ```bash
 # run e2e tests
