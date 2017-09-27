@@ -2,6 +2,10 @@
   <div id="accounts">
     <div class="ui container">
       <h1 class="ui aligned header">Accounts</h1>
+      <div class="ui error message" v-if="sessionExpired">
+        <div class="header">Your session has expired</div>
+        <p>Please <a href="/">login</a> again.</p>
+      </div>
       <div class="ui cards">
         <account v-for="account in accounts"
           v-bind:key="account.AccoundId"
@@ -23,6 +27,9 @@ export default {
   name: 'accounts',
   components: { Account, Logout },
   computed: {
+    sessionExpired() {
+      return !this.$store.getters.isLoggedIn();
+    },
     aspsp() {
       return 'abcbank';
     },

@@ -40,7 +40,7 @@ const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   return null;
 };
 
-const asyncAwaitRequest = async (endpoint, aspsp) => {
+const asyncAwaitRequest = async (endpoint, aspsp, unauthorizedType) => {
   let uri;
   let sendData;
   if (aspsp) {
@@ -54,8 +54,8 @@ const asyncAwaitRequest = async (endpoint, aspsp) => {
   if (response.status === 200) {
     const json = await response.json();
     return json;
-  } else if (response.status === 204) { // no content
-    return null;
+  } else if (response.status === 401) {
+    return unauthorizedType;
   }
   return null;
 };
