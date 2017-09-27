@@ -6,6 +6,10 @@
       <div class="header">Invalid username or password</div>
       <p>Try again with different username and/or password.</p>
     </div>
+    <div class="ui error message" v-if="loginError">
+      <div class="header">We are having issues with our login system</div>
+      <p>Try again later.</p>
+    </div>
       <form class="ui form" @submit.prevent="login({ username, password })">
         <div class="field">
           <label for="username">Username</label>
@@ -34,6 +38,9 @@ export default {
   computed: {
     invalidCredentials() {
       return this.$store.getters.invalidCredentials();
+    },
+    loginError() {
+      return this.$store.getters.loginError();
     },
   },
   methods: {

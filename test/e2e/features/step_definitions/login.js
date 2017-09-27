@@ -28,12 +28,30 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .click('button[name=login]'));
 
   When('I login with invalid credentials', () => client
-    .waitForElementVisible('#login', 5000)
+    .waitForElementVisible('input[name=u]', 5000)
+    .clearValue('input[name=u]')
     .setValue('input[name=u]', 'invalid-user')
     .click('button[name=login]'));
 
+  When('I login and server returns 500 error', () => client
+    .waitForElementVisible('input[name=u]', 5000)
+    .clearValue('input[name=u]')
+    .setValue('input[name=u]', 'trigger-error')
+    .click('button[name=login]'));
+
   Then('I see login failure message', () => client
-    .waitForElementVisible('.error', 5000));
+    .waitForElementVisible('.error', 5000)
+    .assert.containsText(
+      'div.header',
+      'Invalid username or password',
+    ));
+
+  Then('I see login server error message', () => client
+    .waitForElementVisible('.error', 5000)
+    .assert.containsText(
+      'div.header',
+      'We are having issues with our login system',
+    ));
 
   When('I logout', () => client
     .click('button[name=logout]'));

@@ -15,7 +15,7 @@ const actions = {
       localStorage.setItem('token', result.sid);
       return commit(types.LOGIN_SUCCESS);
     }
-    return null;
+    return commit(types.LOGIN_ERROR);
   },
   deleteSession({ commit }) {
     localStorage.removeItem('token');
