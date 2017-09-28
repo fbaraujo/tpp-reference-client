@@ -30,24 +30,33 @@ const actions = {
       await dispatch('fetchAccountBalances', accountId);
     });
   },
-  async fetchAccounts({ commit }) {
-    const json = await request('/accounts', aspsp);
+  async fetchAccounts({ dispatch, commit }) {
+    const response = await request('/accounts', aspsp, types.LOGOUT);
+    if (response === types.LOGOUT) {
+      return dispatch('deleteSession');
+    }
     return commit(types.RECEIVE_ACCOUNTS, {
-      accounts: json.Data,
+      accounts: response.Data,
       aspsp,
     });
   },
-  async fetchAccountProduct({ commit }, accountId) {
-    const json = await request(`/accounts/${accountId}/product`, aspsp);
-    commit(types.RECEIVE_ACCOUNT_PRODUCT, {
-      product: json.Data.Product[0],
+  async fetchAccountProduct({ dispatch, commit }, accountId) {
+    const response = await request(`/accounts/${accountId}/product`, aspsp, types.LOGOUT);
+    if (response === types.LOGOUT) {
+      return dispatch('deleteSession');
+    }
+    return commit(types.RECEIVE_ACCOUNT_PRODUCT, {
+      product: response.Data.Product[0],
       aspspAccountId: `${aspsp}-${accountId}`,
     });
   },
-  async fetchAccountBalances({ commit }, accountId) {
-    const json = await request(`/accounts/${accountId}/balances`, aspsp);
+  async fetchAccountBalances({ dispatch, commit }, accountId) {
+    const response = await request(`/accounts/${accountId}/balances`, aspsp, types.LOGOUT);
+    if (response === types.LOGOUT) {
+      return dispatch('deleteSession');
+    }
     return commit(types.RECEIVE_ACCOUNT_BALANCES, {
-      balances: json.Data.Balance,
+      balances: response.Data.Balance,
       aspspAccountId: `${aspsp}-${accountId}`,
     });
   },
