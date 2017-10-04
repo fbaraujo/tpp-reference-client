@@ -25,7 +25,9 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     ).assert.elementPresent('button[name=login]'));
 
   When('I login', () => client
-    .click('button[name=login]'));
+    .click('button[name=login]')
+    .waitForElementVisible('#aspsp-selection', 5000)
+    .click('a#accounts-link'));
 
   When('I login with invalid credentials', () => client
     .waitForElementVisible('input[name=u]', 5000)
