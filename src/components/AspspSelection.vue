@@ -9,7 +9,6 @@
            v-bind:aspsp="aspsp">
          </aspsp-select>
        </div>
-       <a id="accounts-link" href="/accounts">Accounts</a>
     </div>
   </div>
 </template>

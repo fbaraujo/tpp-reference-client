@@ -1,5 +1,6 @@
 <template>
   <div class="aspsp-select item">
+    <div class="ui hidden divider"></div>
     <div class="ui tiny image">
       <img src="">
     </div>
@@ -8,6 +9,7 @@
         <a class="select-aspsp" v-on:click="selectAspsp">{{ name }}</a>
       </div>
     </div>
+    <div class="ui hidden divider"></div>
   </div>
 </template>
 
