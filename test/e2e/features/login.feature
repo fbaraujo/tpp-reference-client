@@ -6,6 +6,7 @@ Scenario: Logging in and out
   When I open homepage
   Then I see Login page
   When I login
+  And I select an ASPSP
   Then I see Accounts page
   And I see Account balance
   When I reload page

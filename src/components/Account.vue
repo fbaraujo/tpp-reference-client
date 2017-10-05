@@ -7,7 +7,7 @@
       <div class="header">
         {{ product.ProductName }}
         {{ ' - ' }}
-        {{ product.ProductType }}
+        Current Account
       </div>
       <div class="meta">
         {{ account.Nickname }}
