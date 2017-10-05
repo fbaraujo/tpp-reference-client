@@ -10,6 +10,12 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   Given('I am not logged in', () => client
     .execute('window.localStorage.clear();'));
 
+  Given('I am logged in', () => client
+    .execute('window.localStorage.clear();')
+    .url(devServer)
+    .waitForElementVisible('#login', 5000)
+    .click('button[name=login]'));
+
   Given('I visit accounts path', () => client
     .url(accountsPath));
 
@@ -26,8 +32,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   When('I login', () => client
     .click('button[name=login]')
-    .waitForElementVisible('#aspsp-selection', 5000)
-    .click('a#accounts-link'));
+    .waitForElementVisible('#aspsp-selection', 5000));
 
   When('I login with invalid credentials', () => client
     .waitForElementVisible('input[name=u]', 5000)

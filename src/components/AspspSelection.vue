@@ -2,15 +2,24 @@
   <div id="aspsp-selection">
     <div class="ui container">
       <h1 class="ui aligned header">Select preferred ASPSP account</h1>
-      <p v-for="aspsp in aspsps">Placeholder</p>
-      <a id="accounts-link" href="/accounts">Accounts</a>
+      <div class="ui hidden divider"></div>
+      <div class="ui divided items">
+         <aspsp-select v-for="aspsp in aspsps"
+           v-bind:key="aspsp.id"
+           v-bind:aspsp="aspsp">
+         </aspsp-select>
+       </div>
+       <a id="accounts-link" href="/accounts">Accounts</a>
     </div>
   </div>
 </template>
 
 <script>
+import AspspSelect from './AspspSelect';
+
 export default {
   name: 'aspsp-selection',
+  components: { AspspSelect },
   computed: {
     aspsps() {
       const aspsps = this.$store.getters.aspsps();

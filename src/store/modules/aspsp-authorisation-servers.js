@@ -28,6 +28,18 @@ const mutations = {
   },
 };
 
+const sortByName = (list) => {
+  list.sort((a, b) => {
+    if (a.name > b.name) {
+      return 1;
+    } else if (a.name > b.name) {
+      return -1;
+    }
+    return 0;
+  });
+  return list;
+};
+
 const actions = {
   async fetchAspsps({ commit, dispatch }) {
     commit(ASPSPS_FETCH);
@@ -35,7 +47,8 @@ const actions = {
     if (response === LOGOUT) {
       return dispatch('deleteSession');
     } else if (response) {
-      return commit(ASPSPS_SUCCESS, response);
+      const list = sortByName(response);
+      return commit(ASPSPS_SUCCESS, list);
     }
     return dispatch('deleteSession');
   },
