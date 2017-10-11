@@ -1,8 +1,8 @@
 {
   "name": "sample-tpp-client-vue",
-  "version": "1.0.0",
-  "description": "View account balance",
-  "author": "@openbanking.org.uk",
+  "version": "0.1.0",
+  "description": "View account balance reference TPP application",
+  "author": "Open Banking Limited",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -93,6 +93,7 @@
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0"
   },
+  "licence": "MIT",
   "engines": {
     "node": ">= 8.5.0",
     "npm": ">= 5.3.0"
