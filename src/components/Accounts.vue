@@ -7,7 +7,7 @@
         <div class="header">Your session has expired</div>
         <p>Please <a href="/">login</a> again.</p>
       </div>
-      <div class="ui cards">
+      <div class="ui list">
         <account v-for="account in accounts"
           v-bind:key="account.AccoundId"
           v-bind:account="account"
