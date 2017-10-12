@@ -75,6 +75,6 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .waitForElementVisible('.balance', 5000)
     .assert.containsText(
       '.balance',
-      '1230.00 GBP',
+      '£5,800.00',
     ));
 });
