@@ -1,10 +1,10 @@
 <template>
   <div class="account item">
     <div class="content">
-      <div class="balance ui right floated large header" v-for="balance in balances">
-        {{ formatAmount(balance.Amount.Amount, balance.Amount.Currency) }}
+      <div class="balance ui right floated large header">
+        <balance-booked v-bind:balances="balances"></balance-booked>
         <br />
-        <span class="available">Available: {{ formatAmount(balance.Amount.Amount, balance.Amount.Currency) }}</span>
+        <balance-available v-bind:balances="balances"></balance-available>
       </div>
       <div class="ui medium header">
         {{ product.ProductName }}
@@ -27,14 +27,13 @@
 </template>
 
 <script>
+import BalanceAvailable from './BalanceAvailable';
+import BalanceBooked from './BalanceBooked';
+
 export default {
   name: 'account',
+  components: { BalanceAvailable, BalanceBooked },
   props: ['account', 'aspsp'],
-  methods: {
-    formatAmount(amount, currencyCode) {
-      return parseFloat(amount).toLocaleString('en', { style: 'currency', currency: currencyCode });
-    },
-  },
   computed: {
     sortCodeAndAccountNumber() {
       if (this.account.Account.SchemeName === 'SortCodeAccountNumber') {
@@ -47,14 +46,8 @@ export default {
     aspspAccountId() {
       return `${this.aspsp}-${this.account.AccountId}`;
     },
-    bookedBalance() {
-      return this.$store.getters.balances(this.aspspAccountId)[0];
-    },
-    availableBalance() {
-      return [this.$store.getters.balances(this.aspspAccountId)[1]];
-    },
     balances() {
-      return [this.$store.getters.balances(this.aspspAccountId)[0]];
+      return this.$store.getters.balances(this.aspspAccountId);
     },
     product() {
       return this.$store.getters.product(this.aspspAccountId);
@@ -69,9 +62,5 @@ export default {
 <style scoped>
 .account.item {
   width: 390px;
-}
-.available {
-  font-size: 10pt;
-  margin-top: 0pt;
 }
 </style>
