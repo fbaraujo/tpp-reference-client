@@ -36,7 +36,7 @@ const actions = {
       return dispatch('deleteSession');
     }
     return commit(types.RECEIVE_ACCOUNTS, {
-      accounts: response.Data,
+      accounts: response.Data.Account,
       aspsp,
     });
   },

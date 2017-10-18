@@ -15,8 +15,7 @@
         {{ account.Account.Name }}
       </div>
       <div className="description">
-        {{ account.Servicer.Identification.replace('SC', '')}}
-        {{account.Account.Identification}}
+        {{sortCodeAndAccountNumber}}
       </div>
     </div>
   </div>
@@ -27,6 +26,14 @@ export default {
   name: 'account',
   props: ['account', 'aspsp'],
   computed: {
+    sortCodeAndAccountNumber() {
+      if (this.account.Account.SchemeName === 'SortCodeAccountNumber') {
+        const sortCode = this.account.Account.Identification.substring(0, 6);
+        const accountNumber = this.account.Account.Identification.substring(6);
+        return `${sortCode} ${accountNumber}`;
+      }
+      return '';
+    },
     aspspAccountId() {
       return `${this.aspsp}-${this.account.AccountId}`;
     },
