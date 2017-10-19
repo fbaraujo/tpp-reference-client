@@ -1,15 +1,14 @@
 <template>
-  <div class="account item">
-    <div class="content">
-      <div class="balance ui right floated large header">
+  <div>
+    <div class="row">
+      <div class="account">
+        <p class="product-name">{{ product.ProductName }}<p>
+        <p class="sort-code-account-number">{{sortCodeAndAccountNumber}}</p>
+      </div>
+      <div class="balances">
         <balance-booked v-bind:balances="balances"></balance-booked>
         <br />
         <balance-available v-bind:balances="balances"></balance-available>
-      </div>
-      <div class="ui medium header">
-        {{ product.ProductName }}
-        {{ ' - ' }}
-        Current Account
       </div>
       <!--
       <div class="meta">
@@ -18,11 +17,8 @@
         {{ account.Account.Name }}
       </div>
       -->
-      <div className="description">
-        {{sortCodeAndAccountNumber}}
-      </div>
     </div>
-    <div class="ui hidden divider"></div>
+    <hr>
   </div>
 </template>
 
@@ -60,7 +56,29 @@ export default {
 </script>
 
 <style scoped>
-.account.item {
-  width: 390px;
+.row {
+  width: 70%;
+  display: inline-block;
+}
+hr {
+  width: 70%;
+  margin-top: 15px;
+  margin-left: 0px;
+}
+.account {
+  display: inline-block;
+}
+.product-name {
+  font-size: 17px;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 3px;
+}
+.sort-code-account-number {
+  margin: 0;
+  font-size: 13px;
+}
+.balances {
+  float: right;
 }
 </style>

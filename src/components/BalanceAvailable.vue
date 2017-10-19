@@ -1,6 +1,7 @@
 <template>
   <span class="balance-available">
-    {{ formatAmount(availableBalance.Amount.Amount, availableBalance.Amount.Currency) }}
+    <span class="label">Available: </span>
+    <span class="amount">{{ formatAmount(availableBalance.Amount.Amount, availableBalance.Amount.Currency) }}</span>
   </span>
 </template>
 
@@ -23,7 +24,14 @@ export default {
 
 <style scoped>
 .balance-available {
-  font-size: 10pt;
-  margin-top: 0pt;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #545454;
+  margin-top: 3px;
+}
+.balance-available .label {
+  font-size: 12px;
+}
+.balance-available .amount {
+  font-size: 14px;
 }
 </style>

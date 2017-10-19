@@ -20,3 +20,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.balance-booked {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 26px;
+  font-weight: bold;
+}
+</style>
