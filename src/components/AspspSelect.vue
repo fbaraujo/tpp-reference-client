@@ -32,6 +32,6 @@ export default {
 
 <style scoped>
 .aspsp-select.item {
-  width: 390px;
+  width: 70%;
 }
 </style>

@@ -72,9 +72,9 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   Then('I see Account balance', () => client
     .waitForElementVisible('.account', 5000)
-    .waitForElementVisible('.balance', 5000)
+    .waitForElementVisible('.balance-booked', 5000)
     .assert.containsText(
-      '.balance',
-      '1230.00 GBP',
+      '.balance-booked',
+      '£5,800.00',
     ));
 });
