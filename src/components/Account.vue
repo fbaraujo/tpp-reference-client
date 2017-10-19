@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="account">
-        <p class="product-name">{{ product.ProductName }}<p>
+        <p class="product-name">{{ product.ProductName }}</p>
         <p class="sort-code-account-number">{{sortCodeAndAccountNumber}}</p>
       </div>
       <div class="balances">
@@ -33,9 +33,11 @@ export default {
   computed: {
     sortCodeAndAccountNumber() {
       if (this.account.Account.SchemeName === 'SortCodeAccountNumber') {
-        const sortCode = this.account.Account.Identification.substring(0, 6);
+        const sortCode1 = this.account.Account.Identification.substring(0, 2);
+        const sortCode2 = this.account.Account.Identification.substring(2, 4);
+        const sortCode3 = this.account.Account.Identification.substring(4, 6);
         const accountNumber = this.account.Account.Identification.substring(6);
-        return `${sortCode} ${accountNumber}`;
+        return `${sortCode1} - ${sortCode2} - ${sortCode3} | ${accountNumber}`;
       }
       return '';
     },
