@@ -1,5 +1,5 @@
 <template>
-  <span class="balance-booked">
+  <span class="balance-booked" v-if="bookedBalance">
     {{ formatAmount(bookedBalance.Amount.Amount, bookedBalance.Amount.Currency) }}
   </span>
 </template>
@@ -10,12 +10,30 @@ export default {
   props: ['balances'],
   methods: {
     formatAmount(amount, currencyCode) {
-      return parseFloat(amount).toLocaleString('en', { style: 'currency', currency: currencyCode });
+      const format = {
+        style: 'currency',
+        currency: currencyCode,
+      };
+      return parseFloat(amount).toLocaleString('en', format);
     },
   },
   computed: {
     bookedBalance() {
-      return this.balances[0];
+      if (this.balances.length === 0) {
+        return null;
+      } if (this.balances.length === 1) {
+        switch (this.balances[0].Type) {
+          case 'ClosingBooked':
+          case 'InterimBooked':
+          case 'OpeningBooked':
+          case 'PreviouslyClosedBooked':
+            return this.balances[0];
+          default:
+            return '';
+        }
+      } else {
+        return null;
+      }
     },
   },
 };
