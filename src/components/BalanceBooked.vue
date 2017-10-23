@@ -5,6 +5,8 @@
 </template>
 
 <script>
+const groupby = require('lodash.groupby');
+
 export default {
   name: 'balance-booked',
   props: ['balances'],
@@ -28,26 +30,41 @@ export default {
       }
     },
     sortDatetimeDescending(balances) {
-      return balances.sort((a, b) => {
-        if (a.DateTime > b.DateTime) {
-          return -1;
-        }
-        if (a.DateTime < b.DateTime) {
-          return 1;
-        }
+      balances.sort((a, b) => {
+        if (a.DateTime > b.DateTime) return -1;
+        if (a.DateTime < b.DateTime) return 1;
         return 0;
       });
     },
+    bestMatchWithoutDateTime(list) {
+      const byType = groupby(list, b => b.Type);
+      if (byType.ClosingBooked) return byType.ClosingBooked[0];
+      if (byType.InterimBooked) return byType.InterimBooked[0];
+      if (byType.OpeningBooked) return byType.OpeningBooked[0];
+      if (byType.PreviouslyClosedBooked) return byType.PreviouslyClosedBooked[0];
+      return null;
+    },
+    bestMatch(booked) {
+      this.sortDatetimeDescending(booked);
+      const latestDateTime = booked[0].DateTime;
+      const byDatetime = groupby(booked, b => b.DateTime);
+      const recent = byDatetime[latestDateTime];
+      if (recent.length > 1) {
+        return this.bestMatchWithoutDateTime(recent);
+      }
+      return recent[0];
+    },
   },
   computed: {
+    bookedBalances() {
+      return this.balances.filter(this.isBookedBalance);
+    },
     bookedBalance() {
-      let balance = null;
-      let booked = this.balances.filter(this.isBookedBalance);
-      booked = this.sortDatetimeDescending(booked);
+      const booked = this.bookedBalances;
       if (booked.length > 0) {
-        balance = booked[0];
+        return this.bestMatch(booked);
       }
-      return balance;
+      return null;
     },
   },
 };

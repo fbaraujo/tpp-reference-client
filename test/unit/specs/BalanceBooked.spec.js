@@ -82,3 +82,55 @@ describe('BalanceBooked.vue with two booked balances that have different datetim
     )).to.equal('22290');
   });
 });
+
+describe('BalanceBooked.vue with two booked balances that have same datetime', () => {
+  const datetime = '2017-04-05T00:00:00+00:00';
+
+  it('renders ClosingBooked if present', () => {
+    expect(doubleBalance(
+      22290, 'ClosingBooked', datetime,
+      15000, 'OpeningBooked', datetime,
+    )).to.equal('22290');
+
+    expect(doubleBalance(
+      15000, 'OpeningBooked', datetime,
+      22290, 'ClosingBooked', datetime,
+    )).to.equal('22290');
+  });
+
+  it('renders InterimBooked if present and ClosingBooked not present', () => {
+    expect(doubleBalance(
+      22290, 'InterimBooked', datetime,
+      15000, 'OpeningBooked', datetime,
+    )).to.equal('22290');
+
+    expect(doubleBalance(
+      15000, 'OpeningBooked', datetime,
+      22290, 'InterimBooked', datetime,
+    )).to.equal('22290');
+  });
+
+  it('renders OpeningBooked if present and ClosingBooked/InterimBooked not present', () => {
+    expect(doubleBalance(
+      22290, 'OpeningBooked', datetime,
+      15000, 'PreviouslyClosedBooked', datetime,
+    )).to.equal('22290');
+
+    expect(doubleBalance(
+      15000, 'PreviouslyClosedBooked', datetime,
+      22290, 'OpeningBooked', datetime,
+    )).to.equal('22290');
+  });
+
+  it('renders PreviouslyClosedBooked if present and other booked types not present', () => {
+    expect(doubleBalance(
+      22290, 'PreviouslyClosedBooked', datetime,
+      15000, 'PreviouslyClosedBooked', datetime,
+    )).to.equal('22290');
+
+    expect(doubleBalance(
+      15000, 'PreviouslyClosedBooked', datetime,
+      22290, 'PreviouslyClosedBooked', datetime,
+    )).to.equal('15000');
+  });
+});
