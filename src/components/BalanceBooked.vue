@@ -6,17 +6,14 @@
 
 <script>
 const groupby = require('lodash.groupby');
+const currencyFormatter = require('currency-formatter');
 
 export default {
   name: 'balance-booked',
   props: ['balances'],
   methods: {
-    formatAmount(amount, currencyCode) {
-      const format = {
-        style: 'currency',
-        currency: currencyCode,
-      };
-      return parseFloat(amount).toLocaleString('en', format);
+    formatAmount(amount, code) {
+      return currencyFormatter.format(amount, { code });
     },
     isBookedBalance(balance) {
       switch (balance.Type) {
