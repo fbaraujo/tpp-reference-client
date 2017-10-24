@@ -1,24 +1,22 @@
 import Vue from 'vue';
 import BalanceAvailable from '@/components/BalanceAvailable';
 
-const trim = s => (s || '').replace(/^\s+|\s+$/g, '');
-
 const balanceText = (balances) => {
   const Constructor = Vue.extend(BalanceAvailable);
   const vm = new Constructor({ propsData: { balances } }).$mount();
   if (vm.$el.childElementCount) {
-    return trim(vm.$el.querySelector('.amount').textContent);
+    return vm.$el.querySelector('.amount').textContent;
   }
   return '';
 };
 
-const singleBalance = (amount, type) => balanceText([
+const singleBalance = (amount, type, direction = 'Credit') => balanceText([
   {
     Amount: {
       Amount: amount,
       Currency: 'GBP',
     },
-    CreditDebitIndicator: 'Credit',
+    CreditDebitIndicator: direction,
     Type: type,
     DateTime: '2017-04-05T10:43:07+00:00',
   },
@@ -61,11 +59,19 @@ describe('BalanceAvailable.vue with single balance that is not a available balan
   });
 });
 
-describe('BalanceAvailable.vue with one available balance', () => {
+describe('BalanceAvailable.vue with one available credit balance', () => {
   it('renders amount', () => {
     expect(singleBalance(22290, 'ClosingAvailable')).to.equal('£22,290.00');
     expect(singleBalance(22290, 'InterimAvailable')).to.equal('£22,290.00');
     expect(singleBalance(22290, 'OpeningAvailable')).to.equal('£22,290.00');
+  });
+});
+
+describe('BalanceAvailable.vue with one available debit balance', () => {
+  it('renders amount', () => {
+    expect(singleBalance(22290, 'ClosingAvailable', 'Debit')).to.equal('-£22,290.00');
+    expect(singleBalance(22290, 'InterimAvailable', 'Debit')).to.equal('-£22,290.00');
+    expect(singleBalance(22290, 'OpeningAvailable', 'Debit')).to.equal('-£22,290.00');
   });
 });
 

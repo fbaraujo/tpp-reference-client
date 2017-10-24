@@ -1,7 +1,9 @@
 <template>
-  <span class="balance-booked" v-if="bookedBalance">
-    {{ formatAmount(bookedBalance.Amount.Amount, bookedBalance.Amount.Currency) }}
-  </span>
+  <span class="balance-booked" v-if="bookedBalance">{{
+    formatAmount(bookedBalance.CreditDebitIndicator,
+      bookedBalance.Amount.Amount,
+      bookedBalance.Amount.Currency)
+  }}</span>
 </template>
 
 <script>
@@ -13,8 +15,12 @@ export default {
   name: 'balance-booked',
   props: ['balances'],
   methods: {
-    formatAmount(amount, code) {
-      return currencyFormatter.format(amount, { code });
+    formatAmount(debitcredit, amount, code) {
+      const formatted = currencyFormatter.format(amount, { code });
+      if (debitcredit === 'Debit') {
+        return `-${formatted}`;
+      }
+      return formatted;
     },
     isBookedBalance(balance) {
       switch (balance.Type) {

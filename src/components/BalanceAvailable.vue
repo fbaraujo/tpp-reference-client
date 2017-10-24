@@ -1,7 +1,11 @@
 <template>
   <span class="balance-available" v-if="availableBalance">
     <span class="label">Available: </span>
-    <span class="amount">{{ formatAmount(availableBalance.Amount.Amount, availableBalance.Amount.Currency) }}</span>
+    <span class="amount">{{
+      formatAmount(availableBalance.CreditDebitIndicator,
+        availableBalance.Amount.Amount,
+        availableBalance.Amount.Currency)
+    }}</span>
   </span>
 </template>
 
@@ -14,8 +18,12 @@ export default {
   name: 'balance-available',
   props: ['balances'],
   methods: {
-    formatAmount(amount, code) {
-      return currencyFormatter.format(amount, { code });
+    formatAmount(debitcredit, amount, code) {
+      const formatted = currencyFormatter.format(amount, { code });
+      if (debitcredit === 'Debit') {
+        return `-${formatted}`;
+      }
+      return formatted;
     },
     isAvailableBalance(balance) {
       switch (balance.Type) {
