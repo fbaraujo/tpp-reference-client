@@ -6,6 +6,7 @@
 
 <script>
 const groupby = require('lodash.groupby');
+const sortby = require('lodash.sortby');
 const currencyFormatter = require('currency-formatter');
 
 export default {
@@ -27,11 +28,7 @@ export default {
       }
     },
     sortDatetimeDescending(balances) {
-      balances.sort((a, b) => {
-        if (a.DateTime > b.DateTime) return -1;
-        if (a.DateTime < b.DateTime) return 1;
-        return 0;
-      });
+      return sortby(balances, b => b.DateTime).reverse();
     },
     bestMatchWithoutDateTime(list) {
       const byType = groupby(list, b => b.Type);
@@ -42,8 +39,8 @@ export default {
       return null;
     },
     bestMatch(booked) {
-      this.sortDatetimeDescending(booked);
-      const latestDateTime = booked[0].DateTime;
+      const orderedByDate = this.sortDatetimeDescending(booked);
+      const latestDateTime = orderedByDate[0].DateTime;
       const byDatetime = groupby(booked, b => b.DateTime);
       const recent = byDatetime[latestDateTime];
       if (recent.length > 1) {
