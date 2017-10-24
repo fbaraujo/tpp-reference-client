@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import BalanceAvailable from '@/components/BalanceAvailable';
+import balanceData from './BalanceData';
 
 const balanceText = (balances) => {
   const Constructor = Vue.extend(BalanceAvailable);
@@ -11,36 +12,12 @@ const balanceText = (balances) => {
 };
 
 const singleBalance = (amount, type, direction = 'Credit') => balanceText([
-  {
-    Amount: {
-      Amount: amount,
-      Currency: 'GBP',
-    },
-    CreditDebitIndicator: direction,
-    Type: type,
-    DateTime: '2017-04-05T10:43:07+00:00',
-  },
+  balanceData(amount, type, direction),
 ]);
 
 const doubleBalance = (amount, type, datetime, amount2, type2, datetime2) => balanceText([
-  {
-    Amount: {
-      Amount: amount,
-      Currency: 'GBP',
-    },
-    CreditDebitIndicator: 'Credit',
-    Type: type,
-    DateTime: datetime,
-  },
-  {
-    Amount: {
-      Amount: amount2,
-      Currency: 'GBP',
-    },
-    CreditDebitIndicator: 'Credit',
-    Type: type2,
-    DateTime: datetime2,
-  },
+  balanceData(amount, type, 'Credit', datetime),
+  balanceData(amount2, type2, 'Credit', datetime2),
 ]);
 
 describe('BalanceAvailable.vue with no available balance', () => {
