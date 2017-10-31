@@ -7,9 +7,8 @@ Scenario: Logging in and out
   Then I see Login page
   When I login
   And I select an ASPSP
-  Then I see Accounts page
-  And I see Account balance
-  When I reload page
+  Then I see Redirection page
+  When I wait some time
   Then I see Accounts page
   And I see Account balance
   When I logout
@@ -38,3 +37,38 @@ Scenario: Logging in with invalid credentials
   When I login with invalid credentials
   Then I see Login page
   And I see login failure message
+
+Scenario: Logging in and redirect to aspsp selection page if aspsp not selected on accounts page
+
+  Given I am not logged in
+  When I open homepage
+  Then I see Login page
+  When I login
+  And I select an ASPSP
+  Then I see Redirection page
+  When I wait some time
+  Then I see Accounts page
+  And I see Account balance
+  When System removes selected aspsp from LocalStore 
+  And I reload page
+  Then I see ASPSP selection page
+  When I logout
+  Then I see Login page
+  When I visit accounts path
+  Then I see Login page
+
+Scenario: Logging in and redirect to aspsp selection page if aspsp not selected on redirection page
+
+  Given I am not logged in
+  When I open homepage
+  Then I see Login page
+  When I login
+  And I select an ASPSP
+  Then I see Redirection page
+  When System removes selected aspsp from LocalStore 
+  And I reload page
+  Then I see ASPSP selection page
+  When I logout
+  Then I see Login page
+  When I visit accounts path
+  Then I see Login page

@@ -63,6 +63,20 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   When('I logout', () => client
     .click('button[name=logout]'));
 
+  Then('I see Redirection page', () => client
+    .waitForElementVisible('#redirect', 300)
+    .assert.containsText(
+      'div.header',
+      'Redirection',
+    ));
+
+  When('I wait some time', () => {});
+
+  When('System removes selected aspsp from LocalStore', () => client
+    .execute(() => {
+      window.localStorage.removeItem('selectedAspsp');
+    }));
+
   Then('I see Accounts page', () => client
     .waitForElementVisible('#accounts', 5000)
     .assert.containsText(

@@ -5,16 +5,21 @@ import {
   ASPSPS_FETCH,
   ASPSPS_SUCCESS,
   LOGOUT,
+  SELECT_ASPSP,
 } from '../mutation-types';
 
 const initialState = {
   aspsps: [],
+  selectedAspsp: null,
   pending: false,
 };
 
 const getters = {
   aspsps: state => () => { // eslint-disable-line
     return state.aspsps;
+  },
+  selectedAspsp: state => () => { // eslint-disable-line
+    return state.selectedAspsp;
   },
 };
 
@@ -25,6 +30,9 @@ const mutations = {
   [ASPSPS_SUCCESS](state, payload) {
     Vue.set(state, 'aspsps', payload);
     Vue.set(state, 'pending', false);
+  },
+  [SELECT_ASPSP](state, aspsp) {
+    Vue.set(state, 'selectedAspsp', aspsp);
   },
 };
 
@@ -51,6 +59,23 @@ const actions = {
       return commit(ASPSPS_SUCCESS, list);
     }
     return dispatch('deleteSession');
+  },
+  selectAspsp({ commit }, aspsp) {
+    localStorage.setItem('selectedAspsp', JSON.stringify(aspsp));
+    return commit(SELECT_ASPSP, aspsp);
+  },
+  refreshSelectedAspsp({ commit }) {
+    if (localStorage.getItem('selectedAspsp')) {
+      let localAspsp;
+      try {
+        localAspsp = JSON.parse(localStorage.getItem('selectedAspsp'));
+      } catch (e) {
+        localStorage.removeItem('selectedAspsp');
+        localAspsp = null;
+      } finally {
+        commit(SELECT_ASPSP, localAspsp);
+      }
+    }
   },
 };
 
