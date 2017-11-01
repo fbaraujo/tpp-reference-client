@@ -1,4 +1,4 @@
-import { request, post, consent } from './request';
+import { request, post, postJson } from './request';
 import * as types from './mutation-types';
 
 const aspsp = 'abcbank';
@@ -18,7 +18,9 @@ const actions = {
     return commit(types.LOGIN_ERROR);
   },
   accountRequestAuthoriseConsent(options, data) {
-    consent('/account-request-authorise-consent', data, types.LOGOUT);
+    const aspspId = data.orgId;
+    const authorisationServerId = data.id;
+    postJson('/account-request-authorise-consent', aspspId, { authorisationServerId }, types.LOGOUT);
   },
   deleteSession({ commit }) {
     localStorage.removeItem('token');
