@@ -33,18 +33,22 @@ const makeHeaders = (aspsp) => {
 };
 
 const asyncAwaitConsent = async (endpoint, data, unauthorizedType) => {
-  let headers;
+  let Headers;
   const aspsp = data.orgId;
   const authorisationServerId = getAspspAuthorisationServerIdFromAspsp(data);
   if (aspsp) {
-    headers = makeHeaders(aspsp);
+    Headers = makeHeaders(aspsp);
   } else {
-    headers = makeHeaders();
+    Headers = makeHeaders();
   }
-  headers['Content-Type'] = 'application/json';
+  Headers['Content-Type'] = 'application/json';
   const response = await fetch(accountRequestConsentUri, {
     method: 'POST',
-    headers,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'x-fapi-financial-id': aspsp,
+    },
     body: { authorisationServerId },
   });
   if (response.status === 204) {

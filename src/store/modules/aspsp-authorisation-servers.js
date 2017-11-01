@@ -61,14 +61,8 @@ const actions = {
     return dispatch('deleteSession');
   },
   selectAspsp({ commit }, aspsp) {
-    console.log(' In aspsp-authorisation-server selectAspsp aspsp is ', aspsp);
     localStorage.setItem('selectedAspsp', JSON.stringify(aspsp));
     return commit(SELECT_ASPSP, aspsp);
-  },
-  selectAspsp2(thing, aspsp) {
-    console.log(' In aspsp-authorisation-server selectAspsp2 aspsp is ', aspsp);
-    console.log(thing);
-    return null;
   },
   refreshSelectedAspsp({ commit }) {
     if (localStorage.getItem('selectedAspsp')) {
