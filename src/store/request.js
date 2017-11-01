@@ -2,9 +2,13 @@
 import 'whatwg-fetch';
 
 export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
+export const accountRequestConsentUri = (process.env.ACCOUNT_REQUEST_CONSENT_URI || 'http://localhost:8003/account-request-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
-const options = (aspsp) => {
+// Private Methods
+const getAspspAuthorisationServerIdFromAspsp = data => data.id;
+
+const makeHeaders = (aspsp) => {
   if (aspsp) {
     return {
       headers: {
@@ -28,6 +32,30 @@ const options = (aspsp) => {
   };
 };
 
+const asyncAwaitConsent = async (endpoint, data, unauthorizedType) => {
+  let headers;
+  const aspsp = data.orgId;
+  const authorisationServerId = getAspspAuthorisationServerIdFromAspsp(data);
+  if (aspsp) {
+    headers = makeHeaders(aspsp);
+  } else {
+    headers = makeHeaders();
+  }
+  headers['Content-Type'] = 'application/json';
+  const response = await fetch(accountRequestConsentUri, {
+    method: 'POST',
+    headers,
+    body: { authorisationServerId },
+  });
+  if (response.status === 204) {
+    const json = await response.json();
+    return json;
+  } else if (response.status === 401) {
+    return unauthorizedType;
+  }
+  return null;
+};
+
 const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   const response = await fetch(`${rootUri}${endpoint}`, {
     method: 'POST',
@@ -47,15 +75,15 @@ const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   return null;
 };
 
-const asyncAwaitRequest = async (endpoint, aspsp, unauthorizedType) => {
+const asyncAwaitGetRequest = async (endpoint, aspsp, unauthorizedType) => {
   let uri;
   let sendData;
   if (aspsp) {
     uri = `${baseUri}${endpoint}`;
-    sendData = options(aspsp);
+    sendData = makeHeaders(aspsp);
   } else {
     uri = `${rootUri}${endpoint}`;
-    sendData = options();
+    sendData = makeHeaders();
   }
   const response = await fetch(uri, sendData);
   if (response.status === 200) {
@@ -67,5 +95,6 @@ const asyncAwaitRequest = async (endpoint, aspsp, unauthorizedType) => {
   return null;
 };
 
-export const request = asyncAwaitRequest;
+export const consent = asyncAwaitConsent;
+export const request = asyncAwaitGetRequest;
 export const post = asyncAwaitPost;

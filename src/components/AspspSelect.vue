@@ -6,7 +6,7 @@
     </div>
     <div class="middle aligned content">
       <div class="header">
-        <a class="select-aspsp" v-on:click="selectAspsp(aspsp)" >{{ name }}</a>
+        <a class="select-aspsp" v-on:click="selectAspsp(aspsp)">{{ name }}</a>
       </div>
     </div>
     <div class="ui hidden divider"></div>
@@ -14,25 +14,26 @@
 </template>
 
 <script>
-export default {
-  name: 'aspsp-select',
-  props: ['aspsp'],
-  computed: {
-    name() {
-      return this.aspsp.name;
+  export default {
+    name: 'aspsp-select',
+    props: ['aspsp'],
+    computed: {
+      name() {
+        return this.aspsp.name;
+      },
     },
-  },
-  methods: {
-    selectAspsp(selectedAspsp) {
-      this.$store.dispatch('selectAspsp', selectedAspsp);
-      this.$router.push('redirect');
+    methods: {
+      selectAspsp(selectedAspsp) {
+        this.$store.dispatch('accountRequestAuthoriseConsent', selectedAspsp);
+        // SPOOF the consent pages - we don't care about the result of the request at the moment
+        this.$router.push('redirect');
+      },
     },
-  },
-};
+  };
 </script>
 
 <style scoped>
-.aspsp-select.item {
-  width: 70%;
-}
+  .aspsp-select.item {
+    width: 70%;
+  }
 </style>
