@@ -5,9 +5,6 @@ export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-
 export const accountRequestConsentUri = (process.env.ACCOUNT_REQUEST_CONSENT_URI || 'http://localhost:8003/account-request-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
-// Private Methods
-const getAspspAuthorisationServerIdFromAspsp = data => data.id;
-
 const makeHeaders = (aspsp) => {
   if (aspsp) {
     return {
@@ -32,28 +29,16 @@ const makeHeaders = (aspsp) => {
   };
 };
 
-const asyncAwaitConsent = async (endpoint, data, unauthorizedType) => {
-  let Headers;
-  const aspsp = data.orgId;
-  const authorisationServerId = getAspspAuthorisationServerIdFromAspsp(data);
-  if (aspsp) {
-    Headers = makeHeaders(aspsp);
-  } else {
-    Headers = makeHeaders();
-  }
-  Headers['Content-Type'] = 'application/json';
+const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
+  const { headers } = makeHeaders(aspsp);
+  headers['Content-Type'] = 'application/json';
   const response = await fetch(accountRequestConsentUri, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'x-fapi-financial-id': aspsp,
-    },
-    body: { authorisationServerId },
+    headers,
+    body: JSON.stringify(data),
   });
   if (response.status === 204) {
-    const json = await response.json();
-    return json;
+    return null;
   } else if (response.status === 401) {
     return unauthorizedType;
   }
@@ -99,6 +84,6 @@ const asyncAwaitGetRequest = async (endpoint, aspsp, unauthorizedType) => {
   return null;
 };
 
-export const consent = asyncAwaitConsent;
+export const postJson = asyncAwaitPostJson;
 export const request = asyncAwaitGetRequest;
 export const post = asyncAwaitPost;
