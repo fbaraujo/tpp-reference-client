@@ -35,7 +35,7 @@ const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
   const response = await fetch(accountRequestConsentUri, {
     method: 'POST',
     headers,
-    body: data,
+    body: JSON.stringify(data),
   });
   if (response.status === 204) {
     return null;
