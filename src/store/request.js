@@ -32,7 +32,7 @@ const makeHeaders = (aspsp) => {
 const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
   const { headers } = makeHeaders(aspsp);
   headers['Content-Type'] = 'application/json';
-  const response = await fetch(accountRequestConsentUri, {
+  const response = await fetch(endpoint, {
     method: 'POST',
     headers,
     body: JSON.stringify(data),

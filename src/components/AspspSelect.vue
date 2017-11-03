@@ -14,23 +14,23 @@
 </template>
 
 <script>
-  export default {
-    name: 'aspsp-select',
-    props: ['aspsp'],
-    computed: {
-      name() {
-        return this.aspsp.name;
-      },
+export default {
+  name: 'aspsp-select',
+  props: ['aspsp'],
+  computed: {
+    name() {
+      return this.aspsp.name;
     },
-    methods: {
-      selectAspsp(selectedAspsp) {
-        this.$store.dispatch('selectAspsp', selectedAspsp);
-        this.$store.dispatch('accountRequestAuthoriseConsent', selectedAspsp);
-        // SPOOF the consent pages - we don't care about the result of the request at the moment
-        this.$router.push('redirect');
-      },
+  },
+  methods: {
+    selectAspsp(selectedAspsp) {
+      this.$store.dispatch('selectAspsp', selectedAspsp);
+      this.$store.dispatch('accountRequestAuthoriseConsent', selectedAspsp);
+      // SPOOF the consent pages - we don't care about the result of the request at the moment
+      this.$router.push('redirect');
     },
-  };
+  },
+};
 </script>
 
 <style scoped>
