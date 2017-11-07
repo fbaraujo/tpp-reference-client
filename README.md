@@ -70,6 +70,8 @@ heroku create --region eu <newname>
 
 heroku config:set API_BASE_URL=https://example.com/open-banking/v1.1
 
+heroku config:set REDIRECT_DELAY_SECONDS=3
+
 # For now, set NPM_CONFIG_PRODUCTION=false so dev dependencies
 # get installed on server by `npm install`.
 # We need dev dependencies installed to run `npm run build` to generate
