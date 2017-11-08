@@ -2,9 +2,10 @@
 import 'whatwg-fetch';
 
 export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
+export const accountRequestConsentUri = (process.env.ACCOUNT_REQUEST_CONSENT_URI || 'http://localhost:8003/account-request-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
-const options = (aspsp) => {
+const makeHeaders = (aspsp) => {
   if (aspsp) {
     return {
       headers: {
@@ -28,6 +29,22 @@ const options = (aspsp) => {
   };
 };
 
+const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
+  const { headers } = makeHeaders(aspsp);
+  headers['Content-Type'] = 'application/json';
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(data),
+  });
+  if (response.status === 204) {
+    return null;
+  } else if (response.status === 401) {
+    return unauthorizedType;
+  }
+  return null;
+};
+
 const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   const response = await fetch(`${rootUri}${endpoint}`, {
     method: 'POST',
@@ -47,15 +64,15 @@ const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   return null;
 };
 
-const asyncAwaitRequest = async (endpoint, aspsp, unauthorizedType) => {
+const asyncAwaitGetRequest = async (endpoint, aspsp, unauthorizedType) => {
   let uri;
   let sendData;
   if (aspsp) {
     uri = `${baseUri}${endpoint}`;
-    sendData = options(aspsp);
+    sendData = makeHeaders(aspsp);
   } else {
     uri = `${rootUri}${endpoint}`;
-    sendData = options();
+    sendData = makeHeaders();
   }
   const response = await fetch(uri, sendData);
   if (response.status === 200) {
@@ -67,5 +84,6 @@ const asyncAwaitRequest = async (endpoint, aspsp, unauthorizedType) => {
   return null;
 };
 
-export const request = asyncAwaitRequest;
+export const postJson = asyncAwaitPostJson;
+export const request = asyncAwaitGetRequest;
 export const post = asyncAwaitPost;
