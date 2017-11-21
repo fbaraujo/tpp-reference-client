@@ -75,13 +75,18 @@ const asyncAwaitGetRequest = async (endpoint, aspsp, unauthorizedType) => {
     sendData = makeHeaders();
   }
   const response = await fetch(uri, sendData);
-  if (response.status === 200) {
-    const json = await response.json();
-    return json;
-  } else if (response.status === 401) {
-    return unauthorizedType;
+  switch (parseInt(response.status, 0)) {
+    case 200: {
+      const json = await response.json();
+      return json;
+    }
+    case 204:
+      return true;
+    case 401:
+      return unauthorizedType;
+    default:
+      return null;
   }
-  return null;
 };
 
 export const postJson = asyncAwaitPostJson;

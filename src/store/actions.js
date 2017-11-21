@@ -65,6 +65,13 @@ const actions = {
       aspspAccountId: `${aspsp}-${accountId}`,
     });
   },
+  async validateAuthCode({ dispatch, commit }, payload) {
+    const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, null, types.LOGOUT);
+    if (response === types.LOGOUT) {
+      return dispatch('deleteSession');
+    }
+    return true;
+  },
 };
 
 export default actions;

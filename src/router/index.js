@@ -4,6 +4,7 @@ import Accounts from '@/components/Accounts';
 import AspspSelection from '@/components/AspspSelection';
 import Login from '@/components/Login';
 import Redirect from '@/components/Redirect';
+import RedirectBack from '@/components/RedirectBack';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ const router = new Router({
       path: '/redirect',
       name: 'Redirect',
       component: Redirect,
+    },
+    {
+      path: '/tpp/authorized', // to be changed to be in line with other client app urls
+      name: 'RedirectBack',
+      component: RedirectBack,
     },
   ],
 });
