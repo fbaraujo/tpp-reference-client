@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="account">
-        <p class="product-name">{{ product ? product.ProductName : 'Current Account' }}</p>
+        <p class="product-name">{{ productName }}</p>
         <p class="sort-code-account-number">{{sortCodeAndAccountNumber}}</p>
       </div>
       <div class="balances">
@@ -98,6 +98,9 @@ export default {
     },
     product() {
       return this.$store.getters.product(this.aspspAccountId);
+    },
+    productName() {
+      return this.product && this.product.ProductName ? this.product.ProductName : 'Current Account';
     },
   },
   data() {
