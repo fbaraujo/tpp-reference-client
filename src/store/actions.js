@@ -46,7 +46,7 @@ const actions = {
     const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
 
-    const response = await request('/accounts', fapiFinancialId, types.LOGOUT);
+    const response = await request('/accounts', fapiFinancialId, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
@@ -59,7 +59,7 @@ const actions = {
     const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
 
-    const response = await request(`/accounts/${accountId}/product`, fapiFinancialId, types.LOGOUT);
+    const response = await request(`/accounts/${accountId}/product`, fapiFinancialId, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
@@ -72,7 +72,7 @@ const actions = {
     const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
 
-    const response = await request(`/accounts/${accountId}/balances`, fapiFinancialId, types.LOGOUT);
+    const response = await request(`/accounts/${accountId}/balances`, fapiFinancialId, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
