@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="account">
-        <p class="product-name">{{ product.ProductName }}</p>
+        <p class="product-name">{{ product ? product.ProductName : '' }}</p>
         <p class="sort-code-account-number">{{sortCodeAndAccountNumber}}</p>
       </div>
       <div class="balances">

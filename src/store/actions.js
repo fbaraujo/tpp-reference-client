@@ -50,10 +50,13 @@ const actions = {
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
-    return commit(types.RECEIVE_ACCOUNTS, {
-      accounts: response.Data.Account,
-      aspsp: authServerId,
-    });
+    if (response) {
+      return commit(types.RECEIVE_ACCOUNTS, {
+        accounts: response.Data.Account,
+        aspsp: authServerId,
+      });
+    }
+    return null;
   },
   async fetchAccountProduct({ dispatch, commit }, accountId) {
     const fapiFinancialId = getSelectedAspsp().orgId;
@@ -63,10 +66,13 @@ const actions = {
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
-    return commit(types.RECEIVE_ACCOUNT_PRODUCT, {
-      product: response.Data.Product[0],
-      aspspAccountId: `${authServerId}-${accountId}`,
-    });
+    if (response) {
+      return commit(types.RECEIVE_ACCOUNT_PRODUCT, {
+        product: response.Data.Product[0],
+        aspspAccountId: `${authServerId}-${accountId}`,
+      });
+    }
+    return null;
   },
   async fetchAccountBalances({ dispatch, commit }, accountId) {
     const fapiFinancialId = getSelectedAspsp().orgId;
@@ -76,10 +82,13 @@ const actions = {
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
-    return commit(types.RECEIVE_ACCOUNT_BALANCES, {
-      balances: response.Data.Balance,
-      aspspAccountId: `${authServerId}-${accountId}`,
-    });
+    if (response) {
+      return commit(types.RECEIVE_ACCOUNT_BALANCES, {
+        balances: response.Data.Balance,
+        aspspAccountId: `${authServerId}-${accountId}`,
+      });
+    }
+    return null;
   },
   async validateAuthCode({ dispatch }, payload) {
     const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, null, types.LOGOUT);
