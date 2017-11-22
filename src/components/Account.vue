@@ -87,6 +87,9 @@ export default {
         const sortCode3 = this.account.Account.Identification.substring(4, 6);
         const accountNumber = this.account.Account.Identification.substring(6);
         return `${sortCode1} - ${sortCode2} - ${sortCode3} | ${accountNumber}`;
+      } else if (this.account.Account.SchemeName === 'IBAN') {
+        const accountNumber = this.account.Account.Identification;
+        return accountNumber;
       }
       return '';
     },
