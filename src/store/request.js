@@ -5,11 +5,11 @@ export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-
 export const accountRequestConsentUri = baseUri.replace('/open-banking/v1.1', '/account-request-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
-const makeHeaders = (aspsp) => {
-  if (aspsp) {
+const makeHeaders = (fapiFinancialId) => {
+  if (fapiFinancialId) {
     return {
       headers: {
-        'x-fapi-financial-id': aspsp,
+        'x-fapi-financial-id': fapiFinancialId,
         Accept: 'application/json',
         Authorization: localStorage.getItem('token'),
       },
@@ -75,12 +75,12 @@ const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   return null;
 };
 
-const asyncAwaitGetRequest = async (endpoint, aspsp, unauthorizedType) => {
+const asyncAwaitGetRequest = async (endpoint, fapiFinancialId, unauthorizedType) => {
   let uri;
   let sendData;
-  if (aspsp) {
+  if (fapiFinancialId) {
     uri = `${baseUri}${endpoint}`;
-    sendData = makeHeaders(aspsp);
+    sendData = makeHeaders(fapiFinancialId);
   } else {
     uri = `${rootUri}${endpoint}`;
     sendData = makeHeaders();

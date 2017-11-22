@@ -8,18 +8,6 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
-/*
-const aspsp = 'abcbank';
-const populateAccounts = async () => {
-  await store.dispatch('fetchAccounts');
-  const accountIds = store.getters.accountIds(aspsp);
-  accountIds.forEach((accountId) => {
-    store.dispatch('fetchAccountProduct', accountId);
-    store.dispatch('fetchAccountBalances', accountId);
-  });
-};
-*/
-// populateAccounts().then(() => {
 // eslint-disable-next-line
 new Vue({
   el: '#app',
@@ -28,4 +16,3 @@ new Vue({
   template: '<App/>',
   components: { App },
 });
-// });
