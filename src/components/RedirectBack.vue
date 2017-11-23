@@ -8,6 +8,7 @@
 </template>
 
 <script>
+const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
 
 export default {
   name: 'redirect-back',
@@ -62,7 +63,7 @@ export default {
       const result = await Promise.all(
         [
           this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
-          new Promise(resolve => setTimeout(resolve, 3000, 'foo')),
+          new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, 'foo')),
         ],
       );
 
@@ -75,7 +76,7 @@ export default {
       this.$data.visibleRetry = true;
       window.setTimeout(() => {
         this.$router.push('/aspsp-selection');
-      }, 3000);
+      }, redirectionTime * 1000);
     }
   },
 };

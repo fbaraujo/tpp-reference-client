@@ -22,10 +22,14 @@ const actions = {
     }
     return commit(types.LOGIN_ERROR);
   },
-  accountRequestAuthoriseConsent(options, data) {
+  async accountRequestAuthoriseConsent(options, data) {
     const aspspId = data.orgId;
     const body = { authorisationServerId: data.id };
-    postJson(accountRequestConsentUri, aspspId, body, types.LOGOUT);
+    const response = await postJson(accountRequestConsentUri, aspspId, body, types.LOGOUT);
+    if (response.uri) {
+      return response.uri;
+    }
+    return null;
   },
   deleteSession({ commit }) {
     localStorage.removeItem('token');

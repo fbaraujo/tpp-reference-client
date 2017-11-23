@@ -18,11 +18,20 @@ export default {
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
     if (!this.currentAspsp) {
-      this.$router.push('aspsp-selection');
+      this.$router.push('/aspsp-selection');
+    }
+  },
+  async mounted() {
+    const result = await Promise.all(
+      [
+        this.$store.dispatch('accountRequestAuthoriseConsent', this.currentAspsp),
+        new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, 'foo')),
+      ]);
+    const uri = result[0];
+    if (uri) {
+      window.location = uri;
     } else {
-      window.setTimeout(() => {
-        this.$router.push('/accounts');
-      }, redirectionTime * 1000);
+      this.$router.push('/aspsp-selection');
     }
   },
 };

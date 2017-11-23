@@ -31,12 +31,6 @@ const makeHeaders = (fapiFinancialId, authServerId) => {
 };
 
 const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
-  const decodeUri = uri => uri; // Get the params etc
-  const redirectHandler = (uri) => {
-    // Implementation TBD - store Redirect URI etc
-    const url = decodeUri(uri);
-    window.location = url;
-  };
   const { headers } = makeHeaders(aspsp);
   headers['Content-Type'] = 'application/json';
   const response = await fetch(endpoint, {
@@ -44,12 +38,9 @@ const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
     headers,
     body: JSON.stringify(data),
   });
-  // We can't intercept a 302 :-(
   if (response.status === 200) {
-    response.json()
-      .then(body => redirectHandler(body.uri));
-  }
-  if (response.status === 204) {
+    return response.json();
+  } else if (response.status === 204) {
     return null;
   } else if (response.status === 401) {
     return unauthorizedType;
