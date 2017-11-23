@@ -29,11 +29,11 @@ export default {
     sessionExpired() {
       return !this.$store.getters.isLoggedIn();
     },
-    aspsp() {
-      return 'abcbank';
-    },
     currentAspsp() {
       return this.$store.getters.selectedAspsp();
+    },
+    aspsp() {
+      return this.currentAspsp.id;
     },
     accounts() {
       const accounts = this.$store.getters.accounts(this.aspsp);

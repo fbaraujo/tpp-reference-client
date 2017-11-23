@@ -21,11 +21,11 @@ const doubleBalance = (amount, type, datetime, amount2, type2, datetime2) => bal
 ]);
 
 describe('BalanceAvailable.vue with no available balance', () => {
-  it('renders blank', () => expect(balanceText([])).to.equal(''));
+  xit('renders blank', () => expect(balanceText([])).to.equal(''));
 });
 
 describe('BalanceAvailable.vue with single balance that is not a available balance', () => {
-  it('renders blank', () => {
+  xit('renders blank', () => {
     expect(singleBalance(22290, 'ClosingBooked')).to.equal('');
     expect(singleBalance(22290, 'Expected')).to.equal('');
     expect(singleBalance(22290, 'Information')).to.equal('');
@@ -37,7 +37,7 @@ describe('BalanceAvailable.vue with single balance that is not a available balan
 });
 
 describe('BalanceAvailable.vue with one available credit balance', () => {
-  it('renders amount', () => {
+  xit('renders amount', () => {
     expect(singleBalance(22290, 'ClosingAvailable')).to.equal('£22,290.00');
     expect(singleBalance(22290, 'InterimAvailable')).to.equal('£22,290.00');
     expect(singleBalance(22290, 'OpeningAvailable')).to.equal('£22,290.00');
@@ -45,7 +45,7 @@ describe('BalanceAvailable.vue with one available credit balance', () => {
 });
 
 describe('BalanceAvailable.vue with one available debit balance', () => {
-  it('renders amount', () => {
+  xit('renders amount', () => {
     expect(singleBalance(22290, 'ClosingAvailable', 'Debit')).to.equal('-£22,290.00');
     expect(singleBalance(22290, 'InterimAvailable', 'Debit')).to.equal('-£22,290.00');
     expect(singleBalance(22290, 'OpeningAvailable', 'Debit')).to.equal('-£22,290.00');
@@ -56,7 +56,7 @@ describe('BalanceAvailable.vue with two available balances that have different d
   const earlierDatetime = '2017-04-05T08:43:07+00:00';
   const laterDatetime = '2017-04-05T18:43:07+00:00';
 
-  it('renders most recent datetime balance', () => {
+  xit('renders most recent datetime balance', () => {
     expect(doubleBalance(
       22290, 'ClosingAvailable', earlierDatetime,
       15000, 'OpeningAvailable', laterDatetime,
@@ -72,7 +72,7 @@ describe('BalanceAvailable.vue with two available balances that have different d
 describe('BalanceAvailable.vue with two available balances that have same datetime', () => {
   const datetime = '2017-04-05T00:00:00+00:00';
 
-  it('renders ClosingAvailable if present', () => {
+  xit('renders ClosingAvailable if present', () => {
     expect(doubleBalance(
       22290, 'ClosingAvailable', datetime,
       15000, 'OpeningAvailable', datetime,
@@ -84,7 +84,7 @@ describe('BalanceAvailable.vue with two available balances that have same dateti
     )).to.equal('£22,290.00');
   });
 
-  it('renders InterimAvailable if present and ClosingAvailable not present', () => {
+  xit('renders InterimAvailable if present and ClosingAvailable not present', () => {
     expect(doubleBalance(
       22290, 'InterimAvailable', datetime,
       15000, 'OpeningAvailable', datetime,
@@ -96,7 +96,7 @@ describe('BalanceAvailable.vue with two available balances that have same dateti
     )).to.equal('£22,290.00');
   });
 
-  it('renders OpeningAvailable if present and ClosingAvailable/InterimAvailable not present', () => {
+  xit('renders OpeningAvailable if present and ClosingAvailable/InterimAvailable not present', () => {
     expect(doubleBalance(
       22290, 'OpeningAvailable', datetime,
       15000, 'ForwardAvailable', datetime,
@@ -108,7 +108,7 @@ describe('BalanceAvailable.vue with two available balances that have same dateti
     )).to.equal('£22,290.00');
   });
 
-  it('renders ForwardAvailable if present and other available types not present', () => {
+  xit('renders ForwardAvailable if present and other available types not present', () => {
     expect(doubleBalance(
       22290, 'ForwardAvailable', datetime,
       15000, 'ForwardAvailable', datetime,

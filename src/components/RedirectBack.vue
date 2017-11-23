@@ -8,6 +8,7 @@
 </template>
 
 <script>
+const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
 
 export default {
   name: 'redirect-back',
@@ -62,20 +63,20 @@ export default {
       const result = await Promise.all(
         [
           this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
-          new Promise(resolve => setTimeout(resolve, 3000, 'foo')),
+          new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, 'foo')),
         ],
       );
 
       if (result[0] !== true) {
         throw new Error('Validation code error');
       }
-      this.$router.push('accounts');
+      this.$router.push('/accounts');
     } catch (e) {
       this.$data.message = `Request invalid. Your request has been cancelled and you will be redirected. ${e.message}`;
       this.$data.visibleRetry = true;
       window.setTimeout(() => {
         this.$router.push('/aspsp-selection');
-      }, 3000);
+      }, redirectionTime * 1000);
     }
   },
 };

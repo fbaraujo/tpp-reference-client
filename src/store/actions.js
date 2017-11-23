@@ -1,7 +1,12 @@
 import { request, post, postJson, accountRequestConsentUri } from './request';
 import * as types from './mutation-types';
 
-const aspsp = 'abcbank';
+const getSelectedAspsp = () => {
+  if (localStorage.getItem('selectedAspsp')) {
+    return JSON.parse(localStorage.getItem('selectedAspsp'));
+  }
+  throw Error('no selected ASPSP in local storage');
+};
 
 const actions = {
   async createSession({ commit }, credentials) {
@@ -17,10 +22,14 @@ const actions = {
     }
     return commit(types.LOGIN_ERROR);
   },
-  accountRequestAuthoriseConsent(options, data) {
+  async accountRequestAuthoriseConsent(options, data) {
     const aspspId = data.orgId;
     const body = { authorisationServerId: data.id };
-    postJson(accountRequestConsentUri, aspspId, body, types.LOGOUT);
+    const response = await postJson(accountRequestConsentUri, aspspId, body, types.LOGOUT);
+    if (response.uri) {
+      return response.uri;
+    }
+    return null;
   },
   deleteSession({ commit }) {
     localStorage.removeItem('token');
@@ -29,43 +38,63 @@ const actions = {
   },
   async populateAccounts({ dispatch, getters }) {
     await dispatch('fetchAccounts');
-    const accountIds = getters.accountIds(aspsp);
+    const authServerId = getSelectedAspsp().id;
+    // const fapiFinancialId = getSelectedAspsp().orgId;
+    const accountIds = getters.accountIds(authServerId);
     accountIds.forEach(async (accountId) => {
       await dispatch('fetchAccountProduct', accountId);
       await dispatch('fetchAccountBalances', accountId);
     });
   },
   async fetchAccounts({ dispatch, commit }) {
-    const response = await request('/accounts', aspsp, types.LOGOUT);
+    const fapiFinancialId = getSelectedAspsp().orgId;
+    const authServerId = getSelectedAspsp().id;
+
+    const response = await request('/accounts', fapiFinancialId, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
-    return commit(types.RECEIVE_ACCOUNTS, {
-      accounts: response.Data.Account,
-      aspsp,
-    });
+    if (response) {
+      return commit(types.RECEIVE_ACCOUNTS, {
+        accounts: response.Data.Account,
+        aspsp: authServerId,
+      });
+    }
+    return null;
   },
   async fetchAccountProduct({ dispatch, commit }, accountId) {
-    const response = await request(`/accounts/${accountId}/product`, aspsp, types.LOGOUT);
+    const fapiFinancialId = getSelectedAspsp().orgId;
+    const authServerId = getSelectedAspsp().id;
+
+    const response = await request(`/accounts/${accountId}/product`, fapiFinancialId, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
-    return commit(types.RECEIVE_ACCOUNT_PRODUCT, {
-      product: response.Data.Product[0],
-      aspspAccountId: `${aspsp}-${accountId}`,
-    });
+    if (response) {
+      return commit(types.RECEIVE_ACCOUNT_PRODUCT, {
+        product: response.Data.Product[0],
+        aspspAccountId: `${authServerId}-${accountId}`,
+      });
+    }
+    return null;
   },
   async fetchAccountBalances({ dispatch, commit }, accountId) {
-    const response = await request(`/accounts/${accountId}/balances`, aspsp, types.LOGOUT);
+    const fapiFinancialId = getSelectedAspsp().orgId;
+    const authServerId = getSelectedAspsp().id;
+
+    const response = await request(`/accounts/${accountId}/balances`, fapiFinancialId, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
-    return commit(types.RECEIVE_ACCOUNT_BALANCES, {
-      balances: response.Data.Balance,
-      aspspAccountId: `${aspsp}-${accountId}`,
-    });
+    if (response) {
+      return commit(types.RECEIVE_ACCOUNT_BALANCES, {
+        balances: response.Data.Balance,
+        aspspAccountId: `${authServerId}-${accountId}`,
+      });
+    }
+    return null;
   },
-  async validateAuthCode({ dispatch, commit }, payload) {
+  async validateAuthCode({ dispatch }, payload) {
     const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, null, types.LOGOUT);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');

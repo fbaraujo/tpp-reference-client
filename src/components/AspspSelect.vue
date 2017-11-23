@@ -25,9 +25,7 @@ export default {
   methods: {
     selectAspsp(selectedAspsp) {
       this.$store.dispatch('selectAspsp', selectedAspsp);
-      this.$store.dispatch('accountRequestAuthoriseConsent', selectedAspsp);
-      // SPOOF the consent pages - we don't care about the result of the request at the moment
-      this.$router.push('redirect');
+      this.$router.push('/redirect');
     },
   },
 };

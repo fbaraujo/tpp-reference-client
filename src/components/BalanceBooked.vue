@@ -13,7 +13,7 @@ const currencyFormatter = require('currency-formatter');
 
 export default {
   name: 'balance-booked',
-  props: ['balances'],
+  props: ['balances', 'availableBalance'],
   methods: {
     formatAmount(debitcredit, amount, code) {
       const formatted = currencyFormatter.format(amount, { code });
@@ -64,7 +64,7 @@ export default {
       if (booked.length > 0) {
         return this.bestMatch(booked);
       }
-      return null;
+      return this.availableBalance;
     },
   },
 };

@@ -5,11 +5,12 @@ export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-
 export const accountRequestConsentUri = baseUri.replace('/open-banking/v1.1', '/account-request-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
-const makeHeaders = (aspsp) => {
-  if (aspsp) {
+const makeHeaders = (fapiFinancialId, authServerId) => {
+  if (fapiFinancialId) {
     return {
       headers: {
-        'x-fapi-financial-id': aspsp,
+        'x-fapi-financial-id': fapiFinancialId,
+        'x-authorization-server-id': authServerId,
         Accept: 'application/json',
         Authorization: localStorage.getItem('token'),
       },
@@ -30,12 +31,6 @@ const makeHeaders = (aspsp) => {
 };
 
 const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
-  const decodeUri = uri => uri; // Get the params etc
-  const redirectHandler = (uri) => {
-    // Implementation TBD - store Redirect URI etc
-    const url = decodeUri(uri);
-    window.location = url;
-  };
   const { headers } = makeHeaders(aspsp);
   headers['Content-Type'] = 'application/json';
   const response = await fetch(endpoint, {
@@ -43,12 +38,9 @@ const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
     headers,
     body: JSON.stringify(data),
   });
-  // We can't intercept a 302 :-(
   if (response.status === 200) {
-    response.json()
-      .then(body => redirectHandler(body.uri));
-  }
-  if (response.status === 204) {
+    return response.json();
+  } else if (response.status === 204) {
     return null;
   } else if (response.status === 401) {
     return unauthorizedType;
@@ -75,12 +67,12 @@ const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   return null;
 };
 
-const asyncAwaitGetRequest = async (endpoint, aspsp, unauthorizedType) => {
+const asyncAwaitGetRequest = async (endpoint, fapiFinancialId, unauthorizedType, authServerId) => {
   let uri;
   let sendData;
-  if (aspsp) {
+  if (fapiFinancialId) {
     uri = `${baseUri}${endpoint}`;
-    sendData = makeHeaders(aspsp);
+    sendData = makeHeaders(fapiFinancialId, authServerId);
   } else {
     uri = `${rootUri}${endpoint}`;
     sendData = makeHeaders();
