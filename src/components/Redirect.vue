@@ -21,7 +21,7 @@ export default {
       this.$router.push('aspsp-selection');
     } else {
       window.setTimeout(() => {
-        this.$router.push('accounts');
+        this.$router.push('/accounts');
       }, redirectionTime * 1000);
     }
   },

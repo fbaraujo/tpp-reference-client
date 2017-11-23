@@ -69,7 +69,7 @@ export default {
       if (result[0] !== true) {
         throw new Error('Validation code error');
       }
-      this.$router.push('accounts');
+      this.$router.push('/accounts');
     } catch (e) {
       this.$data.message = `Request invalid. Your request has been cancelled and you will be redirected. ${e.message}`;
       this.$data.visibleRetry = true;
