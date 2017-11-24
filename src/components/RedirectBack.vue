@@ -2,7 +2,7 @@
   <div id="redirect-back" class="ui warning message" >
     <div class="header">Redirection</div>
     <p>You are now redirected back<br /> to TPP application</p>
-    <p>{{ this.message }}.</p>
+    <p class="message">{{ this.message }}.</p>
     <button v-if='visibleRetry'  v-on:click='retry();'>Click to retry</button>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
       } catch (e) {
         throw new Error('Invalid state format');
       }
-      if (!state.authorisationServerId || !state.sessionId) {
+      if (!state.authorisationServerId) {
         throw new Error('Missing ASPSP ID');
       }
       return { authorisationServerId: state.authorisationServerId, sessionId: state.sessionId };
@@ -63,7 +63,7 @@ export default {
       const result = await Promise.all(
         [
           this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
-          new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, 'foo')),
+          new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true)),
         ],
       );
 
