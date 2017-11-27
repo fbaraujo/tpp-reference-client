@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Accounts from '@/components/Accounts';
+import ActivitySelection from '@/components/ActivitySelection';
 import AspspSelection from '@/components/AspspSelection';
 import Login from '@/components/Login';
 import Redirect from '@/components/Redirect';
@@ -20,6 +21,11 @@ const router = new Router({
       path: '/aspsp-selection',
       name: 'AspspSelection',
       component: AspspSelection,
+    },
+    {
+      path: '/activity-selection',
+      name: 'ActivitySelection',
+      component: ActivitySelection,
     },
     {
       path: '/',
