@@ -21,7 +21,7 @@ export default {
   name: 'app',
   methods: {
     home() {
-      this.$router.push('activity-selection');
+      this.$router.push('/activity-selection');
     },
   },
 };

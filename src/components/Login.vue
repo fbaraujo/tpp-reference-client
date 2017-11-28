@@ -50,7 +50,7 @@ export default {
         p: this.password,
       });
       if (this.$store.getters.isLoggedIn()) {
-        this.$router.push('activity-selection');
+        this.$router.push('/activity-selection');
       }
     },
   },

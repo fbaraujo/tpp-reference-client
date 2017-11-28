@@ -28,16 +28,11 @@ export default {
   components: { Logout },
   computed: { },
   methods: {
-    logout() {
-      this.$store.dispatch('deleteSession').then(() => {
-        this.$router.push({ path: '/' });
-      });
-    },
     viewBalances() {
       this.$router.push('aspsp-selection');
     },
     makePayment() {
-      this.$router.push('activity-selection');
+      this.$router.push('/activity-selection');
     },
   },
 };
