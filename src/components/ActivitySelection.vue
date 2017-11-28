@@ -5,13 +5,13 @@
       <div class="ui hidden divider"></div>
       <div class="ui divided items">
         <div class="item">
-          <button name="view-balances" class="ui large submit button">
+          <button name="view-balances" class="ui large submit button" @click="viewBalances()">
             View Balances
           </button>
         </div>
         <div class="item">
-          <button name="make-payments" class="ui large submit button">
-            Make Payments
+          <button name="make-payment" class="ui large submit button" @click="makePayment()">
+            Make Payment
           </button>
         </div>
       </div>
@@ -27,5 +27,18 @@ export default {
   name: 'activity-selection',
   components: { Logout },
   computed: { },
+  methods: {
+    logout() {
+      this.$store.dispatch('deleteSession').then(() => {
+        this.$router.push({ path: '/' });
+      });
+    },
+    viewBalances() {
+      this.$router.push('aspsp-selection');
+    },
+    makePayment() {
+      this.$router.push('activity-selection');
+    },
+  },
 };
 </script>
