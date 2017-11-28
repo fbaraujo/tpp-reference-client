@@ -50,7 +50,6 @@ export default {
         p: this.password,
       });
       if (this.$store.getters.isLoggedIn()) {
-        // this.$router.push('aspsp-selection');
         this.$router.push('activity-selection');
       }
     },
