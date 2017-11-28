@@ -5,7 +5,7 @@
       <div class="ui hidden divider"></div>
       <div class="ui divided items">
         <div class="item">
-          <button name="view-balances" class="ui large submit button" @click="viewBalances()">
+          <button name="view-balances" class="ui large submit button view-balances" @click="viewBalances()">
             View Balances
           </button>
         </div>
