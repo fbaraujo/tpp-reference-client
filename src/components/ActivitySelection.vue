@@ -10,8 +10,8 @@
           </button>
         </div>
         <div class="item">
-          <button name="view-balances" class="ui large submit button">
-            Make payments
+          <button name="make-payments" class="ui large submit button">
+            Make Payments
           </button>
         </div>
       </div>
