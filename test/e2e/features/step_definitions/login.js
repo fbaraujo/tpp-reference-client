@@ -32,7 +32,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   When('I login', () => client
     .click('button[name=login]')
-    .waitForElementVisible('#aspsp-selection', 5000));
+    .waitForElementVisible('#activity-selection', 5000));
 
   When('I login with invalid credentials', () => client
     .waitForElementVisible('input[name=u]', 5000)

@@ -6,6 +6,7 @@ Scenario: Logging in and out
   When I open homepage
   Then I see Login page
   When I login
+  And I select View Balances
   And I select an ASPSP
   Then I see Redirection page
   When I wait some time
@@ -44,12 +45,13 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   When I open homepage
   Then I see Login page
   When I login
-  And I select an ASPSP
+  And I select View Balances
+  Then I select an ASPSP
   Then I see Redirection page
   When I wait some time
   Then I see Accounts page
   And I see Account balance
-  When System removes selected aspsp from LocalStore 
+  When System removes selected aspsp from LocalStore
   And I reload page
   Then I see ASPSP selection page
   When I logout
@@ -63,9 +65,10 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   When I open homepage
   Then I see Login page
   When I login
-  And I select an ASPSP
+  And I select View Balances
+  Then I select an ASPSP
   Then I see Redirection page
-  When System removes selected aspsp from LocalStore 
+  When System removes selected aspsp from LocalStore
   And I reload page
   Then I see ASPSP selection page
   When I logout
