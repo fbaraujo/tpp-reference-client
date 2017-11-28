@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="ui container">
-    <h1 class="ui aligned header">Login to view balances</h1>
+    <h1 class="ui aligned header">Login</h1>
     <div class="ui hidden divider"></div>
     <div class="ui error message" v-if="invalidCredentials">
       <div class="header">Invalid username or password</div>
