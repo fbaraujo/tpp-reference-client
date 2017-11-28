@@ -4,8 +4,7 @@
       <div class="ui container">
         <img src="./assets/logo.png" alt="Sample App Logo">
       </div>
-
-      <div>
+      <div v-if="isLoggedIn" >
         <button class="ui icon button" @click="home()">
           <i class="home icon"></i>
         </button>
@@ -19,6 +18,11 @@
 <script>
 export default {
   name: 'app',
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn();
+    },
+  },
   methods: {
     home() {
       this.$router.push('/activity-selection');
