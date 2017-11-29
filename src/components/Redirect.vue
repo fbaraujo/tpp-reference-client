@@ -22,22 +22,24 @@ export default {
     }
   },
   async mounted() {
-    const selectedActivity = this.$store.getters.selectedActivity();
     let action;
+    const selectedActivity = this.$store.getters.selectedActivity();
+    const payload = { aspsp: this.currentAspsp };
 
     switch (selectedActivity) {
       case 'view-balances':
         action = 'accountRequestAuthoriseConsent';
         break;
       case 'make-payment':
-        action = 'accountRequestAuthoriseConsent';
+        action = 'paymentRequestAuthoriseConsent';
+        payload.confirmedPayment = this.$store.getters.confirmedPayment();
         break;
       default:
         throw new Error(`Redirect: Unknown selected activity [${selectedActivity}]!`);
     }
     const result = await Promise.all(
       [
-        this.$store.dispatch(action, this.currentAspsp),
+        this.$store.dispatch(action, payload),
         new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, 'foo')),
       ]);
     const uri = result[0];
