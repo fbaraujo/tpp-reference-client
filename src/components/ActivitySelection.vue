@@ -29,9 +29,11 @@ export default {
   computed: { },
   methods: {
     viewBalances() {
+      this.$store.dispatch('selectActivity', 'view-balances');
       this.$router.push('aspsp-selection');
     },
     makePayment() {
+      this.$store.dispatch('selectActivity', 'make-payment');
       this.$router.push('/activity-selection');
     },
   },
