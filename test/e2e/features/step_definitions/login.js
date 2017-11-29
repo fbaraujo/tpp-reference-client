@@ -27,7 +27,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .waitForElementVisible('#login', 5000)
     .assert.containsText(
       'h1',
-      'Login to view balances',
+      'Login',
     ).assert.elementPresent('button[name=login]'));
 
   When('I login', () => client
