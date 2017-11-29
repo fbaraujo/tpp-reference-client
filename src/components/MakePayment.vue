@@ -7,19 +7,19 @@
         <h4 class="ui dividing header">Enter beneficiary</h4>
         <div class="field">
           <label>Name</label>
-          <input type="text" name="name" placeholder="Full name" v-model="name">
+          <input type="text" name="name" placeholder="Full name" v-model.trim="name">
         </div>
         <div class="field">
           <label>Sort Code</label>
-          <input type="text" name="sort-code" maxlength="6" placeholder="XXXXXX" v-model="sortCode">
+          <input type="text" name="sort-code" maxlength="6" placeholder="XXXXXX" v-model.trim="sortCode">
         </div>
         <div class="field">
           <label>Account Number</label>
-          <input type="text" name="account-number" maxlength="8" placeholder="XXXXXXXX" v-model="accountNumber">
+          <input type="text" name="account-number" maxlength="8" placeholder="XXXXXXXX" v-model.trim="accountNumber">
         </div>
         <div class="field">
           <label>Amount</label>
-          <input type="text" name="amount" placeholder="00.00" v-model="amount">
+          <input type="number" name="amount" placeholder="00.00" step="0.01" min="0" v-model.number="amount">
         </div>
         <button class="ui button" type="submit">Confirm</button>
       </form>
@@ -50,16 +50,20 @@ export default {
         !this.amount) {
         return;
       }
-      if (this.name.trim().length === 0 ||
-        this.sortCode.trim().length === 0 ||
-        this.accountNumber.trim().length === 0 ||
-        this.amount.trim().length === 0) {
+      if (this.name.length === 0 ||
+        this.sortCode.length === 0 ||
+        this.accountNumber.length === 0 ||
+        this.amount.length === 0) {
         return;
       }
-      this.name = this.name.trim();
-      this.sortCode = this.sortCode.trim();
-      this.accountNumber = this.accountNumber.trim();
-      this.amount = this.amount.trim();
+      const payment = {
+        name: this.name,
+        sortCode: this.sortCode,
+        accountNumber: this.accountNumber,
+        amount: this.amount,
+      };
+      this.$store.dispatch('makePayment', payment);
+      this.$router.push('aspsp-selection');
     },
   },
 };
