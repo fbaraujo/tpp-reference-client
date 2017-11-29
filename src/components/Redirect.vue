@@ -22,9 +22,22 @@ export default {
     }
   },
   async mounted() {
+    const selectedActivity = this.$store.getters.selectedActivity();
+    let action;
+
+    switch (selectedActivity) {
+      case 'view-balances':
+        action = 'accountRequestAuthoriseConsent';
+        break;
+      case 'make-payment':
+        action = 'accountRequestAuthoriseConsent';
+        break;
+      default:
+        throw new Error(`Redirect: Unknown selected activity [${selectedActivity}]!`);
+    }
     const result = await Promise.all(
       [
-        this.$store.dispatch('accountRequestAuthoriseConsent', this.currentAspsp),
+        this.$store.dispatch(action, this.currentAspsp),
         new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, 'foo')),
       ]);
     const uri = result[0];
