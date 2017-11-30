@@ -1,4 +1,4 @@
-export const SELECT_ACTIVITY = 'SELECT_ACTIVITY';
+export const CHANGE_SCOPE = 'CHANGE_SCOPE';
 export const ASPSPS_FETCH = 'ASPSPS_FETCH';
 export const ASPSPS_SUCCESS = 'ASPSPS_SUCCESS';
 export const SELECT_ASPSP = 'SELECT_ASPSP';

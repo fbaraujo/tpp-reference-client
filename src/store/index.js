@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import activitySelection from './modules/activity-selection';
+import scope from './modules/scope';
 import accounts from './modules/accounts';
 import aspspAuthorisationServers from './modules/aspsp-authorisation-servers';
 import session from './modules/session';
@@ -10,7 +10,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    activitySelection,
+    scope,
     accounts,
     aspspAuthorisationServers,
     session,
