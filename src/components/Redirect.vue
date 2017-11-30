@@ -23,19 +23,19 @@ export default {
   },
   async mounted() {
     let action;
-    const selectedActivity = this.$store.getters.selectedActivity();
+    const currentScope = this.$store.getters.currentScope();
     const payload = { aspsp: this.currentAspsp };
 
-    switch (selectedActivity) {
-      case 'view-balances':
+    switch (currentScope) {
+      case 'accounts':
         action = 'accountRequestAuthoriseConsent';
         break;
-      case 'make-payment':
+      case 'payments':
         action = 'paymentRequestAuthoriseConsent';
         payload.confirmedPayment = this.$store.getters.confirmedPayment();
         break;
       default:
-        throw new Error(`Redirect: Unknown selected activity [${selectedActivity}]!`);
+        throw new Error(`Redirect: Unknown scope [${currentScope}]!`);
     }
     const result = await Promise.all(
       [

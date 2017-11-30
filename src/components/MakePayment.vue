@@ -7,19 +7,19 @@
         <h4 class="ui dividing header">Enter beneficiary</h4>
         <div class="field">
           <label>Name</label>
-          <input type="text" name="name" placeholder="Full name" v-model.trim="name">
+          <input type="text" name="name" placeholder="Full name" v-model.trim="name"/>
         </div>
         <div class="field">
           <label>Sort Code</label>
-          <input type="text" name="sort-code" maxlength="6" placeholder="XXXXXX" v-model.trim="sortCode">
+          <input type="text" name="sort-code" maxlength="6" placeholder="XXXXXX" v-model.trim="sortCode"/>
         </div>
         <div class="field">
           <label>Account Number</label>
-          <input type="text" name="account-number" maxlength="8" placeholder="XXXXXXXX" v-model.trim="accountNumber">
+          <input type="text" name="account-number" maxlength="8" placeholder="XXXXXXXX" v-model.trim="accountNumber"/>
         </div>
         <div class="field">
           <label>Amount</label>
-          <input type="number" name="amount" placeholder="00.00" step="0.01" min="0" v-model.number="amount">
+          <input type="number" name="amount" placeholder="00.00" step="0.01" min="0" v-model.number="amount"/>
         </div>
         <button class="ui button" type="submit">Confirm</button>
       </form>
@@ -35,10 +35,10 @@ export default {
   name: 'make-payment',
   data() {
     return {
-      name: null,
-      sortCode: null,
-      accountNumber: null,
-      amount: null,
+      name: 'Sam Morse',
+      sortCode: '111111',
+      accountNumber: '12345678',
+      amount: '10.00',
     };
   },
   components: { Logout },
