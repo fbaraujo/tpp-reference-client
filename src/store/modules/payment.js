@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { MAKE_PAYMENT, LOGOUT } from '../mutation-types';
-import { postJson, paymentRequestConsentUri } from '../request';
+import { postJson, paymentConsentUri } from '../request';
 
 const CURRENCY = 'GBP';
 
@@ -41,7 +41,7 @@ const actions = {
         Name: confirmedPayment.name,
       },
     };
-    const response = await postJson(paymentRequestConsentUri, aspspId, body, LOGOUT);
+    const response = await postJson(paymentConsentUri, aspspId, body, LOGOUT);
     if (response.uri) {
       return response.uri;
     }

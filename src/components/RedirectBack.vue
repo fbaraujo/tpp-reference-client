@@ -30,7 +30,7 @@ export default {
     validateSessionId(sessionId) {
       return sessionId === localStorage.getItem('token');
     },
-    retriveAspspIdAndsessionId() {
+    parseState() {
       const stateString = this.$route.query.state;
       let state;
       try {
@@ -41,7 +41,11 @@ export default {
       if (!state.authorisationServerId) {
         throw new Error('Missing ASPSP ID');
       }
-      return { authorisationServerId: state.authorisationServerId, sessionId: state.sessionId };
+      return {
+        authorisationServerId: state.authorisationServerId,
+        sessionId: state.sessionId,
+        scope: state.scope.split(/\s/)[1].toLowerCase(),
+      };
     },
   },
   beforeMount() {
@@ -52,25 +56,31 @@ export default {
       if (!this.validateParams()) {
         throw new Error('Invalid request');
       }
-      const { authorisationServerId, sessionId } = this.retriveAspspIdAndsessionId(); //eslint-disable-line
+      const { authorisationServerId, sessionId, scope } = this.parseState(); //eslint-disable-line
+      this.$store.dispatch('changeScope', scope);
 
-      if (!this.validateSessionId(sessionId)) {
-        throw new Error('Invalid session');
+      if (scope === 'payments') {
+        await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true));
+        this.$router.push('/payment-completed');
+      } else {
+        if (!this.validateSessionId(sessionId)) {
+          throw new Error('Invalid session');
+        }
+        this.$data.message = 'Request validated. Processing...';
+        const authorisationCode = this.$route.query.code;
+
+        const result = await Promise.all(
+          [
+            this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
+            new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true)),
+          ],
+        );
+
+        if (result[0] !== true) {
+          throw new Error('Validation code error');
+        }
+        this.$router.push('/accounts');
       }
-      this.$data.message = 'Request validated. Processing...';
-      const authorisationCode = this.$route.query.code;
-
-      const result = await Promise.all(
-        [
-          this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
-          new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true)),
-        ],
-      );
-
-      if (result[0] !== true) {
-        throw new Error('Validation code error');
-      }
-      this.$router.push('/accounts');
     } catch (e) {
       this.$data.message = `Request invalid. Your request has been cancelled and you will be redirected. ${e.message}`;
       this.$data.visibleRetry = true;

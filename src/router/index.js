@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import ActivitySelection from '@/components/ActivitySelection';
 import MakePayment from '@/components/MakePayment';
+import PaymentCompleted from '@/components/PaymentCompleted';
 import Accounts from '@/components/Accounts';
 import AspspSelection from '@/components/AspspSelection';
 import Login from '@/components/Login';
@@ -22,6 +23,11 @@ const router = new Router({
       path: '/make-payment',
       name: 'MakePayment',
       component: MakePayment,
+    },
+    {
+      path: '/payment-completed',
+      name: 'PaymentCompleted',
+      component: PaymentCompleted,
     },
     {
       path: '/accounts',
