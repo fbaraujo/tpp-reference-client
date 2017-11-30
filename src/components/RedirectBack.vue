@@ -44,7 +44,7 @@ export default {
       return {
         authorisationServerId: state.authorisationServerId,
         sessionId: state.sessionId,
-        scope: state.scope.split(/\s/)[1].toLowerCase(),
+        scope: state.scope && state.scope.split(/\s/)[1].toLowerCase(),
       };
     },
   },
@@ -57,7 +57,10 @@ export default {
         throw new Error('Invalid request');
       }
       const { authorisationServerId, sessionId, scope } = this.parseState(); //eslint-disable-line
-      this.$store.dispatch('changeScope', scope);
+
+      if (scope) {
+        this.$store.dispatch('changeScope', scope);
+      }
 
       if (scope === 'payments') {
         await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true));
