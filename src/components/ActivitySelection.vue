@@ -34,7 +34,7 @@ export default {
     },
     makePayment() {
       this.$store.dispatch('changeScope', 'payments');
-      this.$router.push('/activity-selection');
+      this.$router.push('/make-payment');
     },
   },
 };

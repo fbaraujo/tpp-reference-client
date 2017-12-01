@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 
 export const baseUri = (process.env.API_BASE_URL || 'http://localhost:8003/open-banking/v1.1');
 export const accountRequestConsentUri = baseUri.replace('/open-banking/v1.1', '/account-request-authorise-consent');
+export const paymentConsentUri = baseUri.replace('/open-banking/v1.1', '/payment-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
 const makeHeaders = (fapiFinancialId, authServerId) => {

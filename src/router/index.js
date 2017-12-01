@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Accounts from '@/components/Accounts';
 import ActivitySelection from '@/components/ActivitySelection';
+import MakePayment from '@/components/MakePayment';
+import PaymentCompleted from '@/components/PaymentCompleted';
+import Accounts from '@/components/Accounts';
 import AspspSelection from '@/components/AspspSelection';
 import Login from '@/components/Login';
 import Redirect from '@/components/Redirect';
@@ -13,6 +15,21 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/activity-selection',
+      name: 'ActivitySelection',
+      component: ActivitySelection,
+    },
+    {
+      path: '/make-payment',
+      name: 'MakePayment',
+      component: MakePayment,
+    },
+    {
+      path: '/payment-completed',
+      name: 'PaymentCompleted',
+      component: PaymentCompleted,
+    },
+    {
       path: '/accounts',
       name: 'Accounts',
       component: Accounts,
@@ -21,11 +38,6 @@ const router = new Router({
       path: '/aspsp-selection',
       name: 'AspspSelection',
       component: AspspSelection,
-    },
-    {
-      path: '/activity-selection',
-      name: 'ActivitySelection',
-      component: ActivitySelection,
     },
     {
       path: '/',
