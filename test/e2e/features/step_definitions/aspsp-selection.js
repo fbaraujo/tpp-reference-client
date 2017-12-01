@@ -3,7 +3,7 @@ const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
-  Then('I see ASPSP selection page', () => client
+  Then('I see the ASPSP selection page', () => client
     .waitForElementVisible('#aspsp-selection', 5000)
     .assert.containsText(
       'h1',
