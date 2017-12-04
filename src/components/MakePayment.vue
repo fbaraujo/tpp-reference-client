@@ -1,7 +1,7 @@
 <template>
   <div id="make-payment">
     <div class="ui container">
-      <h1 class="ui aligned header">Make Payment</h1>
+      <h1 class="ui aligned header">Make a payment</h1>
       <div class="ui hidden divider"></div>
       <form class="ui form" @submit.prevent="makePayment({ name, sortCode, accountNumber, amount })">
         <h4 class="ui dividing header">Enter beneficiary</h4>
@@ -21,7 +21,7 @@
           <label>Amount</label>
           <input type="number" name="amount" placeholder="00.00" step="0.01" min="0" v-model.number="amount"/>
         </div>
-        <button class="ui button" type="submit">Confirm</button>
+        <button name="confirm-payment" class="ui button" type="submit">Confirm</button>
       </form>
       <div class="ui hidden divider"></div>
       <logout></logout>
