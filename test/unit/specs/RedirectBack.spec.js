@@ -4,78 +4,55 @@ import router from '@/router';
 import RedirectBack from '@/components/RedirectBack';
 
 describe('RedirectBack.vue with redirection params', () => {
-  it('renders ASPSP name and redirect to balance page', () => {
-    const Construct = Vue.extend(RedirectBack);
-    const vm = new Construct({ store });
+  let vm;
 
+  beforeEach(() => {
+    const Construct = Vue.extend(RedirectBack);
+    vm = new Construct({ store, router });
+  });
+
+  const initRouteState = (code, state) => {
+    if (code) {
+      vm.$route.query.code = code;
+    }
+    if (state) {
+      vm.$route.query.state = state;
+    }
+    vm.$store.commit('LOGIN_SUCCESS');
+    vm.$mount();
+    vm.$data.visibleRetry = true;
+  };
+
+  const assertContentIncludes = async (text) => {
+    await Vue.nextTick();
+    expect(vm.$el.textContent).to.include(text);
+  };
+
+  it('renders ASPSP name and redirect to balance page', () => {
     vm.$store.commit('LOGIN_SUCCESS');
     vm.$mount();
     expect(vm.$el.textContent).to.include('Validating request');
   });
 
-  it('renders Invalid request', (done) => {
-    const Construct = Vue.extend(RedirectBack);
-    const vm = new Construct({ store, router });
-
-    vm.$route.query.code = 'foo';
-
-    vm.$store.commit('LOGIN_SUCCESS');
-    vm.$mount();
-    vm.$data.visibleRetry = true;
-    Vue.nextTick(() => {
-      expect(vm.$el.textContent).to.include('Invalid request');
-      done();
-    });
+  it('renders Invalid request', async () => {
+    initRouteState('foo');
+    await assertContentIncludes('Invalid request');
   });
 
-  it('renders Invalid state format message', (done) => {
-    const Construct = Vue.extend(RedirectBack);
-    const vm = new Construct({ store, router });
-
-    vm.$route.query.code = 'foo';
-    vm.$route.query.state = 'bar';
-
-    vm.$store.commit('LOGIN_SUCCESS');
-    vm.$mount();
-    vm.$data.visibleRetry = true;
-    Vue.nextTick(() => {
-      expect(vm.$el.textContent).to.include('Request invalid. Your request has been cancelled and you will be redirected');
-      done();
-    });
+  it('renders Invalid state format message', async () => {
+    initRouteState('foo', 'bar');
+    await assertContentIncludes('Request invalid. Your request has been cancelled and you will be redirected');
   });
 
-  it('renders Invalid session message', (done) => {
-    const Construct = Vue.extend(RedirectBack);
-    const vm = new Construct({ store, router });
-
-    vm.$route.query.code = 'foo';
-    vm.$route.query.state = 'eyJhdXRob3Jpc2F0aW9uU2VydmVySWQiOiIxIiwgInNlc3Npb25JZCI6IjEifQ==';
-
-    vm.$store.commit('LOGIN_SUCCESS');
-    vm.$mount();
-    vm.$data.visibleRetry = true;
-    Vue.nextTick(() => {
-      expect(vm.$el.textContent).to.include('Invalid session');
-      done();
-    });
+  it('renders Invalid session message', async () => {
+    initRouteState('foo', 'eyJhdXRob3Jpc2F0aW9uU2VydmVySWQiOiIxIiwgInNlc3Npb25JZCI6IjEifQ==');
+    await assertContentIncludes('Invalid session');
   });
 
-  it('renders Processing... message', (done) => {
-    const Construct = Vue.extend(RedirectBack);
-    const vm = new Construct({ store, router });
-
-    vm.$route.query.code = 'foo';
-    vm.$route.query.state = 'eyJhdXRob3Jpc2F0aW9uU2VydmVySWQiOiIxIiwgInNlc3Npb25JZCI6IjEifQ==';
-
-    vm.$store.commit('LOGIN_SUCCESS');
+  it('renders Processing... message', async () => {
     localStorage.setItem('token', 1);
-
-    vm.$mount();
-    vm.$data.visibleRetry = true;
-    Vue.nextTick(() => {
-      expect(vm.$el.textContent).to.include('Processing...');
-      done();
-    });
+    initRouteState('foo', 'eyJhdXRob3Jpc2F0aW9uU2VydmVySWQiOiIxIiwgInNlc3Npb25JZCI6IjEifQ==');
+    await assertContentIncludes('Processing...');
   });
 
   it('sets the correct default data', () => {

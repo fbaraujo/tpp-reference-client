@@ -11,10 +11,7 @@ const balanceText = (balance) => {
   return '';
 };
 
-const singleBalance = (amount, type, direction = 'Credit') => balanceText(
-  balanceData(amount, type, direction),
-);
-
+const singleBalance = (amount, type, direction = 'Credit') => balanceText(balanceData(amount, type, direction));
 
 describe('BalanceAvailable.vue with no available balance', () => {
   it('renders blank', () => expect(balanceText([])).to.equal(''));
@@ -47,4 +44,3 @@ describe('BalanceAvailable.vue with one available debit balance', () => {
     expect(singleBalance(22290, 'OpeningAvailable', 'Debit')).to.equal('-£22,290.00');
   });
 });
-
