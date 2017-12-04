@@ -9,6 +9,7 @@
 
 <script>
 const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
+const { parseState } = require('../utils/redirect-back');
 
 export default {
   name: 'redirect-back',
@@ -30,23 +31,6 @@ export default {
     validateSessionId(sessionId) {
       return sessionId === localStorage.getItem('token');
     },
-    parseState() {
-      const stateString = this.$route.query.state;
-      let state;
-      try {
-        state = JSON.parse(atob(stateString));
-      } catch (e) {
-        throw new Error('Invalid state format');
-      }
-      if (!state.authorisationServerId) {
-        throw new Error('Missing ASPSP ID');
-      }
-      return {
-        authorisationServerId: state.authorisationServerId,
-        sessionId: state.sessionId,
-        scope: state.scope && state.scope.split(/\s/)[1].toLowerCase(),
-      };
-    },
   },
   beforeMount() {
     this.$data.message = 'Validating request';
@@ -56,7 +40,7 @@ export default {
       if (!this.validateParams()) {
         throw new Error('Invalid request');
       }
-      const { authorisationServerId, sessionId, scope } = this.parseState(); //eslint-disable-line
+      const { authorisationServerId, sessionId, scope } = parseState(this.$route.query.state); //eslint-disable-line
 
       if (scope) {
         this.$store.dispatch('changeScope', scope);

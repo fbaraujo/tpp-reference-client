@@ -2,6 +2,7 @@ import Vue from 'vue';
 import store from '@/store';
 import router from '@/router';
 import RedirectBack from '@/components/RedirectBack';
+import { makeState } from './utils/redirect-back.spec';
 
 describe('RedirectBack.vue with redirection params', () => {
   let vm;
@@ -45,13 +46,15 @@ describe('RedirectBack.vue with redirection params', () => {
   });
 
   it('renders Invalid session message', async () => {
-    initRouteState('foo', 'eyJhdXRob3Jpc2F0aW9uU2VydmVySWQiOiIxIiwgInNlc3Npb25JZCI6IjEifQ==');
+    const state = makeState('testAuthId', 'testSession', 'openid accounts');
+    initRouteState('foo', state);
     await assertContentIncludes('Invalid session');
   });
 
   it('renders Processing... message', async () => {
-    localStorage.setItem('token', 1);
-    initRouteState('foo', 'eyJhdXRob3Jpc2F0aW9uU2VydmVySWQiOiIxIiwgInNlc3Npb25JZCI6IjEifQ==');
+    localStorage.setItem('token', 'testSession');
+    const state = makeState('testAuthId', 'testSession', 'openid accounts');
+    initRouteState('foo', state);
     await assertContentIncludes('Processing...');
   });
 

@@ -35,5 +35,7 @@ const bestMatch = (available) => {
   return recent[0];
 };
 
-exports.isAvailableBalance = isAvailableBalance;
-exports.bestMatch = bestMatch;
+export {
+  isAvailableBalance,
+  bestMatch,
+};
