@@ -23,7 +23,7 @@ const actions = {
     return commit(types.LOGIN_ERROR);
   },
   async accountRequestAuthoriseConsent(options, data) {
-    const aspsp = data.aspsp;
+    const { aspsp } = data;
     const aspspId = aspsp.orgId;
     const body = { authorisationServerId: aspsp.id };
     const response = await postJson(accountRequestConsentUri, aspspId, body, types.LOGOUT);
