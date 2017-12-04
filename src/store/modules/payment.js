@@ -25,8 +25,8 @@ const actions = {
     return commit(MAKE_PAYMENT, payment);
   },
   async paymentRequestAuthoriseConsent(context, data) {
-    const aspsp = data.aspsp;
-    const confirmedPayment = data.confirmedPayment;
+    const { aspsp } = data;
+    const { confirmedPayment } = data;
     const aspspId = aspsp.orgId;
     const formattedAmount = parseFloat((confirmedPayment.amount * 100) / 100).toFixed(2);
     const body = {
