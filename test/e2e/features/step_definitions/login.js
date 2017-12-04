@@ -5,6 +5,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   const devServer = 'http://localhost:8080';
   const accountsPath = `${devServer}/accounts`;
+  const paymentCompletedPath = `${devServer}/payment-completed`;
 
   // clear local storage to remove any session tokens
   Given('I am not logged in', () => client
@@ -18,6 +19,9 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   Given('I visit the accounts path', () => client
     .url(accountsPath));
+
+  Given('I visit the payment completed path', () => client
+    .url(paymentCompletedPath));
 
   Given(/^I open the homepage$/, () => client
     .url(devServer)

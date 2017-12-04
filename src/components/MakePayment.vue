@@ -21,7 +21,7 @@
           <label>Amount</label>
           <input type="number" name="amount" placeholder="00.00" step="0.01" min="0" v-model.number="amount"/>
         </div>
-        <button name="confirm-payment" class="ui button" type="submit">Confirm</button>
+        <button name="confirm-payment" class="ui button confirm-payment" type="submit">Confirm</button>
       </form>
       <div class="ui hidden divider"></div>
       <logout></logout>
