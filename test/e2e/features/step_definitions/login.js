@@ -2,10 +2,7 @@ const { client } = require('nightwatch-cucumber');
 const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
-
   const devServer = 'http://localhost:8080';
-  const accountsPath = `${devServer}/accounts`;
-  const paymentCompletedPath = `${devServer}/payment-completed`;
 
   // clear local storage to remove any session tokens
   Given('I am not logged in', () => client
@@ -16,12 +13,6 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .url(devServer)
     .waitForElementVisible('#login', 5000)
     .click('button[name=login]'));
-
-  Given('I visit the accounts path', () => client
-    .url(accountsPath));
-
-  Given('I visit the payment completed path', () => client
-    .url(paymentCompletedPath));
 
   Given(/^I open the homepage$/, () => client
     .url(devServer)
@@ -81,18 +72,4 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
       window.localStorage.removeItem('selectedAspsp');
     }));
 
-  Then('I see the Accounts page', () => client
-    .waitForElementVisible('#accounts', 5000)
-    .assert.containsText(
-      'h1',
-      'Accounts',
-    ));
-
-  Then('I see an Account balance', () => client
-    .waitForElementVisible('.account', 5000)
-    .waitForElementVisible('.balance-booked', 5000)
-    .assert.containsText(
-      '.balance-booked',
-      '£5,800.00',
-    ));
 });
