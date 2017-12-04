@@ -10,7 +10,7 @@
           </button>
         </div>
         <div class="item">
-          <button name="make-payment" class="ui large submit button" @click="makePayment()">
+          <button name="make-payment" class="ui large submit button make-payment" @click="makePayment()">
             Make Payment
           </button>
         </div>
