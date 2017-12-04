@@ -24,4 +24,4 @@ const parseState = (queryState) => {
   return state;
 };
 
-exports.parseState = parseState;
+export { parseState }; // eslint-disable-line
