@@ -2,9 +2,7 @@ const { client } = require('nightwatch-cucumber');
 const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
-
   const devServer = 'http://localhost:8080';
-  const accountsPath = `${devServer}/accounts`;
 
   // clear local storage to remove any session tokens
   Given('I am not logged in', () => client
@@ -16,14 +14,11 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .waitForElementVisible('#login', 5000)
     .click('button[name=login]'));
 
-  Given('I visit accounts path', () => client
-    .url(accountsPath));
-
-  Given(/^I open homepage$/, () => client
+  Given(/^I open the homepage$/, () => client
     .url(devServer)
     .waitForElementVisible('#app', 5000));
 
-  Then(/^I see Login page$/, () => client
+  Then(/^I see the Login page$/, () => client
     .waitForElementVisible('#login', 5000)
     .assert.containsText(
       'h1',
@@ -40,20 +35,20 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .setValue('input[name=u]', 'invalid-user')
     .click('button[name=login]'));
 
-  When('I login and server returns 500 error', () => client
+  When('I login and the server returns 500 error', () => client
     .waitForElementVisible('input[name=u]', 5000)
     .clearValue('input[name=u]')
     .setValue('input[name=u]', 'trigger-error')
     .click('button[name=login]'));
 
-  Then('I see login failure message', () => client
+  Then('I see a login failure message', () => client
     .waitForElementVisible('.error', 5000)
     .assert.containsText(
       'div.header',
       'Invalid username or password',
     ));
 
-  Then('I see login server error message', () => client
+  Then('I see a login server error message', () => client
     .waitForElementVisible('.error', 5000)
     .assert.containsText(
       'div.header',
@@ -63,7 +58,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   When('I logout', () => client
     .click('button[name=logout]'));
 
-  Then('I see Redirection page', () => client
+  Then('I see the Redirection page', () => client
     .waitForElementVisible('#redirect', 300)
     .assert.containsText(
       'div.header',
@@ -72,23 +67,9 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   When('I wait some time', () => {});
 
-  When('System removes selected aspsp from LocalStore', () => client
+  When('System removes the selected aspsp from LocalStore', () => client
     .execute(() => {
       window.localStorage.removeItem('selectedAspsp');
     }));
 
-  Then('I see Accounts page', () => client
-    .waitForElementVisible('#accounts', 5000)
-    .assert.containsText(
-      'h1',
-      'Accounts',
-    ));
-
-  Then('I see Account balance', () => client
-    .waitForElementVisible('.account', 5000)
-    .waitForElementVisible('.balance-booked', 5000)
-    .assert.containsText(
-      '.balance-booked',
-      '£5,800.00',
-    ));
 });

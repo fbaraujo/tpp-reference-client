@@ -3,6 +3,6 @@ const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
-  When('I reload page', () => client
+  When('I reload the page', () => client
     .execute('location.reload();'));
 });

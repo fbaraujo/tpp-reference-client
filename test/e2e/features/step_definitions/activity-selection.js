@@ -7,4 +7,8 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
       .waitForElementVisible('.view-balances', 5000)
       .click('button.view-balances');
   });
+
+  When('I select Make Payment', () => client
+    .waitForElementVisible('.make-payment', 5000)
+    .click('button.make-payment'));
 });

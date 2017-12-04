@@ -13,14 +13,14 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .url(`${devServer}/tpp/authorized?state=1234&code=1234`)
     .waitForElementVisible('#redirect-back', 5000));
 
-  Then(/^I see (.*) message on redirection page$/, (message) => {
+  Then(/^I see (.*) message on the redirection page$/, (message) => {
     client.waitForElementVisible('#redirect-back', 5000).assert.containsText('p.message', message);
   });
 
-  Then('I see ASPSP Selection page', () => client
+  Then('I see the ASPSP Selection page', () => client
     .waitForElementVisible('#aspsp-selection', 5000)
     .assert.containsText(
-      'h1.header',
-      'Select preferred ASPSP account',
-    ));
+    'h1.header',
+    'Select preferred ASPSP account',
+  ));
 });
