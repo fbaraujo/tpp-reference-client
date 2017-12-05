@@ -40,32 +40,29 @@ export default {
       if (!this.validateParams()) {
         throw new Error('Invalid request');
       }
-      const { authorisationServerId, sessionId, scope } = parseState(this.$route.query.state); //eslint-disable-line
-
+      const { authorisationServerId, interactionId, sessionId, scope } = parseState(this.$route.query.state); //eslint-disable-line
+      if (!this.validateSessionId(sessionId)) {
+        throw new Error('Invalid session');
+      }
       if (scope) {
         this.$store.dispatch('changeScope', scope);
       }
+      this.$data.message = 'Request validated. Processing...';
+      const authorisationCode = this.$route.query.code;
+      const result = await Promise.all(
+        [
+          this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
+          new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true)),
+        ],
+      );
+      if (result[0] !== true) {
+        throw new Error('Validation code error');
+      }
 
       if (scope === 'payments') {
-        await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true));
+        await this.$store.dispatch('setPaymentInteractionId', interactionId);
         this.$router.push('/payment-completed');
       } else {
-        if (!this.validateSessionId(sessionId)) {
-          throw new Error('Invalid session');
-        }
-        this.$data.message = 'Request validated. Processing...';
-        const authorisationCode = this.$route.query.code;
-
-        const result = await Promise.all(
-          [
-            this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
-            new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true)),
-          ],
-        );
-
-        if (result[0] !== true) {
-          throw new Error('Validation code error');
-        }
         this.$router.push('/accounts');
       }
     } catch (e) {

@@ -31,6 +31,23 @@ const makeHeaders = (fapiFinancialId, authServerId) => {
   };
 };
 
+const postWithInteractionId = async (endpoint, fapiFinancialId,
+  unauthorizedType, authServerId, interactionId) => {
+  const { headers } = makeHeaders(fapiFinancialId, authServerId);
+  Object.assign(headers, 'x-fapi-interaction-id', interactionId);
+  const uri = `${rootUri}${endpoint}`;
+  const response = await fetch(uri, {
+    method: 'POST',
+    headers,
+  });
+  if (response.status === 201) {
+    return true;
+  } else if (response.status === 401) {
+    return unauthorizedType;
+  }
+  return null;
+};
+
 const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
   const { headers } = makeHeaders(aspsp);
   headers['Content-Type'] = 'application/json';
@@ -93,6 +110,7 @@ const asyncAwaitGetRequest = async (endpoint, fapiFinancialId, unauthorizedType,
   }
 };
 
+export const postPaymentSubmission = postWithInteractionId;
 export const postJson = asyncAwaitPostJson;
 export const request = asyncAwaitGetRequest;
 export const post = asyncAwaitPost;
