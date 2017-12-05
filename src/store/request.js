@@ -34,7 +34,7 @@ const makeHeaders = (fapiFinancialId, authServerId) => {
 const postWithInteractionId = async (endpoint, fapiFinancialId,
   unauthorizedType, authServerId, interactionId) => {
   const { headers } = makeHeaders(fapiFinancialId, authServerId);
-  Object.assign(headers, 'x-fapi-interaction-id', interactionId);
+  headers['x-fapi-interaction-id'] = interactionId;
   const uri = `${rootUri}${endpoint}`;
   const response = await fetch(uri, {
     method: 'POST',
