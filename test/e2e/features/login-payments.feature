@@ -11,7 +11,7 @@ And I confirm payment
 And I select an ASPSP
 Then I see the Redirection page
 When I wait some time
-Then I see the payment completed screen
+Then I see payment completed on screen
 When I logout
 Then I see the Login page
 When I visit the payment completed path

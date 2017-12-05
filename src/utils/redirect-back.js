@@ -9,6 +9,9 @@ const parseState = (queryState) => {
   if (!state.authorisationServerId) {
     throw new Error('Redirect back state missing authorisationServerId');
   }
+  if (!state.interactionId) {
+    throw new Error('Redirect back state missing interactionId');
+  }
   if (!state.sessionId) {
     throw new Error('Redirect back state missing sessionId');
   }

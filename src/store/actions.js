@@ -1,12 +1,6 @@
 import { request, post, postJson, accountRequestConsentUri } from './request';
+import { getSelectedAspsp } from './selected-aspsp';
 import * as types from './mutation-types';
-
-const getSelectedAspsp = () => {
-  if (localStorage.getItem('selectedAspsp')) {
-    return JSON.parse(localStorage.getItem('selectedAspsp'));
-  }
-  throw Error('no selected ASPSP in local storage');
-};
 
 const actions = {
   async createSession({ commit }, credentials) {
@@ -33,6 +27,7 @@ const actions = {
     return null;
   },
   deleteSession({ commit }) {
+    commit(types.PAYMENT_SUBMISSION_RESET);
     localStorage.removeItem('token');
     request('/logout');
     return commit(types.LOGOUT);

@@ -12,6 +12,19 @@ application was initially generated using `vue init pwa` to run the
 For more background, read this
 [Third Party Provider (TPP) Reference Applications overview](https://github.com/OpenBankingUK/reference-applications/blob/master/tpp-reference-applications.md).
 
+## Use latest release
+
+Use the latest release [v0.5.0](https://github.com/OpenBankingUK/tpp-reference-client/releases/tag/v0.5.0).
+
+To obtain the latest release:
+
+```sh
+git clone https://github.com/OpenBankingUK/tpp-reference-client
+git checkout v0.5.0
+```
+
+Note: `master` branch code is actively under development and may not be stable.
+
 ## Build setup
 
 ```bash

@@ -46,14 +46,14 @@ describe('RedirectBack.vue with redirection params', () => {
   });
 
   it('renders Invalid session message', async () => {
-    const state = makeState('testAuthId', 'testSession', 'openid accounts');
+    const state = makeState('testAuthId', 'testInteractionId', 'testSession', 'openid accounts');
     initRouteState('foo', state);
     await assertContentIncludes('Invalid session');
   });
 
   it('renders Processing... message', async () => {
     localStorage.setItem('token', 'testSession');
-    const state = makeState('testAuthId', 'testSession', 'openid accounts');
+    const state = makeState('testAuthId', 'testInteractionId', 'testSession', 'openid accounts');
     initRouteState('foo', state);
     await assertContentIncludes('Processing...');
   });
