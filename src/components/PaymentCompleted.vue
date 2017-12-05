@@ -2,9 +2,9 @@
   <div id="payment-completed">
     <div class="ui container">
       <h1 class="ui aligned header">Payment
-        <span v-if="paymentSubmissionPending">pending</span>
-        <span v-if="paymentSubmissionCompleted">completed</span>
-        <span v-if="paymentSubmissionFailed">failed</span>
+        <span class="pending" v-if="paymentSubmissionPending">pending</span>
+        <span class="completed" v-if="paymentSubmissionCompleted">completed</span>
+        <span class="failed" v-if="paymentSubmissionFailed">failed</span>
       </h1>
       <div class="ui hidden divider"></div>
       <div class="ui message" v-if="paymentSubmissionPending">

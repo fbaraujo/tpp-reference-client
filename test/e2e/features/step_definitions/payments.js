@@ -14,10 +14,10 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
       .click('button.confirm-payment');
   });
 
-  Then('I see the payment completed screen', () => client
-    .waitForElementVisible('#payment-completed', 5000)
+  Then('I see payment completed on screen', () => client
+    .waitForElementVisible('#payment-completed .completed', 5000)
     .assert.containsText(
       'h1',
-      'Payment Completed',
+      'Payment completed',
     ));
 });
