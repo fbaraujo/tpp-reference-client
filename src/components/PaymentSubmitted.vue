@@ -1,9 +1,9 @@
 <template>
-  <div id="payment-completed">
+  <div id="payment-submitted">
     <div class="ui container">
       <h1 class="ui aligned header">Payment
         <span class="pending" v-if="paymentSubmissionPending">pending</span>
-        <span class="completed" v-if="paymentSubmissionCompleted">completed</span>
+        <span class="submitted" v-if="paymentSubmissionSubmitted">submitted</span>
         <span class="failed" v-if="paymentSubmissionFailed">failed</span>
       </h1>
       <div class="ui hidden divider"></div>
@@ -11,11 +11,11 @@
         <div class="header">Payment submission in progress.</div>
         <p>Do not close window.</p>
       </div>
-      <div class="ui message" v-if="paymentSubmissionCompleted">
-        <div class="header">Payment submission completed</div>
+      <div class="ui message" v-if="paymentSubmissionSubmitted">
+        <div class="header">Payment submitted successfully.</div>
       </div>
       <div class="ui message" v-if="paymentSubmissionFailed">
-        <div class="header">Payment submission failed</div>
+        <div class="header">Payment submission failed.</div>
       </div>
       <logout></logout>
     </div>
@@ -26,14 +26,14 @@
 import Logout from './Logout';
 
 export default {
-  name: 'payment-completed',
+  name: 'payment-submitted',
   components: { Logout },
   computed: {
     paymentSubmissionPending() {
       return this.$store.getters.paymentSubmissionPending();
     },
-    paymentSubmissionCompleted() {
-      return this.$store.getters.paymentSubmissionCompleted();
+    paymentSubmissionSubmitted() {
+      return this.$store.getters.paymentSubmissionSubmitted();
     },
     paymentSubmissionFailed() {
       return this.$store.getters.paymentSubmissionFailed();
