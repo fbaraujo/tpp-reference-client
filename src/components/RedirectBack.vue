@@ -61,7 +61,7 @@ export default {
 
       if (scope === 'payments') {
         await this.$store.dispatch('setPaymentInteractionId', interactionId);
-        this.$router.push('/payment-completed');
+        this.$router.push('/payment-submitted');
       } else {
         this.$router.push('/accounts');
       }

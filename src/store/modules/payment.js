@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import {
   MAKE_PAYMENT, LOGOUT, RECEIVE_PAYMENT_INTERACTION_ID,
-  PAYMENT_SUBMISSION_PENDING, PAYMENT_SUBMISSION_COMPLETED,
+  PAYMENT_SUBMISSION_PENDING, PAYMENT_SUBMISSION_SUBMITTED,
   PAYMENT_SUBMISSION_FAILED, PAYMENT_SUBMISSION_RESET } from '../mutation-types';
 import { postJson, paymentConsentUri, postPaymentSubmission } from '../request';
 import { getSelectedAspsp } from '../selected-aspsp';
@@ -23,8 +23,8 @@ const getters = {
   },
   paymentSubmissionPending: state => () =>// eslint-disable-line
     state.status === PAYMENT_SUBMISSION_PENDING,
-  paymentSubmissionCompleted: state => () =>// eslint-disable-line
-    state.status === PAYMENT_SUBMISSION_COMPLETED,
+  paymentSubmissionSubmitted: state => () =>// eslint-disable-line
+    state.status === PAYMENT_SUBMISSION_SUBMITTED,
   paymentSubmissionFailed: state => () =>// eslint-disable-line
     state.status === PAYMENT_SUBMISSION_FAILED,
 };
@@ -39,8 +39,8 @@ const mutations = {
   [PAYMENT_SUBMISSION_PENDING](state) {
     Vue.set(state, 'status', PAYMENT_SUBMISSION_PENDING);
   },
-  [PAYMENT_SUBMISSION_COMPLETED](state) {
-    Vue.set(state, 'status', PAYMENT_SUBMISSION_COMPLETED);
+  [PAYMENT_SUBMISSION_SUBMITTED](state) {
+    Vue.set(state, 'status', PAYMENT_SUBMISSION_SUBMITTED);
   },
   [PAYMENT_SUBMISSION_FAILED](state) {
     Vue.set(state, 'status', PAYMENT_SUBMISSION_FAILED);
@@ -91,7 +91,7 @@ const actions = {
       return dispatch('deleteSession');
     }
     if (response === true) {
-      commit(PAYMENT_SUBMISSION_COMPLETED);
+      commit(PAYMENT_SUBMISSION_SUBMITTED);
       return true;
     }
     commit(PAYMENT_SUBMISSION_FAILED);
