@@ -17,10 +17,11 @@ const actions = {
     return commit(types.LOGIN_ERROR);
   },
   async accountRequestAuthoriseConsent(options, data) {
+    const uri = accountRequestConsentUri;
     const { aspsp } = data;
-    const aspspId = aspsp.orgId;
-    const body = { authorisationServerId: aspsp.id };
-    const response = await postJson(accountRequestConsentUri, aspspId, body, types.LOGOUT);
+    const authorisationServerId = aspsp.id;
+    const body = { authorisationServerId };
+    const response = await postJson(uri, authorisationServerId, body, types.LOGOUT);
     if (response.uri) {
       return response.uri;
     }
@@ -35,7 +36,6 @@ const actions = {
   async populateAccounts({ dispatch, getters }) {
     await dispatch('fetchAccounts');
     const authServerId = getSelectedAspsp().id;
-    // const fapiFinancialId = getSelectedAspsp().orgId;
     const accountIds = getters.accountIds(authServerId);
     accountIds.forEach(async (accountId) => {
       await dispatch('fetchAccountProduct', accountId);
@@ -43,10 +43,9 @@ const actions = {
     });
   },
   async fetchAccounts({ dispatch, commit }) {
-    const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
 
-    const response = await request('/accounts', fapiFinancialId, types.LOGOUT, authServerId);
+    const response = await request('/accounts', types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
@@ -59,10 +58,9 @@ const actions = {
     return null;
   },
   async fetchAccountProduct({ dispatch, commit }, accountId) {
-    const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
 
-    const response = await request(`/accounts/${accountId}/product`, fapiFinancialId, types.LOGOUT, authServerId);
+    const response = await request(`/accounts/${accountId}/product`, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
@@ -75,10 +73,9 @@ const actions = {
     return null;
   },
   async fetchAccountBalances({ dispatch, commit }, accountId) {
-    const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
 
-    const response = await request(`/accounts/${accountId}/balances`, fapiFinancialId, types.LOGOUT, authServerId);
+    const response = await request(`/accounts/${accountId}/balances`, types.LOGOUT, authServerId);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
@@ -91,7 +88,7 @@ const actions = {
     return null;
   },
   async validateAuthCode({ dispatch }, payload) {
-    const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, null, types.LOGOUT);
+    const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, types.LOGOUT);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }

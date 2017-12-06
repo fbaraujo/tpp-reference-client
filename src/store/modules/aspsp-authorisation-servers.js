@@ -51,7 +51,7 @@ const sortByName = (list) => {
 const actions = {
   async fetchAspsps({ commit, dispatch }) {
     commit(ASPSPS_FETCH);
-    const response = await request('/account-payment-service-provider-authorisation-servers', null, LOGOUT);
+    const response = await request('/account-payment-service-provider-authorisation-servers', LOGOUT);
     if (response === LOGOUT) {
       return dispatch('deleteSession');
     } else if (response) {

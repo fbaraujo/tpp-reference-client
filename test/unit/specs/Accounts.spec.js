@@ -7,7 +7,6 @@ const createAspsp = () => {
     id: 'bbb-example-bank-http://bbb-example-bank.example.com',
     logoUri: '',
     name: 'BBB Example Bank',
-    orgId: 'bbb-example-bank',
   };
   return aspsp;
 };
