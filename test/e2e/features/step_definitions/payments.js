@@ -3,7 +3,7 @@ const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   const devServer = 'http://localhost:8080';
-  const paymentCompletedPath = `${devServer}/payment-completed`;
+  const paymentCompletedPath = `${devServer}/payment-submitted`;
 
   Given('I visit the payment completed path', () => client
     .url(paymentCompletedPath));
