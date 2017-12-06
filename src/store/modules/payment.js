@@ -60,7 +60,7 @@ const actions = {
   async paymentRequestAuthoriseConsent({ dispatch }, data) {
     const { aspsp } = data;
     const { confirmedPayment } = data;
-    const aspspId = aspsp.orgId;
+    const authServerId = aspsp.id;
     const formattedAmount = parseFloat((confirmedPayment.amount * 100) / 100).toFixed(2);
     const body = {
       authorisationServerId: aspsp.id,
@@ -74,7 +74,7 @@ const actions = {
         Name: confirmedPayment.name,
       },
     };
-    const response = await postJson(paymentConsentUri, aspspId, body, LOGOUT);
+    const response = await postJson(paymentConsentUri, authServerId, body, LOGOUT);
     if (response === LOGOUT) {
       return dispatch('deleteSession');
     }
@@ -84,10 +84,9 @@ const actions = {
     return null;
   },
   async paymentSubmission({ commit, dispatch }, interactionId) {
-    const fapiFinancialId = getSelectedAspsp().orgId;
     const authServerId = getSelectedAspsp().id;
     commit(PAYMENT_SUBMISSION_PENDING);
-    const response = await postPaymentSubmission('/payment-submissions', fapiFinancialId, LOGOUT, authServerId, interactionId);
+    const response = await postPaymentSubmission('/payment-submissions', LOGOUT, authServerId, interactionId);
     if (response === LOGOUT) {
       return dispatch('deleteSession');
     }
