@@ -6,11 +6,10 @@ export const accountRequestConsentUri = baseUri.replace('/open-banking/v1.1', '/
 export const paymentConsentUri = baseUri.replace('/open-banking/v1.1', '/payment-authorise-consent');
 export const rootUri = `${baseUri.split('/open-banking')[0]}`;
 
-const makeHeaders = (fapiFinancialId, authServerId) => {
-  if (fapiFinancialId) {
+const makeHeaders = (authServerId) => {
+  if (authServerId) {
     return {
       headers: {
-        'x-fapi-financial-id': fapiFinancialId,
         'x-authorization-server-id': authServerId,
         Accept: 'application/json',
         Authorization: localStorage.getItem('token'),
@@ -31,9 +30,9 @@ const makeHeaders = (fapiFinancialId, authServerId) => {
   };
 };
 
-const postWithInteractionId = async (endpoint, fapiFinancialId,
+const postWithInteractionId = async (endpoint,
   unauthorizedType, authServerId, interactionId) => {
-  const { headers } = makeHeaders(fapiFinancialId, authServerId);
+  const { headers } = makeHeaders(authServerId);
   headers['x-fapi-interaction-id'] = interactionId;
   const uri = `${rootUri}${endpoint}`;
   const response = await fetch(uri, {
@@ -48,8 +47,8 @@ const postWithInteractionId = async (endpoint, fapiFinancialId,
   return null;
 };
 
-const asyncAwaitPostJson = async (endpoint, aspsp, data, unauthorizedType) => {
-  const { headers } = makeHeaders(aspsp);
+const asyncAwaitPostJson = async (endpoint, authServerId, data, unauthorizedType) => {
+  const { headers } = makeHeaders(authServerId);
   headers['Content-Type'] = 'application/json';
   const response = await fetch(endpoint, {
     method: 'POST',
@@ -85,12 +84,12 @@ const asyncAwaitPost = async (endpoint, data, unauthorizedType) => {
   return null;
 };
 
-const asyncAwaitGetRequest = async (endpoint, fapiFinancialId, unauthorizedType, authServerId) => {
+const asyncAwaitGetRequest = async (endpoint, unauthorizedType, authServerId) => {
   let uri;
   let sendData;
-  if (fapiFinancialId) {
+  if (authServerId) {
     uri = `${baseUri}${endpoint}`;
-    sendData = makeHeaders(fapiFinancialId, authServerId);
+    sendData = makeHeaders(authServerId);
   } else {
     uri = `${rootUri}${endpoint}`;
     sendData = makeHeaders();
