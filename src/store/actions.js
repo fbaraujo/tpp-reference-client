@@ -28,6 +28,7 @@ const actions = {
     return null;
   },
   deleteSession({ commit }) {
+    commit(types.CLEAR_CONFIRMED_PAYMENT);
     commit(types.PAYMENT_SUBMISSION_RESET);
     localStorage.removeItem('token');
     request('/logout');
