@@ -13,7 +13,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
     .url(`${devServer}/tpp/authorized?state=1234&code=1234`)
     .waitForElementVisible('#redirect-back', 5000));
 
-  Then(/^I see (.*) message on the redirection page$/, (message) => {
+  Then(/^I see an (.*) message on the redirection back page$/, (message) => {
     client.waitForElementVisible('#redirect-back', 5000).assert.containsText('p.message', message);
   });
 

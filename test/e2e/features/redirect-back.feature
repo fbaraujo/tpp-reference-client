@@ -6,7 +6,7 @@ Scenario: Logged in user is redirected back to tpp client with missing query par
   And I select View Balances
   Then I see the ASPSP selection page
   When I get redirected back without code and state parameters
-  Then I see Invalid request message on the redirection page
+  Then I see an Invalid request message on the redirection back page
   When I wait some time
   Then I see the ASPSP Selection page
 
@@ -16,6 +16,6 @@ Scenario: Logged in user is redirected back to tpp client with wrongly formatted
   And I select View Balances
   Then I see the ASPSP selection page
   When I get redirected back with wrongly formatted state parameter
-  Then I see Invalid state format message on the redirection page
+  Then I see an Invalid state format message on the redirection back page
   When I wait some time
   Then I see the ASPSP Selection page

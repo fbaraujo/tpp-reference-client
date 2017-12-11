@@ -48,7 +48,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   Then I see the Redirection page
   When System removes the selected aspsp from LocalStore
   And I reload the page
-  Then I see the ASPSP selection page
+  Then I see the Activity selection page
   When I logout
   Then I see the Login page
   When I visit the accounts path

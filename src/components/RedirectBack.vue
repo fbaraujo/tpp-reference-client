@@ -61,17 +61,17 @@ export default {
 
       if (scope === 'payments') {
         await this.$store.dispatch('setPaymentInteractionId', interactionId);
-        this.$router.push('/payment-submitted');
-      } else {
-        this.$router.push('/accounts');
+        return this.$router.push('/payment-submitted');
       }
+      return this.$router.push('/accounts');
     } catch (e) {
-      this.$data.message = `Request invalid. Your request has been cancelled and you will be redirected. ${e.message}`;
+      this.$data.message = `Unfortunately your request is invalid (${e.message}) and it has been cancelled. In the meantime, you will be redirected to ASPSP selection page. Please feel free to tray again later`;
       this.$data.visibleRetry = true;
       window.setTimeout(() => {
         this.$router.push('/aspsp-selection');
       }, redirectionTime * 1000);
     }
+    return null;
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="redirect" class="ui warning message" >
     <div class="header">Redirection</div>
-    <p>You are now leaving (TPP) and we are securely<br />transfering you over to {{ currentAspsp.name }}</p>
+    <p>{{ message }}</p>
   </div>
 </template>
 
@@ -10,6 +10,9 @@ const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
 
 export default {
   name: 'redirect',
+  data() {
+    return { message: '' };
+  },
   computed: {
     currentAspsp() {
       return this.$store.getters.selectedAspsp();
@@ -17,14 +20,22 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
-    if (!this.currentAspsp) {
-      this.$router.push('/aspsp-selection');
-    }
   },
   async mounted() {
     let action;
     const currentScope = this.$store.getters.currentScope();
-    const payload = { aspsp: this.currentAspsp };
+    if (!currentScope) {
+      this.message = 'Unfortunately you have not selected an activity. You will be redirected to activity selection page.';
+      await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000));
+      return this.$router.push('/activity-selection');
+    }
+
+    const payload = { aspsp: this.$store.getters.selectedAspsp() };
+    if (!payload.aspsp) {
+      this.message = 'Unfortunately you have not selected ASPSP. You will be redirected to ASPSP selection page.';
+      await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000));
+      return this.$router.push('/aspsp-selection');
+    }
 
     switch (currentScope) {
       case 'accounts':
@@ -35,8 +46,9 @@ export default {
         payload.confirmedPayment = this.$store.getters.confirmedPayment();
         break;
       default:
-        throw new Error(`Redirect: Unknown scope [${currentScope}]!`);
+        break;
     }
+
     const result = await Promise.all(
       [
         this.$store.dispatch(action, payload),
@@ -45,9 +57,11 @@ export default {
     const uri = result[0];
     if (uri) {
       window.location = uri;
-    } else {
-      this.$router.push('/aspsp-selection');
+      return null;
     }
+    this.$data.message = `Unfortunately we have been unable to connect to ${this.$store.getters.selectedAspsp().name}. In the meantime, you will be redirected to ASPSP selection page. Please feel free to try again later.`;
+    await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000));
+    return this.$router.push('/aspsp-selection');
   },
 };
 </script>

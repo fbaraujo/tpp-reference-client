@@ -42,7 +42,7 @@ describe('RedirectBack.vue with redirection params', () => {
 
   it('renders Invalid state format message', async () => {
     initRouteState('foo', 'bar');
-    await assertContentIncludes('Request invalid. Your request has been cancelled and you will be redirected');
+    await assertContentIncludes('Unfortunately your request is invalid (Invalid state format)');
   });
 
   it('renders Invalid session message', async () => {
