@@ -9,6 +9,7 @@ Scenario: Logging in and viewing account balance
   And I select View Balances
   And I select an ASPSP
   Then I see the Redirection page
+  And I see the Redirection message to ASPSP
   When I wait some time
   Then I see the Accounts page
   And I see an Account balance
@@ -26,6 +27,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   And I select View Balances
   Then I select an ASPSP
   Then I see the Redirection page
+  And I see the Redirection message to ASPSP
   When I wait some time
   Then I see the Accounts page
   And I see an Account balance
@@ -46,6 +48,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   And I select View Balances
   Then I select an ASPSP
   Then I see the Redirection page
+  And I see the Redirection message to ASPSP
   When System removes the selected aspsp from LocalStore
   And I reload the page
   Then I see the Activity selection page

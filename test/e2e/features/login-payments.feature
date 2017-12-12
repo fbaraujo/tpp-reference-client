@@ -10,6 +10,7 @@ Then I select Make Payment
 And I confirm payment
 And I select an ASPSP
 Then I see the Redirection page
+And I see the Redirection message to ASPSP
 When I wait some time
 Then I see payment submitted on screen
 When I logout

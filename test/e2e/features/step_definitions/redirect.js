@@ -10,4 +10,9 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   Then(/^I see \"(.*)\" message on the redirection page$/, message => client.waitForElementVisible('#redirect', 5000)
     .assert.containsText('#redirect p', message));
+
+  Then('I see the Redirection message to ASPSP', () => client
+    .waitForElementVisible('#redirect', 3000)
+    .assert.containsText('#redirect p', 'You are now leaving (TPP) and we are securely transfering you over to',
+    ));
 });
