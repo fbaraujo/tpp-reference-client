@@ -6,4 +6,5 @@ Scenario: Select from list of ASPSPs in order to add accounts
   And I select View Balances
   Then I see the ASPSP selection page
   When I select an ASPSP
+  And I give consent
   Then I see the Accounts page

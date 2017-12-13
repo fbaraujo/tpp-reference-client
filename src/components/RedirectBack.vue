@@ -28,6 +28,15 @@ export default {
     validateParams() {
       return !!this.$route.query.code && !!this.$route.query.state;
     },
+    checkErrors() {
+      const { error } = this.$route.query;
+      if (error) {
+        if (error === 'access_denied') {
+          throw new Error('authorisation consent not provided');
+        }
+        throw new Error(error);
+      }
+    },
     validateSessionId(sessionId) {
       return sessionId === localStorage.getItem('token');
     },
@@ -37,6 +46,7 @@ export default {
   },
   async mounted() {
     try {
+      this.checkErrors();
       if (!this.validateParams()) {
         throw new Error('Invalid request');
       }
@@ -68,7 +78,7 @@ export default {
       this.$data.message = `Unfortunately your request is invalid (${e.message}) and it has been cancelled. In the meantime, you will be redirected to ASPSP selection page. Please feel free to tray again later`;
       this.$data.visibleRetry = true;
       window.setTimeout(() => {
-        this.$router.push('/aspsp-selection');
+        this.$router.push('/activity-selection');
       }, redirectionTime * 1000);
     }
     return null;

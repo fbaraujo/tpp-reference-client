@@ -10,6 +10,7 @@ Scenario: Logging in and viewing account balance
   And I select an ASPSP
   Then I see the Redirection page
   And I see the Redirection message to ASPSP
+  And I give consent
   When I wait some time
   Then I see the Accounts page
   And I see an Account balance
@@ -29,6 +30,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   Then I see the Redirection page
   And I see the Redirection message to ASPSP
   When I wait some time
+  And I give consent
   Then I see the Accounts page
   And I see an Account balance
   When System removes the selected aspsp from LocalStore
@@ -55,4 +57,21 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   When I logout
   Then I see the Login page
   When I visit the accounts path
+  Then I see the Login page
+
+Scenario: Logging in and try viewing account balance without giving consent
+
+  Given I am not logged in
+  When I open the homepage
+  Then I see the Login page
+  When I login
+  And I select View Balances
+  And I select an ASPSP
+  Then I see the Redirection page
+  And I see the Redirection message to ASPSP
+  And I do not give consent
+  When I wait some time
+  Then I see an authorisation consent not provided message on the redirection back page
+  And I see the Activity selection page
+  When I logout
   Then I see the Login page
