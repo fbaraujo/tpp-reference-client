@@ -2,7 +2,7 @@
   <div class="aspsp-select item">
     <div class="ui hidden divider"></div>
     <div class="ui tiny image">
-      <img src="">
+      <img v-if="hasLogo" :src="logoUri">
     </div>
     <div class="middle aligned content">
       <div class="header">
@@ -20,6 +20,12 @@ export default {
   computed: {
     name() {
       return this.aspsp.name;
+    },
+    logoUri() {
+      return this.aspsp.logoUri;
+    },
+    hasLogo() {
+      return this.logoUri && this.logoUri !== '';
     },
   },
   methods: {
