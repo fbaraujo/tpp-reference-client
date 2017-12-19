@@ -4,7 +4,9 @@ This project contains a
 [reference web application](https://github.com/OpenBankingUK/reference-applications/blob/master/tpp-reference-applications.md)
 that integrates with the
 [Open Banking Read/Write API](https://www.openbanking.org.uk/read-write-apis/)
-to retrieve a customer's account balances. The [Vue.js](https://vuejs.org)
+to retrieve a customer's account balances, and make single immediate payments.
+
+The [Vue.js](https://vuejs.org)
 application was initially generated using `vue init pwa` to run the
 [vue-cli](https://github.com/vuejs/vue-cli) scaffold tool with a
 [Progressive Web Apps template](https://github.com/vuejs-templates/pwa).
@@ -12,15 +14,22 @@ application was initially generated using `vue init pwa` to run the
 For more background, read this
 [Third Party Provider (TPP) Reference Applications overview](https://github.com/OpenBankingUK/reference-applications/blob/master/tpp-reference-applications.md).
 
+## Table of contents
+
+* [Use latest release](#use-latest-release)
+* [Build setup](#build-setup)
+* [Running the app locally / integration tests](#running-the-app-locally--integration-tests)
+* [Deploy to heroku](#deploy-to-heroku)
+
 ## Use latest release
 
-Use the latest release [v0.5.0](https://github.com/OpenBankingUK/tpp-reference-client/releases/tag/v0.5.0).
+Use the latest release [v0.6.0](https://github.com/OpenBankingUK/tpp-reference-client/releases/tag/v0.6.0).
 
 To obtain the latest release:
 
 ```sh
 git clone https://github.com/OpenBankingUK/tpp-reference-client
-git checkout v0.5.0
+git checkout v0.6.0
 ```
 
 Note: `master` branch code is actively under development and may not be stable.
