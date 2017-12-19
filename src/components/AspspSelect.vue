@@ -2,7 +2,7 @@
   <div class="aspsp-select item">
     <div class="ui hidden divider"></div>
     <div class="ui tiny image">
-      <img v-if="hasLogo" :src="logoUri">
+      <img v-if="hasLogo" :src="logoUri" height="40">
     </div>
     <div class="middle aligned content">
       <div class="header">
@@ -25,7 +25,10 @@ export default {
       return this.aspsp.logoUri;
     },
     hasLogo() {
-      return this.logoUri && this.logoUri !== '';
+      // return this.logoUri && this.logoUri !== '';
+      // todo: need to check logo URI valid on server before attempting to display
+      // for now return false
+      return false;
     },
   },
   methods: {
