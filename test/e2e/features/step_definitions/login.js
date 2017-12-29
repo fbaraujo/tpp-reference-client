@@ -4,7 +4,7 @@ const { defineSupportCode } = require('cucumber');
 defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   const devServer = 'http://localhost:8080';
 
-  // clear local storage to remove any session tokens
+  // clear local storage to remove any stored session_ids
   Given('I am not logged in', () => client
     .execute('window.localStorage.clear();'));
 
