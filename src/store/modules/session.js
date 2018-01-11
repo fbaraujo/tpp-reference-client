@@ -9,7 +9,7 @@ import {
 } from '../mutation-types';
 
 const initialState = {
-  isLoggedIn: !!localStorage.getItem('token'),
+  isLoggedIn: !!localStorage.getItem('session_id'),
   invalidCredentials: false,
   pending: false,
 };

@@ -12,14 +12,14 @@ const makeHeaders = (authServerId) => {
       headers: {
         'x-authorization-server-id': authServerId,
         Accept: 'application/json',
-        Authorization: localStorage.getItem('token'),
+        Authorization: localStorage.getItem('session_id'),
       },
     };
-  } else if (localStorage.getItem('token')) {
+  } else if (localStorage.getItem('session_id')) {
     return {
       headers: {
         Accept: 'application/json',
-        Authorization: localStorage.getItem('token'),
+        Authorization: localStorage.getItem('session_id'),
       },
     };
   }

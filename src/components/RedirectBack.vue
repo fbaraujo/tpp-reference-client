@@ -38,7 +38,7 @@ export default {
       }
     },
     validateSessionId(sessionId) {
-      return sessionId === localStorage.getItem('token');
+      return sessionId === localStorage.getItem('session_id');
     },
   },
   beforeMount() {

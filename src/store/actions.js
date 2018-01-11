@@ -11,7 +11,7 @@ const actions = {
     if (result === types.LOGIN_INVALID_CREDENTIALS) {
       return commit(types.LOGIN_INVALID_CREDENTIALS);
     } else if (result) {
-      localStorage.setItem('token', result.sid);
+      localStorage.setItem('session_id', result.sid);
       return commit(types.LOGIN_SUCCESS);
     }
     return commit(types.LOGIN_ERROR);
@@ -27,11 +27,11 @@ const actions = {
     }
     return null;
   },
-  deleteSession({ commit }) {
+  async deleteSession({ commit }) {
     commit(types.CLEAR_CONFIRMED_PAYMENT);
     commit(types.PAYMENT_SUBMISSION_RESET);
-    localStorage.removeItem('token');
-    request('/logout');
+    await request('/logout');
+    localStorage.removeItem('session_id');
     return commit(types.LOGOUT);
   },
   async populateAccounts({ dispatch, getters }) {

@@ -52,7 +52,7 @@ describe('RedirectBack.vue with redirection params', () => {
   });
 
   it('renders Processing... message', async () => {
-    localStorage.setItem('token', 'testSession');
+    localStorage.setItem('session_id', 'testSession');
     const state = makeState('testAuthId', 'testInteractionId', 'testSession', 'openid accounts');
     initRouteState('foo', state);
     await assertContentIncludes('Processing...');
