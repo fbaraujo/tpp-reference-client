@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <main class="ui container">
-      <div class="ui container">
-        <img src="./assets/logo.png" alt="Sample App Logo">
-      </div>
-      <div v-if="isLoggedIn" >
+    <img src="./assets/logo1.png" alt="Sample App Logo">
+    <h1 class="xs-mb6">Madhatter</h1>
+       <div v-if="isLoggedIn" >
         <button class="ui icon button" @click="home()">
           <i class="home icon"></i>
         </button>
       </div>
-      <div class="ui divider"></div>
       <router-view></router-view>
-    </main>
   </div>
 </template>
 

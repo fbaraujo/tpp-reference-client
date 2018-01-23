@@ -1,6 +1,5 @@
 <template>
   <div id="login" class="ui container">
-    <h1 class="ui aligned header">Login</h1>
     <div class="ui hidden divider"></div>
     <div class="ui error message" v-if="invalidCredentials">
       <div class="header">Invalid username or password</div>
@@ -10,10 +9,11 @@
       <div class="header">We are having issues with our login system</div>
       <p>Try again later.</p>
     </div>
-      <form class="ui form" @submit.prevent="login({ username, password })">
+    <div class="xs-mb5">
+      <form class="" @submit.prevent="login({ username, password })">
         <div class="field">
           <label for="username">Username</label>
-          <input name="u" type="text" placeholder="username" v-model="username">
+          <input class="text-gray-lightest" name="u" type="text" placeholder="username" v-model="username">
         </div>
         <div class="field">
           <label for="password">Password</label>
@@ -23,6 +23,7 @@
         Login
         </button>
       </form>
+    </div>
   </div>
 </template>
 
@@ -55,7 +56,7 @@ export default {
 </script>
 
 <style scoped>
-.form, .error, button {
+/*.form, .error, button {
   width: 390px;
-}
+}*/
 </style>
