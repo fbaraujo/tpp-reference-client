@@ -1,18 +1,20 @@
 const { client } = require('nightwatch-cucumber');
 const { defineSupportCode } = require('cucumber');
 
-defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
+defineSupportCode(({ Given, Then, When, After }) => { // eslint-disable-line
   const devServer = 'http://localhost:8080';
 
-  // clear local storage to remove any stored session_ids
-  Given('I am not logged in', () => client
-    .execute('window.localStorage.clear();'));
+  // clear storage to remove any stored session_ids
+  After(() => client.execute(`
+        localStorage.clear();
+        sessionStorage.clear();
+      `).deleteCookies().refresh());
 
   Given('I am logged in', () => client
-    .execute('window.localStorage.clear();')
     .url(devServer)
     .waitForElementVisible('#login', 5000)
-    .click('button[name=login]'));
+    .click('button[name=login]')
+    .waitForElementVisible('#activity-selection', 5000));
 
   Given(/^I open the homepage$/, () => client
     .url(devServer)
@@ -20,10 +22,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   Then(/^I see the Login page$/, () => client
     .waitForElementVisible('#login', 5000)
-    .assert.containsText(
-      'h1',
-      'Login',
-    ).assert.elementPresent('button[name=login]'));
+    .assert.elementPresent('button[name=login]'));
 
   When('I login', () => client
     .click('button[name=login]')
@@ -67,9 +66,8 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   When('I wait some time', () => {});
 
-  When('System removes the selected aspsp from LocalStore', () => client
+  When('System removes the selected ASPSP from LocalStore', () => client
     .execute(() => {
       window.localStorage.removeItem('selectedAspsp');
     }));
-
 });

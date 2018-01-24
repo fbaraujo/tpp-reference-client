@@ -1,6 +1,6 @@
 Feature: User is redirected back from ASPSP after providing consent
 
-Scenario: Logged in user is redirected back to tpp client with missing query parameters
+Scenario: Logged in user is redirected back to TPP client with missing query parameters
 
   Given I am logged in
   And I select View Balances
@@ -10,7 +10,7 @@ Scenario: Logged in user is redirected back to tpp client with missing query par
   When I wait some time
   Then I see the Activity selection page
 
-Scenario: Logged in user is redirected back to tpp client with wrongly formatted state query parameters
+Scenario: Logged in user is redirected back to TPP client with wrongly formatted state query parameters
 
   Given I am logged in
   And I select View Balances
