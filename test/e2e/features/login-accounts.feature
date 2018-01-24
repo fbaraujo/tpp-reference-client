@@ -3,7 +3,7 @@ Feature: Login to see accounts
 Background:
   Given I am logged in
   And I select View Balances
-  Then I select an ASPSP
+  When I select an ASPSP
   Then I see the Redirection page
   And I see the Redirection message to ASPSP
 
