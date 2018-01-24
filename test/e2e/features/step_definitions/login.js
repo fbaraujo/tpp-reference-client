@@ -67,9 +67,8 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
 
   When('I wait some time', () => {});
 
-  When('System removes the selected aspsp from LocalStore', () => client
+  When('System removes the selected ASPSP from LocalStore', () => client
     .execute(() => {
       window.localStorage.removeItem('selectedAspsp');
     }));
-
 });

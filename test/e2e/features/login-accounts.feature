@@ -19,7 +19,7 @@ Scenario: Logging in and viewing account balance
   When I visit the accounts path
   Then I see the Login page
 
-Scenario: Logging in and redirect to aspsp selection page if aspsp not selected on accounts page
+Scenario: Logging in and redirect to ASPSP selection page if ASPSP not selected on accounts page
 
   Given I am not logged in
   When I open the homepage
@@ -33,7 +33,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   And I give consent
   Then I see the Accounts page
   And I see an Account balance
-  When System removes the selected aspsp from LocalStore
+  When System removes the selected ASPSP from LocalStore
   And I reload the page
   Then I see the ASPSP selection page
   When I logout
@@ -41,7 +41,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   When I visit the accounts path
   Then I see the Login page
 
-Scenario: Logging in and redirect to aspsp selection page if aspsp not selected on the redirection page
+Scenario: Logging in and redirect to ASPSP selection page if ASPSP not selected on the redirection page
 
   Given I am not logged in
   When I open the homepage
@@ -51,7 +51,7 @@ Scenario: Logging in and redirect to aspsp selection page if aspsp not selected 
   Then I select an ASPSP
   Then I see the Redirection page
   And I see the Redirection message to ASPSP
-  When System removes the selected aspsp from LocalStore
+  When System removes the selected ASPSP from LocalStore
   And I reload the page
   Then I see the Activity selection page
   When I logout
