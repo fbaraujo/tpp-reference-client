@@ -15,3 +15,7 @@ Scenario: Logging in and viewing account balance
   Then I see the Login page
   When I visit the accounts path
   Then I see the Login page
+  Given I login
+  And I select View Balances
+  Then I see the Accounts page
+  And I see an Account balance
