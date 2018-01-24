@@ -2,9 +2,7 @@ Feature: Making a payment
 
 Scenario: Login to make a payment
 
-  Given I open the homepage
-  Then I see the Login page
-  When I login
+  Given I am logged in
   Then I select Make Payment
   And I confirm payment
   And I select an ASPSP

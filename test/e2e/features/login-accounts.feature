@@ -1,9 +1,7 @@
 Feature: Login to see accounts
 
 Background:
-  When I open the homepage
-  Then I see the Login page
-  When I login
+  Given I am logged in
   And I select View Balances
   Then I select an ASPSP
   Then I see the Redirection page

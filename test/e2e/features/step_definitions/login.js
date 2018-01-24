@@ -13,7 +13,8 @@ defineSupportCode(({ Given, Then, When, After }) => { // eslint-disable-line
   Given('I am logged in', () => client
     .url(devServer)
     .waitForElementVisible('#login', 5000)
-    .click('button[name=login]'));
+    .click('button[name=login]')
+    .waitForElementVisible('#activity-selection', 5000));
 
   Given(/^I open the homepage$/, () => client
     .url(devServer)
@@ -21,10 +22,7 @@ defineSupportCode(({ Given, Then, When, After }) => { // eslint-disable-line
 
   Then(/^I see the Login page$/, () => client
     .waitForElementVisible('#login', 5000)
-    .assert.containsText(
-      'h1',
-      'Login',
-    ).assert.elementPresent('button[name=login]'));
+    .assert.elementPresent('button[name=login]'));
 
   When('I login', () => client
     .click('button[name=login]')
