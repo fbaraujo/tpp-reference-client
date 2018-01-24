@@ -1,7 +1,8 @@
 <template>
   <div id="redirect" class="ui warning message" >
-    <div class="header">Redirection</div>
+    <!-- <div class="header">Redirection</div> -->
     <p>{{ message }}</p>
+      <div><img src="../assets/L1.gif" alt="Animated gif"></div>
   </div>
 </template>
 
@@ -48,7 +49,7 @@ export default {
       default:
         break;
     }
-    this.message = `You are now leaving (TPP) and we are securely transfering you over to ${this.$store.getters.selectedAspsp().name}`;
+    this.message = `You are now leaving Madhatter and we are securely transfering you over to ${this.$store.getters.selectedAspsp().name}`;
     const result = await Promise.all(
       [
         this.$store.dispatch(action, payload),

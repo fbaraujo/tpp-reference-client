@@ -1,7 +1,7 @@
 <template>
   <div id="accounts">
     <div class="ui container">
-      <h1 class="ui aligned header">Accounts from {{ currentAspsp.name }}</h1>
+      <h2 class="ui aligned header">{{ currentAspsp.name }} - Account balances </h2>
       <div class="ui hidden divider"></div>
       <div class="ui error message" v-if="sessionExpired">
         <div class="header">Your session has expired</div>

@@ -1,7 +1,8 @@
 <template>
   <div id="redirect-back" class="ui warning message" >
-    <div class="header">Redirection</div>
-    <p>You are now redirected back<br /> to TPP application</p>
+    <!-- <div class="header">Redirection</div> -->
+    <p>You are now leaving (ASPSP) and<br/> we are transfering you back to Madhatter</p>
+    <div><img src="../assets/L1.gif" alt="Animated gif"></div>
     <p class="message">{{ this.message }}.</p>
     <button v-if='visibleRetry'  v-on:click='retry();'>Click to retry</button>
   </div>
