@@ -2,6 +2,7 @@
   <div id="redirect" class="ui warning message" >
     <div class="header">Redirection</div>
     <p>{{ message }}</p>
+      <div><img src="../assets/L1.gif" alt="Animated gif"></div>
   </div>
 </template>
 

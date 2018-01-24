@@ -12,18 +12,19 @@
     <div class="xs-mb5">
       <form class="" @submit.prevent="login({ username, password })">
         <div class="field">
-          <label for="username">Username</label>
-          <input class="text-gray-lightest" name="u" type="text" placeholder="username" v-model="username">
+          <!--<label for="username">Username</label>-->
+          <input class="text-gray-lightest xs-my2" name="u" type="text" placeholder="username" v-model="username">
         </div>
         <div class="field">
-          <label for="password">Password</label>
+          <!--<label for="password">Password</label>-->
           <input name="p" type="password" placeholder="password" v-model="password">
         </div>
-        <button name="login" class="ui large primary submit button">
+        <button name="login" class="ui large primary submit button xs-my3">
         Login
         </button>
       </form>
     </div>
+    <p class="text-pink">Forgotton your password?</p>
   </div>
 </template>
 

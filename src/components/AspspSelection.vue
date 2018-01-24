@@ -1,9 +1,12 @@
 <template>
   <div id="aspsp-selection">
     <div class="ui container">
-      <h1 class="ui aligned header">Select preferred ASPSP account</h1>
+      <h2 class="ui aligned header">Select preferred ASPSP account</h2>
+      <p>Please select the bank that you would like to view the account balances from. Once you have <br> selected the preferred bank, you will be redirected to login to the bank.
+</p>
       <div class="ui hidden divider"></div>
-      <div class="ui divided items">
+      <div></div>
+      <div class="ui divided items center">
          <aspsp-select v-for="aspsp in aspsps"
            v-bind:key="aspsp.id"
            v-bind:aspsp="aspsp">

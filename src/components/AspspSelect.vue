@@ -4,11 +4,11 @@
     <div class="ui tiny image">
       <img v-if="hasLogo" :src="logoUri" height="40">
     </div>
-    <div class="middle aligned content">
-      <div class="header">
-        <a class="select-aspsp" v-on:click="selectAspsp()">{{ name }}</a>
+    <section>
+      <div class="">
+        <button class="select-aspsp Lrg-px button-two xs-my1" v-on:click="selectAspsp(aspsp)">{{ name }}</button>
       </div>
-    </div>
+    </section>
     <div class="ui hidden divider"></div>
   </div>
 </template>
