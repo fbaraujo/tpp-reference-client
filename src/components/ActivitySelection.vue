@@ -1,18 +1,24 @@
 <template>
   <div id="activity-selection">
     <div class="ui container">
-      <h1 class="ui aligned header">Select activity</h1>
+      <h2 class="ui aligned header xs-mb2">What would you like to do?</h2>
       <div class="ui hidden divider"></div>
       <div class="ui divided items">
         <div class="item">
-          <button name="view-balances" class="ui large submit button view-balances" @click="viewBalances()">
-            View Balances
+          <button name="view-balances" class="Lrg-px button-two xs-my1" @click="viewBalances()">
+            View Account Balances
           </button>
         </div>
         <div class="item">
-          <button name="make-payment" class="ui large submit button make-payment" @click="makePayment()">
-            Make Payment
+          <button name="make-payment" class="Lrg-px button-two xs-my1" @click="makePayment()">
+            Make Payment or Transfer
           </button>
+          <div class="item">
+            <button class="Lrg-px button-two xs-my1">View Transaction History</button>
+          </div>
+          <div class="item">
+            <button class="Lrg-px button-two xs-my1 xs-mb5">Make an Intenational Payment</button>
+          </div>
         </div>
       </div>
       <logout></logout>
