@@ -88,8 +88,9 @@ const actions = {
     }
     return null;
   },
-  async validateAuthCode({ dispatch }, payload) {
-    const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, types.LOGOUT);
+  async validateAuthCode({ dispatch }, { authorisationServerId, authorisationCode, requestId }) {
+    const url = `/tpp/authorized?code=${authorisationCode}&authorisationServerId=${authorisationServerId}&requestId=${requestId}`;
+    const response = await request(url, types.LOGOUT);
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
