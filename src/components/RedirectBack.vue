@@ -50,7 +50,8 @@ export default {
       if (!this.validateParams()) {
         throw new Error('Invalid request');
       }
-      const { authorisationServerId, interactionId, sessionId, scope } = parseState(this.$route.query.state); //eslint-disable-line
+      const state = parseState(this.$route.query.state);
+      const { interactionId, sessionId, scope } = state;
       if (!this.validateSessionId(sessionId)) {
         throw new Error('Invalid session');
       }
@@ -59,9 +60,10 @@ export default {
       }
       this.$data.message = 'Request validated. Processing...';
       const authorisationCode = this.$route.query.code;
+      state.authorisationCode = authorisationCode;
       const result = await Promise.all(
         [
-          this.$store.dispatch('validateAuthCode', { authorisationServerId, authorisationCode }),
+          this.$store.dispatch('validateAuthCode', state),
           new Promise(resolve => setTimeout(resolve, redirectionTime * 1000, true)),
         ],
       );

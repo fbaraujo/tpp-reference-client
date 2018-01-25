@@ -1,4 +1,4 @@
-import { request, post, postJson, accountRequestConsentUri } from './request';
+import { request, post, postJson, accountRequestConsentUri, tppAuthCodeUri } from './request';
 import { getSelectedAspsp } from './selected-aspsp';
 import * as types from './mutation-types';
 
@@ -88,8 +88,12 @@ const actions = {
     }
     return null;
   },
-  async validateAuthCode({ dispatch }, payload) {
-    const response = await request(`/tpp/authorized?code=${payload.authorisationCode}&authorisationServerId=${payload.authorisationServerId}`, types.LOGOUT);
+  async validateAuthCode({ dispatch }, state) {
+    const response = await postJson(
+      tppAuthCodeUri, state.authorisationServerId,
+      state, types.LOGOUT,
+    );
+
     if (response === types.LOGOUT) {
       return dispatch('deleteSession');
     }
