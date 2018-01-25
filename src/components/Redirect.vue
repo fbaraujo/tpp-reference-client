@@ -13,11 +13,6 @@ export default {
   data() {
     return { message: '' };
   },
-  computed: {
-    currentAspsp() {
-      return this.$store.getters.selectedAspsp();
-    },
-  },
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
   },
