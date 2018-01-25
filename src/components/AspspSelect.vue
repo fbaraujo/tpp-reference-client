@@ -34,7 +34,11 @@ export default {
   methods: {
     selectAspsp(aspsp) {
       this.$store.dispatch('selectAspsp', aspsp);
-      this.$router.push('/redirect');
+      if (aspsp.accountsConsentGranted && this.$store.getters.currentScope() === 'accounts') {
+        this.$router.push('/accounts');
+      } else {
+        this.$router.push('/redirect');
+      }
     },
   },
 };
