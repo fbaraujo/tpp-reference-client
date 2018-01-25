@@ -1,11 +1,11 @@
 const { client } = require('nightwatch-cucumber');
 const { defineSupportCode } = require('cucumber');
 
-defineSupportCode(({ Given, Then, When, After }) => { // eslint-disable-line
+defineSupportCode(({ Given, Then, When, Before }) => { // eslint-disable-line
   const devServer = 'http://localhost:8080';
 
   // clear storage to remove any stored session_ids
-  After(() => client.execute(`
+  Before(() => client.execute(`
         localStorage.clear();
         sessionStorage.clear();
       `).deleteCookies().refresh());
