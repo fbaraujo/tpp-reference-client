@@ -1,7 +1,7 @@
 <template>
   <div id="payment-submitted">
     <div class="ui container">
-      <h1 class="ui aligned header">Payment
+      <h1 class="ui aligned header payment-status">Payment
         <span class="pending" v-if="paymentSubmissionPending">pending</span>
         <span class="submitted" v-if="paymentSubmissionSubmitted">submitted</span>
         <span class="failed" v-if="paymentSubmissionFailed">failed</span>

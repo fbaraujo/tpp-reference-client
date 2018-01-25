@@ -1,7 +1,7 @@
 const { client } = require('nightwatch-cucumber');
 const { defineSupportCode } = require('cucumber');
 
-defineSupportCode(({ Given, Then, When }) => {
+defineSupportCode(({ Given, Then }) => {
   const devServer = 'http://localhost:8080';
   const accountsPath = `${devServer}/accounts`;
 
@@ -9,11 +9,7 @@ defineSupportCode(({ Given, Then, When }) => {
     .url(accountsPath));
 
   Then('I see the Accounts page', () => client
-    .waitForElementVisible('#accounts', 5000)
-    .assert.containsText(
-      'h1',
-      'Accounts',
-    ));
+    .waitForElementVisible('#accounts', 5000));
 
   Then('I see an Account balance', () => client
     .waitForElementVisible('.account', 5000)
