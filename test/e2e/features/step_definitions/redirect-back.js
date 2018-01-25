@@ -16,11 +16,4 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   Then(/^I see an (.*) message on the redirection back page$/, (message) => {
     client.waitForElementVisible('#redirect-back', 5000).assert.containsText('p.message', message);
   });
-
-  Then('I see the ASPSP Selection page', () => client
-    .waitForElementVisible('#aspsp-selection', 5000)
-    .assert.containsText(
-    'h1.header',
-    'Select preferred ASPSP account',
-  ));
 });
