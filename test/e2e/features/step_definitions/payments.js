@@ -17,7 +17,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
   Then('I see payment submitted on screen', () => client
     .waitForElementVisible('#payment-submitted .submitted', 5000)
     .assert.containsText(
-      'h1',
+      '.payment-status',
       'Payment submitted',
     ));
 });
