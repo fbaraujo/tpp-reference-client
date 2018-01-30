@@ -1,4 +1,4 @@
-import { request, post, postJson, accountRequestConsentUri, tppAuthCodeUri } from './request';
+import { request, post, postJson, accountRequestConsentUri, revokeAccountConsentUri, tppAuthCodeUri } from './request';
 import { getSelectedAspsp } from './selected-aspsp';
 import * as types from './mutation-types';
 
@@ -21,11 +21,18 @@ const actions = {
     const { aspsp } = data;
     const authorisationServerId = aspsp.id;
     const body = { authorisationServerId };
-    const response = await postJson(uri, authorisationServerId, body, types.LOGOUT);
+    const response = await postJson(uri, authorisationServerId, body, 'BAD_REQUEST');
     if (response.uri) {
       return response.uri;
     }
     return null;
+  },
+  async revokeAccountsConsent({ commit }, authorisationServerId) {
+    const uri = revokeAccountConsentUri;
+    const response = await postJson(uri, authorisationServerId, {}, 'BAD_REQUEST');
+    if (response !== 'BAD_REQUEST') {
+      commit(types.REVOKE_ACCOUNTS_CONSENT, authorisationServerId);
+    }
   },
   async deleteSession({ commit }) {
     commit(types.CLEAR_CONFIRMED_PAYMENT);

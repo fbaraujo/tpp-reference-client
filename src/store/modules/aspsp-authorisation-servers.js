@@ -5,6 +5,7 @@ import {
   ASPSPS_FETCH,
   ASPSPS_SUCCESS,
   LOGOUT,
+  REVOKE_ACCOUNTS_CONSENT,
   SELECT_ASPSP,
 } from '../mutation-types';
 
@@ -26,6 +27,13 @@ const mutations = {
   [ASPSPS_SUCCESS](state, payload) {
     Vue.set(state, 'aspsps', payload);
     Vue.set(state, 'pending', false);
+  },
+  [REVOKE_ACCOUNTS_CONSENT](state, authServerId) {
+    state.aspsps.forEach((aspsp, index) => {
+      if (aspsp.id === authServerId) {
+        Vue.set(state.aspsps, index, Object.assign(aspsp, { accountsConsentGranted: false }));
+      }
+    });
   },
   [SELECT_ASPSP](state, aspsp) {
     Vue.set(state, 'selectedAspsp', aspsp);
