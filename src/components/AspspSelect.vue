@@ -30,11 +30,14 @@ export default {
       // for now return false
       return false;
     },
+    currentScopeAccounts() {
+      return this.$store.getters.currentScope() === 'accounts';
+    },
   },
   methods: {
     selectAspsp(selectedAspsp) {
       this.$store.dispatch('selectAspsp', selectedAspsp);
-      if (selectedAspsp.accountsConsentGranted && this.$store.getters.currentScope() === 'accounts') {
+      if (this.currentScopeAccounts && selectedAspsp.accountsConsentGranted) {
         this.$router.push('/accounts');
       } else {
         this.$router.push('/redirect');
