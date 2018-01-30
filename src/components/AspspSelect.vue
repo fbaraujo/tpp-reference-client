@@ -6,7 +6,11 @@
     </div>
     <div class="middle aligned content">
       <div class="header">
-        <a class="select-aspsp" v-on:click="selectAspsp(aspsp)">{{ name }}</a>
+        <a class="select-aspsp" v-on:click="selectAspsp()">{{ name }}</a>
+        <button v-if="accountsAndConsentGranted" name="revoke-consent"
+        class="ui small button" @click="revokeAccountsConsent()">
+          revoke consent
+        </button>
       </div>
     </div>
     <div class="ui hidden divider"></div>
@@ -33,11 +37,17 @@ export default {
     currentScopeAccounts() {
       return this.$store.getters.currentScope() === 'accounts';
     },
+    accountsAndConsentGranted() {
+      return this.currentScopeAccounts && this.aspsp.accountsConsentGranted;
+    },
   },
   methods: {
-    selectAspsp(selectedAspsp) {
-      this.$store.dispatch('selectAspsp', selectedAspsp);
-      if (this.currentScopeAccounts && selectedAspsp.accountsConsentGranted) {
+    revokeAccountsConsent() {
+      this.$store.dispatch('revokeAccountsConsent', this.aspsp.id);
+    },
+    selectAspsp() {
+      this.$store.dispatch('selectAspsp', this.aspsp);
+      if (this.accountsAndConsentGranted) {
         this.$router.push('/accounts');
       } else {
         this.$router.push('/redirect');
