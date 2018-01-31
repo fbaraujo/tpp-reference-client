@@ -38,10 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoggedIn']),
-    invalidCredentials() {
-      return this.$store.getters.invalidCredentials();
-    },
+    ...mapGetters(['invalidCredentials', 'isLoggedIn']),
     loginError() {
       return this.$store.getters.loginError();
     },

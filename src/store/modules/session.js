@@ -16,9 +16,7 @@ const initialState = {
 
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
-  invalidCredentials: state => () => { // eslint-disable-line
-    return state.invalidCredentials;
-  },
+  invalidCredentials: state => state.invalidCredentials,
   loginError: state => () => { // eslint-disable-line
     return state.loginError;
   },
