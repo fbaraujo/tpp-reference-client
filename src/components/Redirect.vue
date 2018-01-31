@@ -16,14 +16,14 @@ export default {
     return { message: '' };
   },
   computed: {
-    ...mapGetters(['selectedAspsp']),
+    ...mapGetters(['currentScope', 'selectedAspsp']),
   },
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
   },
   async mounted() {
     let action;
-    const currentScope = this.$store.getters.currentScope();
+    const currentScope = this.currentScope;
     if (!currentScope) {
       this.message = 'Unfortunately you have not selected an activity. You will be redirected to activity selection page.';
       await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000));
