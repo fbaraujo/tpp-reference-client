@@ -38,10 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['invalidCredentials', 'isLoggedIn']),
-    loginError() {
-      return this.$store.getters.loginError();
-    },
+    ...mapGetters(['invalidCredentials', 'isLoggedIn', 'loginError']),
   },
   methods: {
     async login() {
