@@ -2,6 +2,7 @@
   <div id="accounts">
     <div class="ui container">
       <h1 class="ui aligned header">Accounts from {{ selectedAspsp.name }}</h1>
+      <revoke-accounts-consent :aspsp="selectedAspsp"/>
       <div class="ui hidden divider"></div>
       <div class="ui error message" v-if="sessionExpired">
         <div class="header">Your session has expired</div>
@@ -13,7 +14,7 @@
         v-bind:aspsp="selectedAspsp.id">
       </account>
       <div class="ui hidden divider"></div>
-      <logout></logout>
+      <logout/>
     </div>
   </div>
 </template>
@@ -22,10 +23,11 @@
 import { mapGetters } from 'vuex';
 import Account from './Account';
 import Logout from './Logout';
+import RevokeAccountsConsent from './RevokeAccountsConsent';
 
 export default {
   name: 'accounts',
-  components: { Account, Logout },
+  components: { Account, Logout, RevokeAccountsConsent },
   computed: {
     sessionExpired() {
       return !this.isLoggedIn;

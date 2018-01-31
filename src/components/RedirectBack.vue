@@ -43,6 +43,7 @@ export default {
   },
   beforeMount() {
     this.$data.message = 'Validating request';
+    this.$store.dispatch('refreshSelectedAspsp');
   },
   async mounted() {
     try {
@@ -75,7 +76,12 @@ export default {
         await this.$store.dispatch('setPaymentInteractionId', interactionId);
         return this.$router.push('/payment-submitted');
       }
-      return this.$router.push('/accounts');
+      if (scope === 'accounts') {
+        const aspspId = this.$store.getters.selectedAspsp().id;
+        this.$store.dispatch('accountsConsentGranted', aspspId);
+        return this.$router.push('/accounts');
+      }
+      return this.$router.push('aspsp-selection');
     } catch (e) {
       this.$data.message = `Unfortunately your request is invalid (${e.message}) and it has been cancelled. In the meantime, you will be redirected to ASPSP selection page. Please feel free to tray again later`;
       this.$data.visibleRetry = true;

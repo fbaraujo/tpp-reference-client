@@ -10,6 +10,7 @@ Scenario: Logging in and redirect to ASPSP selection page if ASPSP not selected 
 
   And I give consent
   Then I see the Accounts page
+  And I revoke consent
   When System removes the selected ASPSP from LocalStore
   And I reload the page
   Then I see the ASPSP selection page

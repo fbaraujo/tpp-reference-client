@@ -7,10 +7,6 @@
     <div class="middle aligned content">
       <div class="header">
         <a class="select-aspsp" v-on:click="selectAspsp()">{{ name }}</a>
-        <button v-if="accountsAndConsentGranted" name="revoke-consent"
-        class="ui small button" @click="revokeAccountsConsent()">
-          revoke consent
-        </button>
       </div>
     </div>
     <div class="ui hidden divider"></div>
@@ -18,6 +14,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'aspsp-select',
   props: ['aspsp'],
@@ -34,17 +32,15 @@ export default {
       // for now return false
       return false;
     },
+    ...mapGetters(['currentScope']),
     currentScopeAccounts() {
-      return this.$store.getters.currentScope() === 'accounts';
+      return this.currentScope === 'accounts';
     },
     accountsAndConsentGranted() {
       return this.currentScopeAccounts && this.aspsp.accountsConsentGranted;
     },
   },
   methods: {
-    revokeAccountsConsent() {
-      this.$store.dispatch('revokeAccountsConsent', this.aspsp.id);
-    },
     selectAspsp() {
       this.$store.dispatch('selectAspsp', this.aspsp);
       if (this.accountsAndConsentGranted) {
