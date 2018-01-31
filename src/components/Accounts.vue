@@ -28,9 +28,9 @@ export default {
   components: { Account, Logout },
   computed: {
     sessionExpired() {
-      return !this.$store.getters.isLoggedIn();
+      return !this.isLoggedIn;
     },
-    ...mapGetters(['selectedAspsp']),
+    ...mapGetters(['isLoggedIn', 'selectedAspsp']),
     accounts() {
       const accounts = this.$store.getters.accounts(this.selectedAspsp.id);
       if (!Array.isArray(accounts) || accounts.length === 0) {

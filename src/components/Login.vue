@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'login',
   data() {
@@ -36,6 +38,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['isLoggedIn']),
     invalidCredentials() {
       return this.$store.getters.invalidCredentials();
     },
@@ -49,7 +52,7 @@ export default {
         u: this.username,
         p: this.password,
       });
-      if (this.$store.getters.isLoggedIn()) {
+      if (this.isLoggedIn) {
         this.$router.push('/activity-selection');
       }
     },
