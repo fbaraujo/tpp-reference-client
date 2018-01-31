@@ -1,8 +1,12 @@
 <template>
-  <button v-if="accountsAndConsentGranted" name="revoke-consent"
-  class="ui small button" @click="revokeAccountsConsent()">
-    revoke consent
-  </button>
+  <div class="revoke-consent">
+    <button v-if="accountsAndConsentGranted" name="revoke-consent"
+      class="ui small button" @click="revokeAccountsConsent()">
+      Revoke consent
+    </button>
+    <span v-if="!accountsAndConsentGranted"
+      class="ui positive message">Consent revoked</span>
+  </div>
 </template>
 
 <script>
@@ -23,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-  button[name=revoke-consent] {
+  .revoke-consent {
     float: right;
   }
 </style>
