@@ -46,6 +46,7 @@ export default {
   },
   beforeMount() {
     this.$data.message = 'Validating request';
+    this.$store.dispatch('refreshSelectedAspsp');
     this.$store.dispatch('fetchAspsps');
   },
   async mounted() {

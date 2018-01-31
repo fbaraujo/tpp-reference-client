@@ -48,7 +48,7 @@ export default {
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
     if (!this.currentAspsp) {
-      this.$router.push('aspsp-selection');
+      this.$router.push('/aspsp-selection');
     }
   },
 };
