@@ -43,7 +43,7 @@ export default {
         break;
       case 'payments':
         action = 'paymentRequestAuthoriseConsent';
-        payload.confirmedPayment = this.$store.getters.confirmedPayment();
+        payload.confirmedPayment = this.$store.getters.confirmedPayment;
         break;
       default:
         break;

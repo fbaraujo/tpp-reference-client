@@ -26,7 +26,6 @@ import Logout from './Logout';
 export default {
   name: 'activity-selection',
   components: { Logout },
-  computed: { },
   methods: {
     viewBalances() {
       this.$store.dispatch('changeScope', 'accounts');
