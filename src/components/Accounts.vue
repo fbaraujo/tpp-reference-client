@@ -1,7 +1,7 @@
 <template>
   <div id="accounts">
     <div class="ui container">
-      <h1 class="ui aligned header">Accounts from {{ currentAspsp.name }}</h1>
+      <h1 class="ui aligned header">Accounts from {{ selectedAspsp.name }}</h1>
       <div class="ui hidden divider"></div>
       <div class="ui error message" v-if="sessionExpired">
         <div class="header">Your session has expired</div>
@@ -10,7 +10,7 @@
       <account v-for="account in accounts"
         v-bind:key="account.AccoundId"
         v-bind:account="account"
-        v-bind:aspsp="aspsp">
+        v-bind:aspsp="selectedAspsp.id">
       </account>
       <div class="ui hidden divider"></div>
       <logout></logout>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Account from './Account';
 import Logout from './Logout';
 
@@ -29,14 +30,9 @@ export default {
     sessionExpired() {
       return !this.$store.getters.isLoggedIn();
     },
-    currentAspsp() {
-      return this.$store.getters.selectedAspsp();
-    },
-    aspsp() {
-      return this.currentAspsp.id;
-    },
+    ...mapGetters(['selectedAspsp']),
     accounts() {
-      const accounts = this.$store.getters.accounts(this.aspsp);
+      const accounts = this.$store.getters.accounts(this.selectedAspsp.id);
       if (!Array.isArray(accounts) || accounts.length === 0) {
         this.$store.dispatch('populateAccounts');
       }
@@ -45,7 +41,7 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
-    if (!this.currentAspsp) {
+    if (!this.selectedAspsp) {
       this.$router.push('aspsp-selection');
     }
   },

@@ -18,7 +18,7 @@ const getters = {
   aspsps: state => () => { // eslint-disable-line
     return state.aspsps;
   },
-  selectedAspsp: state => () => { // eslint-disable-line
+  selectedAspsp: state => { // eslint-disable-line
     return state.selectedAspsp;
   },
 };

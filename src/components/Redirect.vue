@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
 
 export default {
@@ -14,9 +16,7 @@ export default {
     return { message: '' };
   },
   computed: {
-    currentAspsp() {
-      return this.$store.getters.selectedAspsp();
-    },
+    ...mapGetters(['selectedAspsp']),
   },
   beforeMount() {
     this.$store.dispatch('refreshSelectedAspsp');
@@ -30,7 +30,7 @@ export default {
       return this.$router.push('/activity-selection');
     }
 
-    const payload = { aspsp: this.$store.getters.selectedAspsp() };
+    const payload = { aspsp: this.selectedAspsp };
     if (!payload.aspsp) {
       this.message = 'Unfortunately you have not selected ASPSP. You will be redirected to ASPSP selection page.';
       await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000));
@@ -48,7 +48,7 @@ export default {
       default:
         break;
     }
-    this.message = `You are now leaving (TPP) and we are securely transfering you over to ${this.$store.getters.selectedAspsp().name}`;
+    this.message = `You are now leaving (TPP) and we are securely transfering you over to ${this.selectedAspsp.name}`;
     const result = await Promise.all(
       [
         this.$store.dispatch(action, payload),
@@ -59,7 +59,7 @@ export default {
       window.location = uri;
       return null;
     }
-    this.$data.message = `Unfortunately we have been unable to connect to ${this.$store.getters.selectedAspsp().name}. In the meantime, you will be redirected to ASPSP selection page. Please feel free to try again later.`;
+    this.$data.message = `Unfortunately we have been unable to connect to ${this.selectedAspsp.name}. In the meantime, you will be redirected to ASPSP selection page. Please feel free to try again later.`;
     await new Promise(resolve => setTimeout(resolve, redirectionTime * 1000));
     return this.$router.push('/aspsp-selection');
   },
