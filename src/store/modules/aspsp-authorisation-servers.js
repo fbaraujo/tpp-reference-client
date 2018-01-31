@@ -18,6 +18,9 @@ const initialState = {
 const getters = {
   aspsps: state => state.aspsps,
   selectedAspsp: state => state.selectedAspsp,
+  aspsp: state => (authorisationServerId) => { // eslint-disable-line
+    return state.aspsps.find(aspsp => aspsp.id === authorisationServerId);
+  },
 };
 
 const mutations = {
