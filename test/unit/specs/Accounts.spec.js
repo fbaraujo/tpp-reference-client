@@ -4,6 +4,7 @@ import Accounts from '@/components/Accounts';
 
 const createAspsp = () => {
   const aspsp = {
+    accountsConsentGranted: true,
     id: 'bbb-example-bank-http://bbb-example-bank.example.com',
     logoUri: '',
     name: 'BBB Example Bank',
@@ -18,6 +19,7 @@ describe('Accounts.vue with selected ASPSP', () => {
     const aspsp = createAspsp();
 
     vm.$store.commit('LOGIN_SUCCESS');
+    vm.$store.commit('ASPSPS_SUCCESS', [aspsp]);
     vm.$store.dispatch('selectAspsp', aspsp);
     vm.$mount();
     expect(vm.$el.textContent).to.include(`Accounts from ${aspsp.name}`);

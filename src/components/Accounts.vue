@@ -2,6 +2,7 @@
   <div id="accounts">
     <div class="ui container">
       <h1 class="ui aligned header">Accounts from {{ currentAspsp.name }}</h1>
+      <revoke-accounts-consent :aspsp="currentAspsp"/>
       <div class="ui hidden divider"></div>
       <div class="ui error message" v-if="sessionExpired">
         <div class="header">Your session has expired</div>
@@ -10,10 +11,10 @@
       <account v-for="account in accounts"
         v-bind:key="account.AccoundId"
         v-bind:account="account"
-        v-bind:aspsp="aspsp">
+        v-bind:aspsp="authServerId">
       </account>
       <div class="ui hidden divider"></div>
-      <logout></logout>
+      <logout/>
     </div>
   </div>
 </template>
@@ -21,10 +22,11 @@
 <script>
 import Account from './Account';
 import Logout from './Logout';
+import RevokeAccountsConsent from './RevokeAccountsConsent';
 
 export default {
   name: 'accounts',
-  components: { Account, Logout },
+  components: { Account, Logout, RevokeAccountsConsent },
   computed: {
     sessionExpired() {
       return !this.$store.getters.isLoggedIn();
@@ -32,11 +34,11 @@ export default {
     currentAspsp() {
       return this.$store.getters.selectedAspsp();
     },
-    aspsp() {
+    authServerId() {
       return this.currentAspsp.id;
     },
     accounts() {
-      const accounts = this.$store.getters.accounts(this.aspsp);
+      const accounts = this.$store.getters.accounts(this.authServerId);
       if (!Array.isArray(accounts) || accounts.length === 0) {
         this.$store.dispatch('populateAccounts');
       }
