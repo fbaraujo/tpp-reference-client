@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const getters = {
-  currentScope: state => () => state.scope,
+  currentScope: state => state.scope,
 };
 
 const mutations = {

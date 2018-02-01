@@ -5,12 +5,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'logout',
   computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn();
-    },
+    ...mapGetters(['isLoggedIn']),
   },
   methods: {
     logout() {

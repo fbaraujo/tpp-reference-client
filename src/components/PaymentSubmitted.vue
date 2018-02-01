@@ -23,24 +23,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Logout from './Logout';
 
 export default {
   name: 'payment-submitted',
   components: { Logout },
   computed: {
-    paymentSubmissionPending() {
-      return this.$store.getters.paymentSubmissionPending();
-    },
-    paymentSubmissionSubmitted() {
-      return this.$store.getters.paymentSubmissionSubmitted();
-    },
-    paymentSubmissionFailed() {
-      return this.$store.getters.paymentSubmissionFailed();
-    },
+    ...mapGetters([
+      'paymentSubmissionFailed',
+      'paymentSubmissionPending',
+      'paymentSubmissionSubmitted',
+      'paymentInteractionId',
+    ]),
   },
   beforeMount() {
-    const interactionId = this.$store.getters.paymentInteractionId();
+    const interactionId = this.paymentInteractionId;
     this.$store.dispatch('paymentSubmission', interactionId);
   },
 };

@@ -16,17 +16,15 @@ const initialState = {
 };
 
 const getters = {
-  confirmedPayment: state => () => { // eslint-disable-line
-    return state.confirmedPayment;
-  },
-  paymentInteractionId: state => () => {  // eslint-disable-line
-    return state.paymentInteractionId;
-  },
-  paymentSubmissionPending: state => () =>// eslint-disable-line
+  confirmedPayment: state =>
+    state.confirmedPayment,
+  paymentInteractionId: state =>
+    state.paymentInteractionId,
+  paymentSubmissionPending: state =>
     state.status === PAYMENT_SUBMISSION_PENDING,
-  paymentSubmissionSubmitted: state => () =>// eslint-disable-line
+  paymentSubmissionSubmitted: state =>
     state.status === PAYMENT_SUBMISSION_SUBMITTED,
-  paymentSubmissionFailed: state => () =>// eslint-disable-line
+  paymentSubmissionFailed: state =>
     state.status === PAYMENT_SUBMISSION_FAILED,
 };
 

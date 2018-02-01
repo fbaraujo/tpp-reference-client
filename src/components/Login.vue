@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'login',
   data() {
@@ -36,12 +38,7 @@ export default {
     };
   },
   computed: {
-    invalidCredentials() {
-      return this.$store.getters.invalidCredentials();
-    },
-    loginError() {
-      return this.$store.getters.loginError();
-    },
+    ...mapGetters(['invalidCredentials', 'isLoggedIn', 'loginError']),
   },
   methods: {
     async login() {
@@ -49,7 +46,7 @@ export default {
         u: this.username,
         p: this.password,
       });
-      if (this.$store.getters.isLoggedIn()) {
+      if (this.isLoggedIn) {
         this.$router.push('/activity-selection');
       }
     },

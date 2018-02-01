@@ -16,12 +16,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'app',
   computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn();
-    },
+    ...mapGetters(['isLoggedIn']),
   },
   methods: {
     home() {

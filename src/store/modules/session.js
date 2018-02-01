@@ -15,15 +15,9 @@ const initialState = {
 };
 
 const getters = {
-  isLoggedIn: state => () => { // eslint-disable-line
-    return state.isLoggedIn;
-  },
-  invalidCredentials: state => () => { // eslint-disable-line
-    return state.invalidCredentials;
-  },
-  loginError: state => () => { // eslint-disable-line
-    return state.loginError;
-  },
+  isLoggedIn: state => state.isLoggedIn,
+  invalidCredentials: state => state.invalidCredentials,
+  loginError: state => state.loginError,
 };
 
 const mutations = {

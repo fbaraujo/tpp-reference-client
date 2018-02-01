@@ -24,7 +24,7 @@ export default {
   components: { AspspSelect, Logout },
   computed: {
     aspsps() {
-      const aspsps = this.$store.getters.aspsps();
+      const aspsps = this.$store.getters.aspsps;
       if (!Array.isArray(aspsps) || aspsps.length === 0) {
         this.$store.dispatch('fetchAspsps');
       }

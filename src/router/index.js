@@ -58,7 +58,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = router.app.$store.getters.isLoggedIn();
+  const loggedIn = router.app.$store.getters.isLoggedIn;
   if (!loggedIn && to.path !== '/') {
     next({
       path: '/',
