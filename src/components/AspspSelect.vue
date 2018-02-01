@@ -6,7 +6,7 @@
     </div>
     <div class="middle aligned content">
       <div class="header">
-        <a class="select-aspsp" v-on:click="selectAspsp(aspsp)">{{ name }}</a>
+        <a class="select-aspsp" v-on:click="selectAspsp()">{{ name }}</a>
       </div>
     </div>
     <div class="ui hidden divider"></div>
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'aspsp-select',
   props: ['aspsp'],
@@ -30,11 +32,22 @@ export default {
       // for now return false
       return false;
     },
+    ...mapGetters(['currentScope']),
+    currentScopeAccounts() {
+      return this.currentScope === 'accounts';
+    },
+    accountsAndConsentGranted() {
+      return this.currentScopeAccounts && this.aspsp.accountsConsentGranted;
+    },
   },
   methods: {
-    selectAspsp(aspsp) {
-      this.$store.dispatch('selectAspsp', aspsp);
-      this.$router.push('/redirect');
+    selectAspsp() {
+      this.$store.dispatch('selectAspsp', this.aspsp);
+      if (this.accountsAndConsentGranted) {
+        this.$router.push('/accounts');
+      } else {
+        this.$router.push('/redirect');
+      }
     },
   },
 };

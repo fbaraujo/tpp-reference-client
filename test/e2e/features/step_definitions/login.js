@@ -25,6 +25,7 @@ defineSupportCode(({ Given, Then, When, Before }) => { // eslint-disable-line
     .assert.elementPresent('button[name=login]'));
 
   When('I login', () => client
+    .waitForElementVisible('button[name=login]', 5000)
     .click('button[name=login]')
     .waitForElementVisible('#activity-selection', 5000));
 

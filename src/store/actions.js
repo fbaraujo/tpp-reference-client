@@ -21,7 +21,7 @@ const actions = {
     const { aspsp } = data;
     const authorisationServerId = aspsp.id;
     const body = { authorisationServerId };
-    const response = await postJson(uri, authorisationServerId, body, types.LOGOUT);
+    const response = await postJson(uri, authorisationServerId, body, 'BAD_REQUEST');
     if (response.uri) {
       return response.uri;
     }

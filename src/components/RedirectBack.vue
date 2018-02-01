@@ -43,6 +43,8 @@ export default {
   },
   beforeMount() {
     this.$data.message = 'Validating request';
+    this.$store.dispatch('refreshSelectedAspsp');
+    this.$store.dispatch('fetchAspsps');
   },
   async mounted() {
     try {
@@ -51,7 +53,7 @@ export default {
         throw new Error('Invalid request');
       }
       const state = parseState(this.$route.query.state);
-      const { interactionId, sessionId, scope } = state;
+      const { interactionId, sessionId, scope, authorisationServerId } = state;
       if (!this.validateSessionId(sessionId)) {
         throw new Error('Invalid session');
       }
@@ -71,11 +73,18 @@ export default {
         throw new Error('Validation code error');
       }
 
+      const aspsp = this.$store.getters.aspsp(authorisationServerId);
+      this.$store.dispatch('selectAspsp', aspsp);
+
       if (scope === 'payments') {
         await this.$store.dispatch('setPaymentInteractionId', interactionId);
         return this.$router.push('/payment-submitted');
       }
-      return this.$router.push('/accounts');
+      if (scope === 'accounts') {
+        this.$store.dispatch('accountsConsentGranted', authorisationServerId);
+        return this.$router.push('/accounts');
+      }
+      return this.$router.push('aspsp-selection');
     } catch (e) {
       this.$data.message = `Unfortunately your request is invalid (${e.message}) and it has been cancelled. In the meantime, you will be redirected to ASPSP selection page. Please feel free to tray again later`;
       this.$data.visibleRetry = true;

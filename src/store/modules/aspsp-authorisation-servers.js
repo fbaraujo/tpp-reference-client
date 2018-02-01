@@ -1,7 +1,8 @@
 import Vue from 'vue';
-import { request } from '../request';
+import { postJson, request, revokeAccountConsentUri } from '../request';
 
 import {
+  ACCOUNTS_CONSENT_CHANGE,
   ASPSPS_FETCH,
   ASPSPS_SUCCESS,
   LOGOUT,
@@ -17,6 +18,9 @@ const initialState = {
 const getters = {
   aspsps: state => state.aspsps,
   selectedAspsp: state => state.selectedAspsp,
+  aspsp: state => (authorisationServerId) => { // eslint-disable-line
+    return state.aspsps.find(aspsp => aspsp.id === authorisationServerId);
+  },
 };
 
 const mutations = {
@@ -27,7 +31,21 @@ const mutations = {
     Vue.set(state, 'aspsps', payload);
     Vue.set(state, 'pending', false);
   },
+  [ACCOUNTS_CONSENT_CHANGE](state, { authorisationServerId, accountsConsentGranted }) {
+    if (state.selectedAspsp.id === authorisationServerId) {
+      const updatedAspsp = Object.assign(state.selectedAspsp, { accountsConsentGranted });
+      localStorage.setItem('selectedAspsp', JSON.stringify(updatedAspsp));
+      Vue.set(state, 'selectedAspsp', updatedAspsp);
+    }
+    state.aspsps.forEach((aspsp, index) => {
+      if (aspsp.id === authorisationServerId) {
+        const updatedAspsp = Object.assign(aspsp, { accountsConsentGranted });
+        Vue.set(state.aspsps, index, updatedAspsp);
+      }
+    });
+  },
   [SELECT_ASPSP](state, aspsp) {
+    localStorage.setItem('selectedAspsp', JSON.stringify(aspsp));
     Vue.set(state, 'selectedAspsp', aspsp);
   },
 };
@@ -57,7 +75,6 @@ const actions = {
     return dispatch('deleteSession');
   },
   selectAspsp({ commit }, aspsp) {
-    localStorage.setItem('selectedAspsp', JSON.stringify(aspsp));
     return commit(SELECT_ASPSP, aspsp);
   },
   refreshSelectedAspsp({ commit }) {
@@ -71,6 +88,16 @@ const actions = {
       } finally {
         commit(SELECT_ASPSP, localAspsp);
       }
+    }
+  },
+  accountsConsentGranted({ commit }, authorisationServerId) {
+    commit(ACCOUNTS_CONSENT_CHANGE, { authorisationServerId, accountsConsentGranted: true });
+  },
+  async revokeAccountsConsent({ commit }, authorisationServerId) {
+    const uri = revokeAccountConsentUri;
+    const response = await postJson(uri, authorisationServerId, {}, 'BAD_REQUEST');
+    if (response !== 'BAD_REQUEST') {
+      commit(ACCOUNTS_CONSENT_CHANGE, { authorisationServerId, accountsConsentGranted: false });
     }
   },
 };
