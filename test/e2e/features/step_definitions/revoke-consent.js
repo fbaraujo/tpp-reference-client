@@ -11,6 +11,7 @@ defineSupportCode(({ Given, Then, When }) => { // eslint-disable-line
       if (revokeConsentButtonPresent) {
         client
           .click(revokeButton)
+          .waitForElementVisible('#consent-revoked', 5000)
           .click('button[name=logout]');
       }
     });

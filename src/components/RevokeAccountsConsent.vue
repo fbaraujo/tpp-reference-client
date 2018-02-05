@@ -5,6 +5,7 @@
       Revoke consent
     </button>
     <span v-if="!accountsAndConsentGranted"
+      id="consent-revoked"
       class="ui positive message">Consent revoked</span>
   </div>
 </template>
