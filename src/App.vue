@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo1.png" alt="Sample App Logo">
-    <h1 class="xs-mb5">Madhatter</h1>
+  <div class="col-container2">
+    <img src="./assets/M_logo.png" class="xs-mt5" alt="Sample logo">
+          <p class="xs-mb4 EEX-px">Moinda</p>
        <!--<div v-if="isLoggedIn" >
         <button class="ui icon button" @click="home()">
           <i class="home icon"></i>

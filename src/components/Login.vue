@@ -24,7 +24,7 @@
         </button>
       </form>
     </div>
-    <p class="text-pink">Forgotton your password?</p>
+    <p class="text-pink">Forgot your password?</p>
   </div>
 </template>
 
