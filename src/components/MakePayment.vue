@@ -1,13 +1,27 @@
 <template>
-  <div id="make-payment">
-    <div class="ui container">
-      <h1 class="ui aligned header">Make a payment</h1>
+  <div class="page-align">
+        <p class="">Please enter the recipent's payment details:</p>
+        <p class="">Recipent Name</p>
+        <input id="input1" type="text" class="input2">
+        <p class="">Sortcode</p>
+            <input id="input1" type="text" class="">
+        <p class="">Account No</p>
+            <input id="input1" type="text" class="">
+        <p class="">Account(£)</p>
+            <input id="input1" type="text" class="">
+        <p class="">Reference (optional)</p>
+            <input id="input1" type="text" class="">
+            <button class="Lrg-px button-three xs-my5">Continue</button><br>
+        </div>
+  <!-- <div id="">
+    <div class="">
+      <h2 class="ui aligned header">Make a payment</h2>
       <div class="ui hidden divider"></div>
       <form class="ui form" @submit.prevent="makePayment({ name, sortCode, accountNumber, amount })">
-        <h4 class="ui dividing header">Enter beneficiary</h4>
+        <h4 class="ui dividing header">Please enter the recipent's payment details:</h4>
         <div class="field">
           <label>Name</label>
-          <input type="text" name="name" placeholder="Full name" v-model.trim="name"/>
+          <input id="input1" type="text" class="input2" name="name" placeholder="Full name" v-model.trim="name"/>
         </div>
         <div class="field">
           <label>Sort Code</label>
@@ -26,7 +40,7 @@
       <div class="ui hidden divider"></div>
       <logout></logout>
     </div>
-  </div>
+  </div> -->
 </template>
 <script>
 import Logout from './Logout';
