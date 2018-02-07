@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="0">
+
+  <testsuite name="step_definitions.payments"
+    errors="0" failures="0" hostname="" id="" package="step_definitions" skipped="0"
+    tests="0" time="0.000" timestamp="Wed, 07 Feb 2018 11:59:46 GMT">
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>
