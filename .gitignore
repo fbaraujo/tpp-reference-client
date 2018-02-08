@@ -8,6 +8,7 @@ test/unit/coverage
 test/e2e/reports
 selenium-debug.log
 api-conformance/reports
+api-conformance/*.csv
 
 # Editor directories and files
 .idea
