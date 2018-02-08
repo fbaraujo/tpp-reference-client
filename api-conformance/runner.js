@@ -1,21 +1,51 @@
-// 1. start the dev server using production config
+const csv = require('csvtojson');
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'testing';
 const server = require('../build/dev-server.js');
 
-server.ready.then(() => {
-  // 2. run the nightwatch test suite against it
-  // to run in additional browsers:
-  //    1. add an entry in test/e2e/nightwatch.conf.json under "test_settings"
-  //    2. add it to the --env flag below
-  // or override the environment flag, for example: `npm run e2e -- --env chrome,firefox`
-  // For more information on Nightwatch's config file, see
-  // http://nightwatchjs.org/guide#settings-file
+const parser = (path) => {
+  const result = { group: [] };
+  return new Promise((resolve, reject) => {
+    csv()
+    .fromFile(path)
+    .on('json', (obj) => {
+      result.group.push(obj.conformance_type);
+    })
+    .on('done', (error) => {
+      if (error){
+        reject(error);
+      }else{
+        resolve(result);
+      }
+    });
+  });
+};
+
+const extractCsvConfigIfAny = async (opts) => {
+  if (!opts.includes('--csv')) return null;
+
+  const csvPath = opts[opts.indexOf('--csv') + 1];
+  const result = await parser(csvPath);
+  return result;
+};
+
+const startServer = async () => server.ready;
+
+const startRunner = async () => {
+  await startServer();
+
   let opts = process.argv.slice(2);
   if (opts.indexOf('--config') === -1) {
     opts = opts.concat(['--config', 'api-conformance/nightwatch.conf.js']);
   }
+
   if (opts.indexOf('--env') === -1) {
     opts = opts.concat(['--env', 'chrome']);
+  }
+
+  const csvConfig = await extractCsvConfigIfAny(opts);
+  if (csvConfig) {
+    opts = opts.concat(['--group', csvConfig.group.join(',')]);
   }
 
   const spawn = require('cross-spawn'); // eslint-disable-line
@@ -30,4 +60,6 @@ server.ready.then(() => {
     server.close();
     throw err;
   });
-});
+};
+
+startRunner();
