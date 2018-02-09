@@ -8,34 +8,43 @@ const server = require('../build/dev-server.js');
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
+const unlinkFile = util.promisify(fs.unlink);
 
-function assembleTemplate(literal, params) {
-    return new Function(params, "return `"+literal+"`;");
-}
+const cleanupFeatures = async (featurePaths=[]) => {
+  featurePaths.forEach(async (featuresPath) => await unlinkFile(featuresPath));
+};
 
-const generateFeature = async (csvConfig) => {
-  const payments = csvConfig.group[0];
+const assembleTemplate = (literal, params) => new Function(params, "return `"+literal+"`;");
 
-  const groupPath = path.join(__dirname, 'features', payments);
-  const templatePath = path.join(groupPath, `${payments}.feature.template`);
+const generateFeatures = async (csvConfig) => {
+  const group = csvConfig.group;
+  const groupPath = path.join(__dirname, 'features', group);
+  const templatePath = path.join(groupPath, `${group}.feature.template`);
   const template = assembleTemplate((await readFile(templatePath)).toString('utf-8'), "templatePayload");
-  const templatePayload = `${ csvConfig.payload.reduce((acc, curr) => `${acc}
-    | ${curr[0]}           | ${curr[1]}           |`, `  | field            | value             |`) }`;
-  const featureContent = template(templatePayload);
-  const featurePath = path.join(groupPath, `${payments}.feature`);
-  await writeFile(featurePath, featureContent);
-  return featurePath;
+  const result = [];
+
+  csvConfig.payloads.forEach(async (payload, index) => {
+    const templatePayload = `${ payload.reduce((acc, curr) => `${acc}
+      | ${curr[0]}           | ${curr[1]}           |`, `  | field            | value             |`) }`;
+    const featureContent = template(templatePayload);
+    const featurePath = path.join(groupPath, `${group}-${index}.feature`);
+    await writeFile(featurePath, featureContent);
+    result.push(featurePath);
+  });
+  return result;
 };
 
 const parser = (csvPath) => {
-  const result = { group: [], payload: [] };
+  const result = {
+    group: path.basename(csvPath, '.csv'),
+    payloads: []
+  };
   return new Promise((resolve, reject) => {
     csv()
     .fromFile(csvPath)
     .on('json', (obj) => {
-      result.group.push(path.basename(csvPath, '.csv'));
       const keys = Object.keys(obj);
-      result.payload = keys.map(k => [ k, obj[k]]);
+      result.payloads.push(keys.map(k => [ k, obj[k]]));
     })
     .on('done', (error) => {
       if (error){
@@ -51,7 +60,6 @@ const extractCsvConfigIfAny = async (opts) => {
   if (!opts.includes('--csv')) return null;
 
   const csvPath = opts[opts.indexOf('--csv') + 1];
-  console.log('csvPath', csvPath);
   const result = await parser(csvPath);
   return result;
 };
@@ -62,6 +70,8 @@ const startRunner = async () => {
   await startServer();
 
   let opts = process.argv.slice(2);
+  let featurePaths;
+
   if (opts.indexOf('--config') === -1) {
     opts = opts.concat(['--config', 'api-conformance/nightwatch.conf.js']);
   }
@@ -72,19 +82,21 @@ const startRunner = async () => {
 
   const csvConfig = await extractCsvConfigIfAny(opts);
   if (csvConfig) {
-    featurePath = await generateFeature(csvConfig);
-    opts = opts.concat(['--group', csvConfig.group.join(',')]);
+    featurePaths = await generateFeatures(csvConfig);
+    opts = opts.concat(['--group', csvConfig.group]);
   }
 
   const spawn = require('cross-spawn'); // eslint-disable-line
   const runner = spawn('./node_modules/.bin/nightwatch', opts, { stdio: 'inherit' });
 
-  runner.on('exit', (code) => {
+  runner.on('exit', async (code) => {
+    await cleanupFeatures(featurePaths);
     server.close();
     process.exit(code);
   });
 
-  runner.on('error', (err) => {
+  runner.on('error', async (err) => {
+    await cleanupFeatures(featurePaths);
     server.close();
     throw err;
   });
