@@ -27,15 +27,14 @@ const generateFeature = async (csvConfig) => {
   return featurePath;
 };
 
-const parser = (path) => {
+const parser = (csvPath) => {
   const result = { group: [], payload: [] };
   return new Promise((resolve, reject) => {
     csv()
-    .fromFile(path)
+    .fromFile(csvPath)
     .on('json', (obj) => {
-      result.group.push(obj.conformance_type);
+      result.group.push(path.basename(csvPath, '.csv'));
       const keys = Object.keys(obj);
-      keys.shift();
       result.payload = keys.map(k => [ k, obj[k]]);
     })
     .on('done', (error) => {
@@ -52,6 +51,7 @@ const extractCsvConfigIfAny = async (opts) => {
   if (!opts.includes('--csv')) return null;
 
   const csvPath = opts[opts.indexOf('--csv') + 1];
+  console.log('csvPath', csvPath);
   const result = await parser(csvPath);
   return result;
 };
