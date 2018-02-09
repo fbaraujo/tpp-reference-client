@@ -1,7 +1,7 @@
 <template>
   <div id="redirect-back" class="ui warning message" >
     <!-- <div class="header">Redirection</div> -->
-    <p>You are now leaving (ASPSP) and<br/> we are transfering you back to Madhatter</p>
+    <p>You are now leaving Modelo and<br/> we are transfering you back to Moinda</p>
     <div><img src="../assets/L1.gif" alt="Animated gif"></div>
     <p class="message">{{ this.message }}.</p>
     <button v-if='visibleRetry'  v-on:click='retry();'>Click to retry</button>
@@ -76,7 +76,7 @@ export default {
       }
       return this.$router.push('/accounts');
     } catch (e) {
-      this.$data.message = `Unfortunately your request is invalid (${e.message}) and it has been cancelled. In the meantime, you will be redirected to ASPSP selection page. Please feel free to tray again later`;
+      this.$data.message = `Unfortunately your request is invalid (${e.message}) and it has been cancelled. In the meantime, you will be redirected to bank/building society selection page. Please feel free to try again later`;
       this.$data.visibleRetry = true;
       window.setTimeout(() => {
         this.$router.push('/activity-selection');

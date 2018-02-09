@@ -1,5 +1,6 @@
 <template>
-  <div id="login" class="ui container">
+  <div id="login" class="col-container2">
+    <img src="../assets/M_lrgp.png" class="xs-mt5">
     <div class="ui hidden divider"></div>
     <div class="ui error message" v-if="invalidCredentials">
       <div class="header">Invalid username or password</div>
@@ -19,7 +20,7 @@
           <!--<label for="password">Password</label>-->
           <input name="p" type="password" placeholder="password" v-model="password">
         </div>
-        <button name="login" class="ui large primary submit button xs-my3">
+        <button name="login" class=" button-one xs-my4">
         Login
         </button>
       </form>

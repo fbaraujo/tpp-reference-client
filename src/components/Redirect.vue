@@ -49,7 +49,7 @@ export default {
       default:
         break;
     }
-    this.message = `You are now leaving Madhatter and we are securely transfering you over to ${this.$store.getters.selectedAspsp().name}`;
+    this.message = `You are now leaving Moinda and we are transfering you over to ${this.$store.getters.selectedAspsp().name}`;
     const result = await Promise.all(
       [
         this.$store.dispatch(action, payload),
