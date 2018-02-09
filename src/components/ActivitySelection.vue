@@ -1,5 +1,36 @@
 <template>
-  <div id="activity-selection">
+  <div class="col-container">
+       <header>
+       <a href="./ActivitySelection"><img src="../assets/M_smlp.png"></a>
+       <a href="./Login"><img src="../assets/Exit.png" class="logout" @click="login()"> </a>
+       </header>
+
+       <aside class="col">
+                <div>
+            <img src="../assets/dashboard_icon.png" style="vertical-align:middle" class="xs-mr1"><a href="/activity-selection">Dashboard</a>
+                </div>
+            </aside>
+
+   <div class="col-main">
+       <p class="text-darkpurple Med-px xs-mb5">Select Activity</p>
+       <p class="EX-px text-gray xs-mb2">What would you like to do?</p>
+
+       <section>
+       <div class="">
+       <button class="Med-px button-two xs-my1" @click="viewBalances()">
+           View Account Balance</button><br>
+       <button class="Med-px button-two xs-my1">
+           View Transaction History</button><br>
+        <button class="Med-px button-two xs-my1" @click="makePayment()">
+            Make Transfer or Payment</button><br>
+       <button class="Med-px button-two xs-my1 xs-mb4">
+           Make an International Payment</button><br>
+       </div>
+       </section>
+   </div>
+   </div>
+
+  <!-- <div id="activity-selection">
     <div class="ui container">
       <h2 class="ui aligned header xs-mb2">What would you like to do?</h2>
       <div class="ui hidden divider"></div>
@@ -23,7 +54,7 @@
       </div>
       <logout></logout>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
