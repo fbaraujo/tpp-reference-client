@@ -9,6 +9,7 @@ test/e2e/reports
 selenium-debug.log
 api-conformance/reports
 api-conformance/*.csv
+api-conformance/**/*.feature
 
 # Editor directories and files
 .idea
