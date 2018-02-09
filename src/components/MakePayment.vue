@@ -33,14 +33,6 @@ import Logout from './Logout';
 
 export default {
   name: 'make-payment',
-  data() {
-    return {
-      name: 'Sam Morse',
-      sortCode: '111111',
-      accountNumber: '12345678',
-      amount: '10.00',
-    };
-  },
   components: { Logout },
   methods: {
     makePayment() {
