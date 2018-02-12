@@ -21,6 +21,13 @@
       </div>
           <div class="after-righta"><hr></div>
       </section>
+
+      <div class="ui divided items center">
+         <aspsp-select v-for="aspsp in aspsps"
+           v-bind:key="aspsp.id"
+           v-bind:aspsp="aspsp">
+         </aspsp-select>
+       </div>
   </div>
   s
   </div>
