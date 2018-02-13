@@ -1,16 +1,10 @@
 <template>
   <div class="col-container">
-       <header>
-       <a href="./ActivitySelection"><img src="../assets/M_smlp.png"></a>
-       <a href="./Login"><img src="../assets/Exit.png" class="logout" @click="login()"> </a>
-       </header>
-
-       <aside class="col">
-                <div>
-            <img src="../assets/dashboard_icon.png" style="vertical-align:middle" class="xs-mr1"><a href="/activity-selection">Dashboard</a>
-                </div>
-            </aside>
-
+    <header>
+      <a href="./ActivitySelection"><img src="../assets/M_smlp.png"></a>
+      <a href="./Login"><img src="../assets/Exit.png" class="logout" @click="login()"> </a>
+    </header>
+    <side-navigation/>
    <div class="col-main">
        <p class="text-darkpurple Med-px xs-mb5">Select Activity</p>
        <p class="EX-px text-gray xs-mb2">What would you like to do?</p>
@@ -59,10 +53,11 @@
 
 <script>
 import Logout from './Logout';
+import SideNavigation from './SideNavigation';
 
 export default {
   name: 'activity-selection',
-  components: { Logout },
+  components: { Logout, SideNavigation },
   computed: { },
   methods: {
     viewBalances() {
