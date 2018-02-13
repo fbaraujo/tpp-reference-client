@@ -1,7 +1,7 @@
 <template>
   <aside class="col">
     <div>
-      <a href="/activity-selection">
+      <a @click="activitySelection()">
         <img src="../assets/dashboard_icon.png" style="vertical-align:middle" class="xs-mr1">
         Dashboard
       </a>
@@ -12,5 +12,10 @@
 <script>
 export default {
   name: 'side-navigation',
+  methods: {
+    activitySelection() {
+      this.$router.push('activity-selection');
+    },
+  },
 };
 </script>
