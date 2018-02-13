@@ -1,38 +1,24 @@
 <template>
+  <layout-default>
+    <div class="col-main">
+        <p class="text-darkpurple Med-px xs-mb5">Make a payment</p>
+        <p class="Med-px text-gray xs-mb2">Please enter the recipent's payment details:</p>
 
-  <div class="col-container">
-           <header>
-            <a href="/select_activity.html"><img src="../assets/M_smlp.png"></a>
-            <a href="/index.html"><img src="../assets/Exit.png" class="logout"></a>
-            </header>
-
-            <aside class="col">
-                <div>
-            <img src="../assets/dashboard_icon.png" style="vertical-align:middle" class="xs-mr1"><span>Dashboard</span>
-                </div>
-            </aside>
-
-        <div class="col-main">
-            <p class="text-darkpurple Med-px xs-mb5">Make a payment</p>
-            <p class="Med-px text-gray xs-mb2">Please enter the recipent's payment details:</p>
-
-            <section>
-            <div class="">
-                <p class="xs-my1 medium">Recipent Name</p>
-                <input id="input1" type="text" class="xs-mb2">
-                <p class="xs-my1 medium">Sortcode</p>
-                <input id="input1" type="text" class="xs-mb2">
-                <p class="xs-my1 medium">Account No</p>
-                <input id="input1" type="text" class="xs-mb2">
-                <p class="xs-my1 medium">Amount (£)</p>
-                <input id="input1" type="text" class="xs-mb2">
-                <p class="xs-my1 medium">Reference (optional)</p>
-                <input id="input1" type="text" class="xs-mb2">
-            </div>
-                <a href="/select_bank2.html"><button class="Med-px button-one xs-my4">Continue</button></a>
-            </section>
+        <section>
+        <div class="">
+            <p class="xs-my1 medium">Recipent Name</p>
+            <input id="input1" type="text" class="xs-mb2">
+            <p class="xs-my1 medium">Sortcode</p>
+            <input id="input1" type="text" class="xs-mb2">
+            <p class="xs-my1 medium">Account No</p>
+            <input id="input1" type="text" class="xs-mb2">
+            <p class="xs-my1 medium">Amount (£)</p>
+            <input id="input1" type="text" class="xs-mb2">
+            <p class="xs-my1 medium">Reference (optional)</p>
+            <input id="input1" type="text" class="xs-mb2">
         </div>
-
+            <a href="/select_bank2.html"><button class="Med-px button-one xs-my4">Continue</button></a>
+        </section>
     </div>
   <!-- <div class="page-align">
         <p class="">Please enter the recipent's payment details:</p>
@@ -76,8 +62,10 @@
       <logout></logout>
     </div>
   </div> -->
+  </layout-default>
 </template>
 <script>
+import LayoutDefault from './layouts/Default';
 import Logout from './Logout';
 
 export default {
@@ -90,7 +78,7 @@ export default {
       amount: '10.00',
     };
   },
-  components: { Logout },
+  components: { LayoutDefault, Logout },
   methods: {
     makePayment() {
       if (!this.name ||
