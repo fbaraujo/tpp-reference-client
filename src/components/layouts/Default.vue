@@ -2,7 +2,7 @@
   <div class="col-container">
     <header>
       <a @click="activitySelection()"><img src="../../assets/M_smlp.png"></a>
-      <a href="./Login"><img src="../../assets/Exit.png" class="logout" @click="login()"> </a>
+      <a href="./Login"><img src="../../assets/Exit.png" class="logout" @click="Login()"> </a>
     </header>
     <side-navigation/>
     <slot/>

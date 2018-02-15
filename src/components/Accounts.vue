@@ -1,6 +1,10 @@
 <template>
+  <layout-default>
   <div id="accounts">
     <div class="ui container">
+      <p class="text-darkpurple Med-px xs-mb5">{{ currentAspsp.name }} - Account balances </p>
+      <img src="../assets/logo.png" style="vertical-align:middle"><span class="Lrg-px">Modelo</span>
+            <p class="text-gray-lightest xs-mb6">Last updated 10 mins ago</p>
       <h1 class="ui aligned header">Accounts from {{ selectedAspsp.name }}</h1>
       <revoke-accounts-consent :aspsp="selectedAspsp"/>
       <div class="ui hidden divider"></div>
@@ -17,6 +21,7 @@
       <logout/>
     </div>
   </div>
+</layout-default>
 </template>
 
 <script>

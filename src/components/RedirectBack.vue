@@ -1,12 +1,22 @@
 <template>
-  <div id="redirect-back" class="ui warning message" >
-    <!-- <div class="header">Redirection</div> -->
-    <p>You are now leaving Modelo and<br/> we are transfering you back to Moinda</p>
-    <div><img src="../assets/L1.gif" alt="Animated gif"></div>
-    <p class="message">{{ this.message }}.</p>
-    <button v-if='visibleRetry'  v-on:click='retry();'>Click to retry</button>
-  </div>
+  <layout-default>
+    <div class="col-main centrea">
+        <p class="Sml-px text-gray ptext">You are now leaving Moinda and we are securely transferring you over to Modelo</p>
+        <section>
+            <img src="../assets/light_blue.gif" class="lefta">
+        </section>
+    </div>
+  </layout-default>
 </template>
+
+<!-- <div id="redirect-back" class="ui warning message" >
+  <!-- <div class="header">Redirection</div> -->
+  <!-- <p>You are now leaving Modelo and<br/> we are transfering you back to Moinda</p>
+  <div><img src="../assets/L1.gif" alt="Animated gif"></div>
+  <p class="message">{{ this.message }}.</p>
+  <button v-if='visibleRetry'  v-on:click='retry();'>Click to retry</button>
+</div> --> -->
+
 
 <script>
 const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);

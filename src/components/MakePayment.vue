@@ -7,17 +7,17 @@
         <section>
         <div class="">
             <p class="xs-my1 medium">Recipent Name</p>
-            <input id="input1" type="text" class="xs-mb2">
+            <input id="input" type="text" class="xs-mb2">
             <p class="xs-my1 medium">Sortcode</p>
-            <input id="input1" type="text" class="xs-mb2">
+            <input id="input" type="text" class="xs-mb2">
             <p class="xs-my1 medium">Account No</p>
-            <input id="input1" type="text" class="xs-mb2">
+            <input id="input" type="text" class="xs-mb2">
             <p class="xs-my1 medium">Amount (£)</p>
-            <input id="input1" type="text" class="xs-mb2">
+            <input id="input" type="text" class="xs-mb2">
             <p class="xs-my1 medium">Reference (optional)</p>
-            <input id="input1" type="text" class="xs-mb2">
+            <input id="input" type="text" class="xs-mb2">
         </div>
-            <a href="aspsp-selection"><button class="Med-px button-one xs-my4">Continue</button></a>
+            <a href="aspsp-selection"><button class="Med-px button-two xs-my4">Continue</button></a>
         </section>
     </div>
   <!-- <div class="page-align">

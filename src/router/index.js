@@ -8,6 +8,9 @@ import AspspSelection from '@/components/AspspSelection';
 import Login from '@/components/Login';
 import Redirect from '@/components/Redirect';
 import RedirectBack from '@/components/RedirectBack';
+import ConsentPayment from '@/components/ConsentPayment';
+import ConsentBalance from '@/components/ConsentBalance';
+
 
 Vue.use(Router);
 
@@ -18,6 +21,16 @@ const router = new Router({
       path: '/activity-selection',
       name: 'ActivitySelection',
       component: ActivitySelection,
+    },
+    {
+      path: '/consent-payment',
+      name: 'ConsentPayment',
+      component: ConsentPayment,
+    },
+    {
+      path: '/consent-balance',
+      name: 'ConsentBalance',
+      component: ConsentBalance,
     },
     {
       path: '/make-payment',

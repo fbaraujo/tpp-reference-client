@@ -1,20 +1,28 @@
 <template>
   <layout-default>
     <div class="col-main">
-      <p class="text-darkpurple Med-px xs-mb5">Select Activity</p>
-      <p class="EX-px text-gray xs-mb2">What would you like to do?</p>
-      <section>
+        <p class="text-darkpurple Med-px xs-mb5">Consent to make a payment</p>
+        <p class="Sml-px text-gray ptext xs-mb2">You have selected Modelo bank to make a payment. Do you give consent<br>for Moinda to make the following payment?</p>
         <div class="">
-        <button class="Med-px button-two xs-my1" @click="viewBalances()">
-            View Account Balance</button><br>
-        <button class="Med-px button-two xs-my1">
-            View Transaction History</button><br>
-         <button class="Med-px button-two xs-my1" @click="makePayment()">
-             Make Transfer or Payment</button><br>
-        <button class="Med-px button-two xs-my1 xs-mb4">
-            Make an International Payment</button><br>
+            <p class="EX-px xs-my4">Payment details</p>
         </div>
-      </section>
+        <section>
+        <div class="">
+            <b>To</b>
+            <!-- <p class="EX-px">Roger Brown</p>
+            <p class="xs-mb4">26 - 55 - 29 | 74560210</p> -->
+        </div>
+            <div>
+            <p class="Med-px medium">Amount</p>
+            <!-- <p>£150.00</p> -->
+            </div>
+             <div>
+                 <p class="Med-px xs-mt4 medium">Reference:</p>
+                <!-- <p>Deposit for Stag do</p> -->
+            </div>
+            <button class="Med-px button-sml1 xs-my4"  @click="makePayment()">Cancel</button>
+            <button class="Med-px button-sml2 xs-my4" @click="">Confirm</button>
+        </section>
     </div>
   </layout-default>
 </template>
