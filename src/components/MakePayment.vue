@@ -17,7 +17,7 @@
             <p class="xs-my1 medium">Reference (optional)</p>
             <input id="input1" type="text" class="xs-mb2">
         </div>
-            <a href="/select_bank2.html"><button class="Med-px button-one xs-my4">Continue</button></a>
+            <a href="aspsp-selection"><button class="Med-px button-one xs-my4">Continue</button></a>
         </section>
     </div>
   <!-- <div class="page-align">

@@ -1,12 +1,18 @@
 <template>
-  <div id="redirect" class="ui warning message" >
-    <!-- <div class="header">Redirection</div> -->
-    <p>{{ message }}</p>
-      <div><img src="../assets/L1.gif" alt="Animated gif"></div>
-  </div>
+  <layout-default>
+    <div class="col-container">
+            <div class="col-main">
+                <p class="Sml-px text-gray ptext xs-my4">You are now leaving Moinda and we are securely transferring you over to Modelo</p>
+                <section>
+                    <img src="../assets/light_blue.gif" class="lefta">
+                </section>
+            </div>
+    </div>
+</layout-default>
 </template>
 
 <script>
+
 const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
 
 export default {
