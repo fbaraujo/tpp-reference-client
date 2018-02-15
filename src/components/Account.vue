@@ -12,13 +12,13 @@
         <br />
         <balance-available v-bind:availableBalance="availableBalance"></balance-available>
       </div>
-      <!--
-      <div class="meta">
+
+      <!-- <div class="meta">
         {{ account.Nickname }}
         {{ ' - '}}
         {{ account.Account.Name }}
-      </div>
-      -->
+      </div> -->
+
     </div>
     <hr>
   </div>

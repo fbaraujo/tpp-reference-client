@@ -3,14 +3,12 @@
     <div class="col-main clearfix">
       <p class="text-darkpurple Med-px xs-mb5">Select Bank account</p>
       <p class="Sml-px text-gray ptext xs-mb2">Please select the bank that you would like to view the account balances from. Once you have selected the preferred bank, you will be redirected to login to the bank.</p>
-
       <section>
       <div class="">
-          <a href=""><img src="../assets/logo.png" style="vertical-align:middle"></a><span class="logo-txt Lrg-px">Modelo</span><br>
+          <a href=""><img src="../assets/logo.png" style="vertical-align:middle" @click=""></a><span class="logo-txt Lrg-px">Modelo</span><br>
       </div>
           <div class="after-righta"><hr></div>
       </section>
-
       <div class="ui divided items center">
          <aspsp-select v-for="aspsp in aspsps"
            v-bind:key="aspsp.id"

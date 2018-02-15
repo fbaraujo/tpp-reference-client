@@ -1,7 +1,10 @@
 <template>
+  <layout-default>
   <div id="accounts">
     <div class="ui container">
-      <h2 class="ui aligned header">{{ currentAspsp.name }} - Account balances </h2>
+      <p class="text-darkpurple Med-px xs-mb5">{{ currentAspsp.name }} - Account balances </p>
+      <img src="../assets/logo.png" style="vertical-align:middle"><span class="Lrg-px">Modelo</span>
+            <p class="text-gray-lightest xs-mb6">Last updated 10 mins ago</p>
       <div class="ui hidden divider"></div>
       <div class="ui error message" v-if="sessionExpired">
         <div class="header">Your session has expired</div>
@@ -13,9 +16,9 @@
         v-bind:aspsp="aspsp">
       </account>
       <div class="ui hidden divider"></div>
-      <logout></logout>
     </div>
   </div>
+</layout-default>
 </template>
 
 <script>

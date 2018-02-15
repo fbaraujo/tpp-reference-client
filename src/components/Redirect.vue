@@ -12,11 +12,13 @@
 </template>
 
 <script>
+import LayoutDefault from './layouts/Default';
 
 const redirectionTime = (process.env.REDIRECT_DELAY_SECONDS || 3);
 
 export default {
   name: 'redirect',
+  components: { LayoutDefault },
   data() {
     return { message: '' };
   },
