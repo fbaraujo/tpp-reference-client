@@ -1,7 +1,7 @@
 <template>
   <layout-default>
   <div id="accounts">
-    <div class="ui container">
+    <div class="col-main">
       <p class="text-darkpurple Med-px xs-mb5">{{ currentAspsp.name }} - Account balances </p>
       <img src="../assets/logo.png" style="vertical-align:middle"><span class="Lrg-px">Modelo</span>
             <p class="text-gray-lightest xs-mb6">Last updated 10 mins ago</p>
@@ -29,6 +29,7 @@ import { mapGetters } from 'vuex';
 import Account from './Account';
 import Logout from './Logout';
 import RevokeAccountsConsent from './RevokeAccountsConsent';
+import LayoutDefault from './layouts/Default';
 
 export default {
   name: 'accounts',
