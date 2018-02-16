@@ -33,7 +33,7 @@ import LayoutDefault from './layouts/Default';
 
 export default {
   name: 'accounts',
-  components: { Account, Logout, RevokeAccountsConsent },
+  components: { Account, Logout, LayoutDefault, RevokeAccountsConsent },
   computed: {
     sessionExpired() {
       return !this.isLoggedIn;
