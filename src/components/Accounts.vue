@@ -1,7 +1,7 @@
 <template>
   <layout-default>
   <div id="accounts">
-    <div class="ui container">
+    <div class="col-main">
       <p class="text-darkpurple Med-px xs-mb5">{{ currentAspsp.name }} - Account balances </p>
       <img src="../assets/logo.png" style="vertical-align:middle"><span class="Lrg-px">Modelo</span>
             <p class="text-gray-lightest xs-mb6">Last updated 10 mins ago</p>
@@ -24,10 +24,11 @@
 <script>
 import Account from './Account';
 import Logout from './Logout';
+import LayoutDefault from './layouts/Default';
 
 export default {
   name: 'accounts',
-  components: { Account, Logout },
+  components: { Account, Logout, LayoutDefault },
   computed: {
     sessionExpired() {
       return !this.$store.getters.isLoggedIn();
@@ -55,8 +56,8 @@ export default {
 };
 </script>
 
-<style>
-body {
+/* <style>
+/* body {
   background: #fff;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
   color: #545454;
@@ -66,5 +67,5 @@ body {
   margin: 0 auto;
   max-width: 800px;
   padding: 2em 2em 4em;
-}
-</style>
+} */
+</style> */

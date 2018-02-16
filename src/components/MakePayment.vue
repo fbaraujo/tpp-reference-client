@@ -17,7 +17,7 @@
             <p class="xs-my1 medium">Reference (optional)</p>
             <input id="input" type="text" class="xs-mb2">
         </div>
-            <a href="aspsp-selection"><button class="Med-px button-two xs-my4">Continue</button></a>
+            <a href="aspsp-selection"><button class="Med-px button-one xs-my4">Continue</button></a>
         </section>
     </div>
   <!-- <div class="page-align">
@@ -105,9 +105,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.form, .error, button {
-  width: 390px;
-}
-</style>

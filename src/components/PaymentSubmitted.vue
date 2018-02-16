@@ -1,5 +1,6 @@
 <template>
-  <div id="payment-submitted">
+  <layout-default>
+  <div id="payment-submitted" class="col-main">
     <div class="ui container">
       <h1 class="ui aligned header payment-status">Payment
         <span class="pending" v-if="paymentSubmissionPending">pending</span>
@@ -17,17 +18,19 @@
       <div class="ui message" v-if="paymentSubmissionFailed">
         <div class="header">Payment submission failed.</div>
       </div>
-      <logout></logout>
+      <!-- <logout></logout> -->
     </div>
   </div>
+  </layout-default>
 </template>
 
 <script>
 import Logout from './Logout';
+import LayoutDefault from './layouts/Default';
 
 export default {
   name: 'payment-submitted',
-  components: { Logout },
+  components: { Logout, LayoutDefault },
   computed: {
     paymentSubmissionPending() {
       return this.$store.getters.paymentSubmissionPending();
