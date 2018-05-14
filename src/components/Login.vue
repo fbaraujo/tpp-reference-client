@@ -42,7 +42,9 @@ export default {
   },
   methods: {
     async login() {
-      await this.$store.dispatch('deleteSession');
+      if (this.isLoggedIn) {
+        await this.$store.dispatch('deleteSession');
+      }
       await this.$store.dispatch('createSession', {
         u: this.username,
         p: this.password,
