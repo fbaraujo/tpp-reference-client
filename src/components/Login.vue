@@ -42,6 +42,9 @@ export default {
   },
   methods: {
     async login() {
+      if (this.isLoggedIn) {
+        await this.$store.dispatch('deleteSession');
+      }
       await this.$store.dispatch('createSession', {
         u: this.username,
         p: this.password,
